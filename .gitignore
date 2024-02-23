@@ -16,3 +16,9 @@ aws-files/params-files/
 
 # No need to upload artifacts to git
 artifacts/
+
+# Not needed online plus it has your secrets too!
+files/
+
+# Maybe you don't want strangers editing your .gitignore on github and then you pull down the edited version
+.gitignore
