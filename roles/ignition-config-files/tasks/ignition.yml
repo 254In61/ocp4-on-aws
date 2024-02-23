@@ -1,0 +1,13 @@
+---
+# - The installation configuration file transforms into the Kubernetes manifests
+# - The manifests wrap into the Ignition configuration files.
+# - The ignition configuration files are later used to configure the cluster machines.
+- name: ignition - Remove any existing earlier created ignition files and /auth dir
+  command: "rm -rf {{ install_dir }}/*.json && rm -rf {{ install_dir }}/*.ing && rm -rf {{ install_dir }}/auth"
+
+- name: ignition - Generate the ignition files for the cluster
+  command: "openshift-install create ignition-configs --dir {{ install_dir }}/"
+
+# The step will consume the files in /manifests and /openshift, then delete the directories at the end while creating the .ign files.
+# Ignition config files are created for the bootstrap(bootstrap.ign), control plane(master.ign), and compute nodes(worker.ign). 
+# The kubeadmin-password and kubeconfig files are created in the install-dir/auth directory:

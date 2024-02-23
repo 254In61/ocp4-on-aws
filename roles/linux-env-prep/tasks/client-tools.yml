@@ -1,0 +1,42 @@
+---
+# Extract the command-line tools and mv to $PATH
+- name: "client-tools - Move {{ downloaded_cmd_tools_file }} to {{ artifacts_holder }}"
+  copy:
+    src: "~/Downloads/{{ downloaded_cmd_tools_file }}"
+    dest: "{{ artifacts_holder }}"
+
+- name: "client-tools - Extract the installation program from {{ downloaded_cmd_tools_file }} to {{ artifacts_holder }}"
+  unarchive:
+    src: "{{ artifacts_holder }}/{{ downloaded_cmd_tools_file  }}"
+    dest: "{{ artifacts_holder }}"
+
+- name: "client-tools - Copy oc cmd tool to {{ path_dir }} with executable rights"
+  copy:
+    src: "{{ artifacts_holder }}/oc"
+    dest: "{{ path_dir }}"
+    mode: '0755'
+  
+- name: "client-tools - Confirm program now available"
+  command: "oc version"
+  register: confirm_oc
+  failed_when: confirm_oc["failed"] != false
+
+# - debug:
+#     var: confirm_oc
+
+- name: "client-tools - Copy kubectl cmd tool to {{ path_dir }} with executable rights"
+  copy:
+    src: "{{ artifacts_holder }}/kubectl"
+    dest: "{{ path_dir }}"
+    mode: '0755'
+
+- name: "client-tools - Confirm program now available"
+  command: "kubectl --help"
+  register: confirm_kubectl
+  failed_when: confirm_kubectl["failed"] != false
+  
+# - debug:
+#     var: confirm_kubectl
+
+
+

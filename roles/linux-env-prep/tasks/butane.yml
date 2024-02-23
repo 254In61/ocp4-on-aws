@@ -1,0 +1,33 @@
+---
+# Install butane tool
+# Butane is a tool used to generate Ignition config files from a Butane config.
+# Butane translates human-readable Butane Configs(.bu) into machine-readable Ignition Configs(.yaml)
+
+- name: "butane - Check that you can connect (GET) to a {{ butane_url }} and it returns a status 200"
+  uri:
+    url: "{{ butane_url }}"
+  register: url_check
+  failed_when: url_check["status"] != 200
+
+# - debug:
+#     var: url_check
+
+- name: "butane - Download butane tool to {{ artifacts_holder }} with executable rights "
+  get_url:
+    url: "{{ butane_url }}"
+    dest: "{{ artifacts_holder }}/butane"
+    mode: '0755'
+
+- name: "butane - Copy butane tool to {{ path_dir }} with executable rights"
+  copy:
+    src: "{{ artifacts_holder }}/butane"
+    dest: "{{ path_dir }}"
+    mode: '0755'
+
+- name: "butane - Confirm program now available"
+  command: "butane --version"
+  register: confirm_butane
+  failed_when: confirm_butane["failed"] != false
+
+# - debug:
+#     var: confirm_butane

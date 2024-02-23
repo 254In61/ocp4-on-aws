@@ -1,0 +1,13 @@
+---
+# Playbook for preparing the manifest files
+- name: Preparing the manifest files
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: include vars
+      include_vars:
+        dir: group_vars
+    
+    - import_role:
+        name: manifest-files

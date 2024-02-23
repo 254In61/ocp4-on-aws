@@ -1,0 +1,14 @@
+---
+# Playbook for preparing the local environment host for the cluster installation
+
+- name: Prepare local env
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: include vars
+      include_vars:
+        dir: group_vars
+    
+    - import_role:
+        name: linux-env-prep

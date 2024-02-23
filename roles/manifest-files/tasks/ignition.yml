@@ -1,0 +1,4 @@
+---
+
+- name: Remove any existing earlier created ignition files
+  command: "rm -rf {{ install_dir }}/*.ign"

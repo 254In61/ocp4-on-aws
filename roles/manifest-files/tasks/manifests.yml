@@ -1,0 +1,22 @@
+--- 
+# - The installation configuration file transforms into the Kubernetes manifests
+# - The manifests wrap into the Ignition configuration files.
+# - The ignition configuration files are later used to configure the cluster machines.
+
+- name: manifests - Delete any existing manifests created earlier
+  command: "rm -rf {{ install_dir }}/openshift && rm -rf {{ install_dir }}/manifests"
+
+- name: manifests - Generate the K8s manifests for the cluster
+  command: "openshift-install create manifests --dir {{ install_dir }}/"
+
+# Remove the Kubernetes manifest files that define the control plane machines & control machine set:
+# This is to prevent the cluster from automatically generating control plane machines.
+
+- name: manifests - Remove the Kubernetes manifest files that define the control plane machines
+  command: "rm -rf {{ install_dir }}/openshift/99_openshift-cluster-api_master-machines-*.yaml"
+
+- name: manifests - Remove the Kubernetes manifest files that define the control machine set
+  command: "rm -rf {{ install_dir }}/openshift/99_openshift-machine-api_master-control-plane-machine-set.yaml"
+
+- name: manifests - Remove the Kubernetes manifest files that define the worker machine set
+  command: "rm -rf {{ install_dir }}/openshift/99_openshift-cluster-api_worker-machineset-*.yaml"

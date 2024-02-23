@@ -1,0 +1,18 @@
+# You don't want these variables out there! 
+env-vars
+
+# Definitely you don't want your undies with holes washed in public!
+secrets/
+
+# You don't want your manifests, install-config.yaml or ignition files online! 
+# They have sensitive details about your cluster!
+install-dir/
+
+# You don't want your outputs out there
+outputs/
+
+# Maybe protect your cluster parameters??
+aws-files/params-files/
+
+# No need to upload artifacts to git
+artifacts/

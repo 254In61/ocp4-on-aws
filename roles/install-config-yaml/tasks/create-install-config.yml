@@ -1,0 +1,21 @@
+---
+- name: create-install-config - Set ssh_key variable
+  set_fact:
+    ssh_key: "{{ lookup('ansible.builtin.file', '{{ ssh_key_name }}.pub') }}"
+
+- name: create-install-config - Create install-config.yaml
+  template:
+    src: install-config.yaml.j2
+    dest: "{{ install_dir }}/install-config.yaml"
+
+# Ansible has this irritating thing of converting the double quotes into single quotes.
+# When pasted like that in the install-config.yaml, the manifests build cmd fails.
+# I used bash script to update the pull-secret section of the install-config.yml
+
+- name: create-install-config - Replace string
+  command: scripts/replace_string.sh
+
+# The installation configuration file transforms into the Kubernetes manifests and the install-config.yaml file is deleted.
+# The manifests wrap into the Ignition configuration files which are then used to configure the cluster machines.
+- name: create-install-config - Create a backup for install-config.yaml
+  command: "cp {{ install_dir }}/install-config.yaml files/backup-install-config.yaml" 

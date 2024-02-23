@@ -1,0 +1,3 @@
+---
+# Main playbook
+- import_tasks: create-install-config.yml

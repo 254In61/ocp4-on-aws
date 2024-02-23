@@ -1,0 +1,8 @@
+---
+# Main tasks
+- import_tasks: directories.yml
+- import_tasks: openshift-install.yml
+- import_tasks: client-tools.yml
+- import_tasks: pull-secret.yml
+- import_tasks: ssh-key.yml
+- import_tasks: butane.yml
