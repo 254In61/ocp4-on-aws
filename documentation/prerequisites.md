@@ -39,9 +39,11 @@
 
    export CLUSTER_NAME=<cluster name>
 
-   export INSTALL_DIR=<installation_directory name>    # Directory where all the action happens. Ensure it is outside this git repository to prevent leackage of secrets or sensitive documents online
+   export INSTALL_DIR=<installation_directory name>    
+   - Directory where all the action happens. Ensure it is outside this git repository to prevent leackage of secrets or sensitive documents online
 
-   export RHCOS_AWS_AMI=<RHCOS AMI for your AWS zone>  # Obtained from the list here: https://access.redhat.com/documentation/en-us/openshift_container_platform/4.1/html/installing/installing-on-user-provisioned-aws (Section 2.1.10)
+   export RHCOS_AWS_AMI=<RHCOS AMI for your AWS zone>  
+   - Obtained from the list here: https://access.redhat.com/documentation/en-us/openshift_container_platform/4.1/html/installing/installing-on-user-provisioned-aws (Section 2.1.10)
 
 # STEP 7. Confirm the variables in group_vars/common_vars.yaml are all in line with your environment/plan
 
