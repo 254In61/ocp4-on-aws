@@ -1,7 +1,6 @@
 ---
-# Playbook for preparing the local environment host for the cluster installation
-
-- name: Prepare local env
+# Playbook to build aws infrastructure and resources
+- name: Build aws-infra
   hosts: localhost
   gather_facts: false
 
@@ -11,4 +10,4 @@
         dir: group_vars
     
     - import_role:
-        name: linux-env-prep
+        name: aws-infra

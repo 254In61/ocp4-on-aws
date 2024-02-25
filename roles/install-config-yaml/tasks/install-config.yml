@@ -1,0 +1,15 @@
+---
+- name: install-config - Create install-config.yaml
+  template:
+    src: install-config.yaml.j2
+    dest: "{{ install_dir }}/install-config.yaml"
+
+# Ansible has this irritating thing of converting the double quotes into single quotes.
+# When pasted like that in the install-config.yaml, the manifests build fails.
+# I used bash script to update the pull-secret section of the install-config.yml
+
+- name: install-config - Replace string
+  command: "scripts/replace_string.sh {{ install_dir }}/pull-secret.txt {{ install_dir }}/install-config.yaml"
+
+- name: "install-config - Backup the install-config.yaml to {{ install_dir }} directory"
+  command: "cp {{ install_dir }}/install-config.yaml {{ install_dir }}/backup-{{ cluster_name }}-install-config.yaml"

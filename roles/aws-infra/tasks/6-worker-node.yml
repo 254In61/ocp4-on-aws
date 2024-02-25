@@ -1,0 +1,35 @@
+---
+# Build worker nodes
+# The CloudFormation template creates a stack that represents one worker machine. You must create a stack for each worker machine.
+# You must create at least two worker machines, so you must create at least two stacks that use this CloudFormation template.
+
+
+# Common variables for all worker nodes
+- name: worker-node - Set root name and ignition file name
+  set_fact:
+    root_name: worker-node
+    ign_file: "{{ install_dir }}/worker.ign"
+    cert_string_file: "{{ install_dir }}/worker-ign-cert.txt"
+    max_range_value: "{{ worker_replicas + 1 }}"
+
+- name: "{{ root_name }} - Obtain CertificateAuthorities value from igniition config file"
+  shell: "jq -r .ignition.security.tls.certificateAuthorities[0].source {{ ign_file }} > {{ cert_string_file }}"
+
+- name: "{{ root_name }} - Read the string in {{ cert_string_file }} and save it as variable"
+  set_fact:
+    CertificateAuthorities: "{{ lookup('ansible.builtin.file', '{{ cert_string_file }}') }}"
+  
+# From here, building different worker nodes.
+# Yeees! I should this within a loop! But I don't have much time to keep testing that.
+
+- name: Build different stacks for each worker node.
+  block:
+    - set_fact:
+        stack_name: "{{ cluster_name }}-{{ root_name }}-{{ item }}-stack"
+    
+    - debug:
+        msg: "Building stack for worker-{{ item }} "
+
+    - import_tasks: build-stack.yml
+
+  loop: "{{ range(1,{{ max_range_value }})}}"

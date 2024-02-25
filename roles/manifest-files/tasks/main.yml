@@ -1,3 +1,2 @@
 ---
 - import_tasks: manifests.yml
-- import_tasks: ignition.yml

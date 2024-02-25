@@ -1,24 +1,10 @@
-# You don't want these variables out there! 
-env-vars
+# Definitely you don't want your undies with holes hanging out there in public!
 
-# Definitely you don't want your undies with holes washed in public!
-secrets/
-
-# You don't want your manifests, install-config.yaml or ignition files online! 
+# You don't want your manifests, install-config.yaml or ignition files, pull-secret.txt etc 
 # They have sensitive details about your cluster!
-install-dir/
 
-# You don't want your outputs out there
-outputs/
+# These files have data about your cluster you don't want to publish on git
+aws-files/json-params/*
 
-# Maybe protect your cluster parameters??
-aws-files/params-files/
-
-# No need to upload artifacts to git
-artifacts/
-
-# Not needed online plus it has your secrets too!
-files/
-
-# Maybe you don't want strangers editing your .gitignore on github and then you pull down the edited version
-.gitignore
+# Variables for the clustervim
+group_vars/cluster.yaml

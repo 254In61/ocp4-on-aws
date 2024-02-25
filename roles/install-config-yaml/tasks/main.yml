@@ -1,3 +1,4 @@
 ---
 # Main playbook
-- import_tasks: create-install-config.yml
+- import_tasks: ssh-key.yml
+- import_tasks: install-config.yml
