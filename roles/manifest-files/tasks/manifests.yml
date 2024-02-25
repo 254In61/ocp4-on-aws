@@ -12,11 +12,14 @@
 # Remove the Kubernetes manifest files that define the control plane machines & control machine set:
 # This is to prevent the cluster from automatically generating control plane machines.
 
-- name: manifests - Remove the Kubernetes manifest files that define the control plane machines
-  command: "rm -rf {{ install_dir }}/openshift/99_openshift-cluster-api_master-machines-*.yaml"
-
-- name: manifests - Remove the Kubernetes manifest files that define the control machine set
-  command: "rm -rf {{ install_dir }}/openshift/99_openshift-machine-api_master-control-plane-machine-set.yaml"
-
-- name: manifests - Remove the Kubernetes manifest files that define the worker machine set
-  command: "rm -rf {{ install_dir }}/openshift/99_openshift-cluster-api_worker-machineset-*.yaml"
+# Remove the Kubernetes manifest files that define the control plane machines
+# Remove the Kubernetes manifest files that define the control machine set
+# Remove the Kubernetes manifest files that define the worker machine set
+- name: manifests - Remove the Kubernetes manifest files 
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ install_dir }}/openshift/99_openshift-cluster-api_master-machines-*.yaml"
+    - "{{ install_dir }}/openshift/99_openshift-machine-api_master-control-plane-machine-set.yaml"
+    - "{{ install_dir }}/openshift/99_openshift-cluster-api_worker-machineset-*.yaml"
