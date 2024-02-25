@@ -22,14 +22,20 @@
 # From here, building different worker nodes.
 # Yeees! I should this within a loop! But I don't have much time to keep testing that.
 
-- name: Build different stacks for each worker node.
-  block:
-    - set_fact:
-        stack_name: "{{ cluster_name }}-{{ root_name }}-{{ item }}-stack"
+# Build worker-1
+- set_fact:
+    stack_name: "{{ cluster_name }}-{{ root_name }}-1-stack"
     
-    - debug:
-        msg: "Building stack for worker-{{ item }} "
+- debug:
+    msg: "Building stack for worker-{{ item }} "
 
-    - import_tasks: build-stack.yml
+- import_tasks: build-stack.yml
 
-  loop: "{{ range(1,{{ max_range_value }})}}"
+# Build worker-2
+- set_fact:
+    stack_name: "{{ cluster_name }}-{{ root_name }}-2-stack"
+    
+- debug:
+    msg: "Building stack for worker-{{ item }} "
+
+- import_tasks: build-stack.yml
