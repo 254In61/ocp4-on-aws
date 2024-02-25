@@ -22,7 +22,8 @@ How to use
 
 4. Build cluster manifests file : $ ansible-playbook 2-build-manifests.yml
 
-   - Your install-dir tree will have lost the 2 directories created for manifest i.e manifests/ and openshift/
+   - Your install-dir tree will have 2 new directories created for manifests i.e manifests/ and openshift/ in your $INSTALL_DIR
+   - install-config.yaml will be removed..But the playbook has created a backup in your $INSTALL_DIR
    - Check that the mastersSchedulable parameter in the install-dir/manifests/cluster-scheduler-02-config.yml & ensure parameter is set to false.
      This setting prevents pods from being scheduled on the control plane machines.
 
