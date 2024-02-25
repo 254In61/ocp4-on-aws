@@ -21,7 +21,10 @@
 - Link provided on same page as Step 1.
 - Unpackage the openshift-client-linux.tar.gz and have the oc & kubectl executables in one of your $PATH directories
 
-# STEP 5. Ensure your environment has jq & boto3 installed.
+# STEP 5. Install the following packages:
+- boto3 ( pip install boto3 )
+- jq
+- You should have ansible installed on your machine.. NB.. ansible NOT ansible-core
 
 # STEP 6. Set the below as your local environmental variables.(You could have them in a file and use : $./source <your_file_name>)
 - These variables will be read by the ansible playbooks as they run.
