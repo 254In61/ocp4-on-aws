@@ -13,8 +13,9 @@
     type: ed25519
     force: true # Key be regenerated even if it already exists
 
+# If this stage fails , start the ssh agent on your machine : eval $(ssh-agent)
 - name: "ssh-key - Add the SSH private key identity to the SSH agent for your local user"
-  command: "eval $(ssh-agent) && ssh-add {{ install_dir }}/{{ ssh_key_name }}"
+  command: "ssh-add {{ install_dir }}/{{ ssh_key_name }}"
 
 - name: "ssh-key - Set ssh_key variable"
   set_fact:
