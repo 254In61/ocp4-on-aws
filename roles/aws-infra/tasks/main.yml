@@ -1,10 +1,5 @@
 ---
 # Build AWS resources
-- name: main- Build a json parameters place-holder directory
-  file:
-    path: "{{ json_parameters_store }}"
-    state: directory
-
 - import_tasks: 1-vpc.yml
 - import_tasks: 2-network.yml
 - import_tasks: 3-sec.yml
