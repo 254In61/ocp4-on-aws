@@ -9,9 +9,6 @@
     src: "{{ root_name }}.json.j2"
     dest: "{{ parameters_file }}"
 
-# amazon.aws.cloudformation module became tricky to use with parameters in a .json file.
-# Maybe someone else can do it better?
-
 - name: "build-stack -{{ root_name }} - Check if {{ stack_name }} exists"
   command: "aws cloudformation describe-stacks --stack-name {{ stack_name }} --region {{ aws_region }}"
   register: stack_exist
@@ -44,10 +41,6 @@
       command: "aws cloudformation create-stack --stack-name {{ stack_name }} --region {{ aws_region }} --template-body file://{{ template_body_file }} --parameters file://{{ parameters_file }} --capabilities CAPABILITY_NAMED_IAM"
       # when: root_name != "vpc"
 
-    # - name: "build-stack -{{ root_name }}- create a stack of AWS resources using CloudFormation template"
-    #   command: "aws cloudformation create-stack --stack-name {{ stack_name }} --region {{ aws_region }} --template-body file://{{ template_body_file }} --parameters file://{{ parameters_file }}"
-    #   when: root_name == "vpc"
-
     - name: "build-stack -{{ root_name }} - Sleep for 5 minutes until stack reaches CREATE_COMPLETE status"
       wait_for:
         timeout: 300
@@ -62,6 +55,3 @@
 
 - debug:
     var: stack_info
-
-# - debug:
-#     var: stack_info.cloudformation[ stack_name ][ "stack_outputs" ][ "ApiServerDnsName" ]
