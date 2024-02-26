@@ -26,16 +26,10 @@
 - set_fact:
     stack_name: "{{ cluster_name }}-{{ root_name }}-1-stack"
     
-- debug:
-    msg: "Building stack for worker-{{ item }} "
-
 - import_tasks: build-stack.yml
 
 # Build worker-2
 - set_fact:
     stack_name: "{{ cluster_name }}-{{ root_name }}-2-stack"
-    
-- debug:
-    msg: "Building stack for worker-{{ item }} "
 
 - import_tasks: build-stack.yml
