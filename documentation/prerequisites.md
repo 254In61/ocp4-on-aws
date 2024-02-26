@@ -18,7 +18,8 @@
 # STEP 3. Install the following packages:
 - boto3 ( pip install boto3 )
 - jq
-- You should have ansible installed on your machine.. NB.. ansible NOT ansible-core
+- ansible-core
+- aws-cli
 
 # STEP 4. Set the below as your local environmental variables.(You could have them in a file and use : $./source <your_file_name>)
 - These variables will be read by the ansible playbooks as they run.
