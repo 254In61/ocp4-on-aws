@@ -5,3 +5,6 @@
 
 # These files have data about your cluster you don't want to publish on git
 aws-cfn-params/
+
+# My git updates bash script..
+run-git.sh/
