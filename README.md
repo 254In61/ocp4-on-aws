@@ -9,8 +9,28 @@ REF: https://docs.openshift.com/container-platform/4.14/installing/installing_aw
 
 How to use
 ==========
+1. These prerequisites need to be in place beforehand:
+  - Access to AWS. You'll need the aws user key and aws access secret key.
+  - Access to Redhat to download the needed installation programs and pull-secret.txt.
+  - Your AWS has an existing VPC. If not, you can always create one by running $ ansible-playbook vpc.yml from your local dev environment.
+  - EC2 instance for your jumphost(bastion). ** Check out Step 03 here : https://www.linkedin.com/pulse/provision-red-hat-openshift-cluster-aws-darshana-dinushal
+  
+
+
+
+
+
+
+
+
+
+
 
 1. Implement the steps in documentation/prerequisites.md
+
+2. Build VPC: $ ansible-playbook vpc.yml
+
+3. Build Jumphost(Bastion) EC2 in the VPC created.
 
 2. Git clone the project and change directory into the ocpv4-on-aws
 
