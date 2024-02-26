@@ -2,7 +2,7 @@
 # Re-usable steps to build stack
 - set_fact:
     template_body_file: "{{ cfn_templates_store }}/{{ root_name}}-cfn-template.yaml"
-    parameters_file: "{{ install_dir }}/{{ root_name }}-params.json"
+    parameters_file: "{{ json_parameters_store }}/{{ root_name }}-params.json"
 
 - name: "build-stack -{{ root_name }}- Build parameters file"
   template:

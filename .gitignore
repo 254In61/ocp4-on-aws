@@ -4,7 +4,4 @@
 # They have sensitive details about your cluster!
 
 # These files have data about your cluster you don't want to publish on git
-aws-files/json-params/*
-
-# Variables for the clustervim
-group_vars/cluster.yaml
+aws-cfn-params/

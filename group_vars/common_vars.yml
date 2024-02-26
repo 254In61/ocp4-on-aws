@@ -13,6 +13,7 @@ butane_url: https://mirror.openshift.com/pub/openshift-v4/clients/butane/latest/
 # Directories
 install_dir: "{{ lookup('ansible.builtin.env', 'INSTALL_DIR') }}" # Directory where all the action happens. Ensure it is outside this git repository to prevent leackage of secrets or sensitive documents online
 cfn_templates_store: aws-cfn-templates # Storage of aws cloudformation templates
+json_parameters_store: aws-cfn-params  # Created by playbook. Stores the .json files with parameters
 
 # Downloaded artifacts
 downloaded_installer_file: openshift-install-linux.tar.gz
