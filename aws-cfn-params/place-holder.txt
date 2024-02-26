@@ -1,0 +1,1 @@
+Git doesn't track empty directories, so you need to add a placeholder file inside the directory.
