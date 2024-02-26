@@ -1,0 +1,14 @@
+---
+# Playbook for security groups and roles
+
+- name: Build Sec groups and IAM roles
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: include vars
+      include_vars:
+        dir: group_vars
+    
+    - import_role:
+        name: secgrp-plus-roles

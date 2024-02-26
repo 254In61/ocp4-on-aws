@@ -1,0 +1,12 @@
+---
+# Output of control-plane cfn stack
+
+- name: "control-plane-output - {{ root_name }} - Collect  {{ ctrl_pln_stack }} cloudformation stack facts"
+  amazon.aws.cloudformation_info:
+    stack_name: "{{ ctrl_pln_stack }}"
+  register: ctrl_pln_stack
+
+- name: "control-plane-output - {{ root_name }} - Set outputs as variables"
+  set_fact:
+    PrivateIPs: "{{ ctrl_pln_stack.cloudformation[ stack_name ][ 'stack_outputs' ][ 'PrivateIPs' ] }}"
+

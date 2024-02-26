@@ -1,0 +1,14 @@
+---
+# Playbook for building Networks and the Load Balancers
+
+- name: Build AWS Network and Load Balancers
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: include vars
+      include_vars:
+        dir: group_vars
+    
+    - import_role:
+        name: networks-plus-lbs

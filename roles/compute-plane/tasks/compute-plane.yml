@@ -1,0 +1,55 @@
+---
+# Build worker nodes
+# The CloudFormation template creates a stack that represents one worker machine. You must create a stack for each worker machine.
+# You must create at least two worker machines, so you must create at least two stacks that use this CloudFormation template.
+
+
+# Common variables for all worker nodes
+- name: compute-plane - Set root name and ignition file name
+  set_fact:
+    root_name: worker-node
+    ign_file: "{{ install_dir }}/worker.ign"
+    cert_string_file: "{{ install_dir }}/worker-ign-cert.txt"
+    PrivateHostedZoneName: "{{ cluster_name }}.{{ base_domain }}"
+
+- name: compute-plane - Obtain CertificateAuthorities value from igniition config file
+  shell: "jq -r .ignition.security.tls.certificateAuthorities[0].source {{ ign_file }} > {{ cert_string_file }}"
+
+- name: compute-plane - Read the string in {{ cert_string_file }} and save it as variable
+  set_fact:
+    CertificateAuthorities: "{{ lookup('ansible.builtin.file', '{{ cert_string_file }}') }}"
+
+- import_tasks: ../../../modules/infra-name.yml
+
+- import_tasks: ../../../modules/hosted-zone.yml
+
+- import_tasks: ../../../modules/vpc-cfn-output.yml
+
+- import_tasks: ../../../modules/ntwk-and-lb-cfn-output.yml
+
+- import_tasks: ../../../modules/secgrp-and-iam-roles-cfn-output.yml
+
+- import_tasks: ../../../modules/bootstrap-output.yml
+
+- import_tasks: ../../../modules/control-plane-output.yml
+  
+# From here, building different worker nodes.
+# Yeees! I should this within a loop! But I don't have much time to keep testing that.
+
+# Build worker-1
+- set_fact:
+    stack_name: "{{ cluster_name }}-{{ root_name }}-1-stack"
+    
+- import_tasks: ../../../modules/build-stack.yml
+
+# Build worker-2
+- set_fact:
+    stack_name: "{{ cluster_name }}-{{ root_name }}-2-stack"
+
+- import_tasks: ../../../modules/build-stack.yml
+
+
+
+
+
+

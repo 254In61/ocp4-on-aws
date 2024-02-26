@@ -1,0 +1,3 @@
+---
+# Build AWS resources
+- import_tasks: nwk-and-lb.yml

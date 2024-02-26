@@ -3,16 +3,7 @@
 - name: vpc - Set root name
   set_fact:
     root_name: vpc
-    stack_name: "{{ cluster_name }}-vpc-stack"
+    stack_to_build: "{{ vpc_cfn_stack }}"
 
 - import_tasks: ../../../modules/build-stack.yml
-
-# - name: "{{ root_name }} - Set outputs as variables"
-#   set_fact:
-#     PrivateSubnetIds: "{{ stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'PrivateSubnetIds' ] }}"
-#     PublicRouteTableId: "{{ stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'PublicRouteTableId' ] }}"
-#     PublicSubnetIds: "{{ stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'PublicSubnetIds' ] }}"
-#     VpcId: "{{ stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'VpcId' ] }}"
-
-
     

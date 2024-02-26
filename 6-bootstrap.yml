@@ -1,0 +1,14 @@
+---
+# Build bootstap node
+
+- name: Build Bootstrap
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: include vars
+      include_vars:
+        dir: group_vars
+    
+    - import_role:
+        name: bootstrap

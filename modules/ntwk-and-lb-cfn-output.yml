@@ -1,0 +1,17 @@
+---
+# Obtain output for the networks and lbs cfn
+- name: "ntwk-and-lb-cfn-output - {{ root_name }} - Collect  {{ ntwk_and_lb_cfn_stack }} cloudformation stack facts"
+  amazon.aws.cloudformation_info:
+    stack_name: "{{ ntwk_and_lb_cfn_stack }}"
+  register: ntwk_and_lb_cfn_stack_info
+
+- name: "ntwk-and-lb-cfn-output - {{ root_name }} - Set outputs as variables"
+  set_fact:
+    ApiServerDnsName: "{{ ntwk_and_lb_cfn_stack.cloudformation[ stack_name ][ 'stack_outputs' ][ 'ApiServerDnsName' ] }}"
+    ExternalApiLoadBalancerName: "{{ ntwk_and_lb_cfn_stack.cloudformation[ stack_name ][ 'stack_outputs' ][ 'ExternalApiLoadBalancerName' ] }}"
+    ExternalApiTargetGroupArn: "{{ ntwk_and_lb_cfn_stack.cloudformation[ stack_name ][ 'stack_outputs' ][ 'ExternalApiTargetGroupArn' ] }}"
+    InternalApiLoadBalancerName: "{{ ntwk_and_lb_cfn_stack.cloudformation[ stack_name ][ 'stack_outputs' ][ 'InternalApiLoadBalancerName' ] }}"
+    InternalApiTargetGroupArn: "{{ ntwk_and_lb_cfn_stack.cloudformation[ stack_name ][ 'stack_outputs' ][ 'InternalApiTargetGroupArn' ] }}"
+    InternalServiceTargetGroupArn: "{{ ntwk_and_lb_cfn_stack.cloudformation[ stack_name ][ 'stack_outputs' ][ 'InternalServiceTargetGroupArn' ] }}"
+    PrivateHostedZoneId: "{{ ntwk_and_lb_cfn_stack.cloudformation[ stack_name ][ 'stack_outputs' ][ 'PrivateHostedZoneId' ] }}"
+    RegisterNlbIpTargetsLambda: "{{ ntwk_and_lb_cfn_stack.cloudformation[ stack_name ][ 'stack_outputs' ][ 'RegisterNlbIpTargetsLambda' ] }}"

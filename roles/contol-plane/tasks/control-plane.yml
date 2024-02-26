@@ -1,0 +1,51 @@
+---
+# Control plane tasks
+# You must create the control plane machines in Amazon Web Services (AWS) for your cluster to use. 
+- name: control-plane - Set variables
+  set_fact:
+    root_name: control-plane
+    stack_to_build: "{{ ctrl_pln_stack }}"
+    ign_file: "{{ install_dir }}/master.ign"
+    PrivateHostedZoneName: "{{ cluster_name }}.{{ base_domain }}"
+    cert_string_file: "{{ install_dir }}/master-ign-cert.txt"
+
+- name: "control-plane - Obtain CertificateAuthorities value from igniition config file"
+  shell: "jq -r .ignition.security.tls.certificateAuthorities[0].source {{ ign_file }} > {{ cert_string_file }}"
+
+- name: "control-plane - Read the string in {{ cert_string_file }} and save it as variable"
+  set_fact:
+    CertificateAuthorities: "{{ lookup('ansible.builtin.file', '{{ cert_string_file }}') }}"
+
+- name: "control-plane - Build S3 bucket to store the bootstrap.ign file"
+  amazon.aws.s3_bucket:
+    name: "{{ s3_ignition_file_store }}"
+    state: present
+  register: s3_create
+
+# - debug:
+#     var: s3_create
+
+- name: "control-plane - Upload bootstrap.ign to s3 bucket"
+  community.aws.s3_sync:
+    bucket: "{{ s3_ignition_file_store }}"
+    file_root: "{{ install_dir }}/bootstrap.ign"
+
+# Confirm if file in the s3 bucket.. Needs some patience and time to get this working.
+# - name: create-bootstrap-node - Verify that the file uploaded
+#   command: "aws s3 ls s3://{{ s3_ignition_file_store }}"
+#   register: s3_files_check
+#   failed_when: "'bootstrap.ing' not in s3_files_check.stdout"
+
+- import_tasks: ../../../modules/infra-name.yml
+
+- import_tasks: ../../../modules/hosted-zone.yml
+
+- import_tasks: ../../../modules/vpc-cfn-output.yml
+
+- import_tasks: ../../../modules/ntwk-and-lb-cfn-output.yml
+
+- import_tasks: ../../../modules/secgrp-and-iam-roles-cfn-output.yml
+
+- import_tasks: ../../../modules/bootstrap-output.yml
+
+- import_tasks: ../../../modules/build-stack.yml

@@ -1,0 +1,16 @@
+---
+# Collect output
+- name: "secgrp-and-iam-roles-cfn-output - {{ root_name }} - Collect  {{ vpc_cfn_stack }} cloudformation stack facts"
+  amazon.aws.cloudformation_info:
+    stack_name: "{{ sec_grp_cfn_stack }}"
+  register: sec_grp_cfn_stack_info
+
+# - debug:
+#     var: vpc_sec_grp_cfn_stack_info
+
+- name: "secgrp-and-iam-roles-cfn-output - {{ root_name }} - Set outputs as variables"
+  set_fact:
+    MasterInstanceProfile: "{{ sec_grp_cfn_stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'MasterInstanceProfile' ] }}"
+    MasterSecurityGroupId: "{{ sec_grp_cfn_stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'MasterSecurityGroupId' ] }}"
+    WorkerInstanceProfile: "{{ sec_grp_cfn_stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'WorkerInstanceProfile' ] }}"
+    WorkerSecurityGroupId: "{{ sec_grp_cfn_stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'WorkerSecurityGroupId' ] }}"

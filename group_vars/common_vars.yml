@@ -33,3 +33,10 @@ s3_ignition_file_store: "{{ cluster_name }}-infra"
 # ssh key
 ssh_key_name: id_ocpv4_ssh_key
 
+# AWS Stack names
+vpc_cfn_stack: "{{ cluster_name }}-vpc-cfn-stack"   # Cloudformations stack for vpc
+ntwk_and_lb_cfn_stack: "{{ cluster_name }}-ntwk-and-lb-cfn-stack" # Cloudformations stack for network and load balancing.
+sec_grp_cfn_stack: "{{ cluster_name }}-sec-grp-cfn-stack" # Cloudformations stack for security objects
+btstrp_stack: "{{ cluster_name }}-btstp-cfn-stack" # Cloudformations stack for bootstrap
+ctrl_pln_stack: "{{ cluster_name }}-ctrl-pln-cfn-stack" # Cloudformations stack for control plane(Master nodes)
+cmpt_pln_stack: "{{ cluster_name }}-cmpt-pln-cfn-stack" # Cloudformations stack for compute plane(Worker nodes)
