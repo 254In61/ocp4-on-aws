@@ -1,0 +1,49 @@
+---
+# Re-usable steps to build stack
+- set_fact:
+    template_body_file: "{{ cfn_templates_store }}/{{ root_name}}-cfn-template.yaml"
+    parameters_file: "{{ json_parameters_store }}/{{ root_name }}-params.json"
+
+- name: "build-stack -{{ root_name }}- Build parameters file"
+  template:
+    src: "{{ root_name }}.json.j2"
+    dest: "{{ parameters_file }}"
+
+- name: "build-stack -{{ root_name }} - Check if {{ stack_to_build }} exists"
+  command: "aws cloudformation describe-stacks --stack-name {{ stack_to_build }} --region {{ aws_region }}"
+  register: stack_exist
+  ignore_errors: yes
+  
+# - debug:
+#     var: stack_exist
+
+- debug:
+    msg: "{{ stack_to_build }} exists. Skipping build-stack steps"
+  when: stack_exist["failed"]==false
+
+- debug:
+    msg: "{{ stack_to_build }} NOT existing. Proceeding with build-stack steps"
+  when: stack_exist["failed"]!=false
+
+- block:
+    # Block runs when stack does not exist
+
+    # I faced challenges with getting the template_parameters to source from a .json file..Maybe someone else has time to fix this??
+    # - name: "build-stack -{{ root_name }} create a cloudformation stack"
+    #   cloudformation:
+    #     stack_to_build: "{{ stack_to_build }}"
+    #     state: "present"
+    #     template: "{{ template_body_file }}"
+    #     template_parameters:
+    #       dist: "{{ lookup('file', '{{ parameters_file }}') }}"
+
+    - name: "build-stack -{{ root_name }} - create a stack of AWS resources using CloudFormation template"
+      command: "aws cloudformation create-stack --stack-name {{ stack_to_build }} --region {{ aws_region }} --template-body file://{{ template_body_file }} --parameters file://{{ parameters_file }} --capabilities CAPABILITY_NAMED_IAM"
+      # when: root_name != "vpc"
+
+    - name: "build-stack -{{ root_name }} - Sleep for 5 minutes until stack reaches CREATE_COMPLETE status"
+      wait_for:
+        timeout: 300
+      delegate_to: localhost
+
+  when: stack_exist["failed"]!=false

@@ -1,0 +1,13 @@
+---
+# Obtain Hosted Zone 
+
+- name: "hosted-zone - {{ root_name }} - Obtain the hosted zone ID for the Route 53 base domain"
+  shell: "aws route53 list-hosted-zones-by-name --dns-name {{ base_domain }} --query 'HostedZones[0].Id' --output text | sed 's#/hostedzone/##'"
+  register: hosted_zone_output
+
+# - debug:
+#     var: hosted_zone_output
+
+- name: "{{ root_name }} - set values"
+  set_fact:
+    HostedZoneId: "{{ hosted_zone_output['stdout'] }}"
