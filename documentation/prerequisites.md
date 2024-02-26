@@ -15,7 +15,7 @@
 - 2.4) Ensure the pull-secret is located in your chosen cluster-installation-directory.The Ansible playbooks will pick the file from there.
   Pull-secret: allows you to authenticate with the services that are provided by the included authorities, including Quay.io, which serves the container images for OpenShift Container Platform components.
   
-# STEP 3. Install the following packages:
+# STEP 3. Install the following packages in your Linux environment:
 - boto3 ( pip install boto3 )
 - jq
 - ansible-core

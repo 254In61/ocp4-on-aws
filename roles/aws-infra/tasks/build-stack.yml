@@ -30,18 +30,19 @@
 
 - block:
     # Block runs when stack does not exist
-    # I was facing challenges with getting the template_parameters to source from a .json file..Maybe someone else has time to fix this??
-    - name: "build-stack -{{ root_name }} create a cloudformation stack"
-      cloudformation:
-        stack_name: "{{ stack_name }}"
-        state: "present"
-        template: "{{ template_body_file }}"
-        template_parameters:
-          dist: "{{ lookup('file', '{{ parameters_file }}') }}"
 
-    # - name: "build-stack -{{ root_name }} - create a stack of AWS resources using CloudFormation template"
-    #   command: "aws cloudformation create-stack --stack-name {{ stack_name }} --region {{ aws_region }} --template-body file://{{ template_body_file }} --parameters file://{{ parameters_file }} --capabilities CAPABILITY_NAMED_IAM"
-    #   # when: root_name != "vpc"
+    # I faced challenges with getting the template_parameters to source from a .json file..Maybe someone else has time to fix this??
+    # - name: "build-stack -{{ root_name }} create a cloudformation stack"
+    #   cloudformation:
+    #     stack_name: "{{ stack_name }}"
+    #     state: "present"
+    #     template: "{{ template_body_file }}"
+    #     template_parameters:
+    #       dist: "{{ lookup('file', '{{ parameters_file }}') }}"
+
+    - name: "build-stack -{{ root_name }} - create a stack of AWS resources using CloudFormation template"
+      command: "aws cloudformation create-stack --stack-name {{ stack_name }} --region {{ aws_region }} --template-body file://{{ template_body_file }} --parameters file://{{ parameters_file }} --capabilities CAPABILITY_NAMED_IAM"
+      # when: root_name != "vpc"
 
     # - name: "build-stack -{{ root_name }}- create a stack of AWS resources using CloudFormation template"
     #   command: "aws cloudformation create-stack --stack-name {{ stack_name }} --region {{ aws_region }} --template-body file://{{ template_body_file }} --parameters file://{{ parameters_file }}"
