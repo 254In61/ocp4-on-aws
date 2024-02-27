@@ -9,17 +9,13 @@
 - name: manifests - Generate the K8s manifests for the cluster
   command: "openshift-install create manifests --dir {{ install_dir }}/"
 
+# This needs to be worked on!
+
 # - name: "manifests - Confirm masterSchedulable==false in {{ install_dir }}/manifests/cluster-scheduler-02-config.yml"
 #   command: "yq -p yaml -o json {{ install_dir }}/manifests/cluster-scheduler-02-config.yml | jq -c .spec.mastersSchedulable"
 #   register: master_schedulable_output
 #   # failed_when: master_schedulable_output["stdout"] != false
 
-- name: "manifests - Confirm masterSchedulable==false in {{ install_dir }}/manifests/cluster-scheduler-02-config.yml"
-  command: "cat {{ install_dir }}/manifests/cluster-scheduler-02-config.yml | grep mastersSchedulable"
-  register: script_output
-
-- debug:
-    var: script_output
 
 # Remove the Kubernetes manifest files that define the control plane machines & control machine set:
 # This is to prevent the cluster from automatically generating control plane machines.

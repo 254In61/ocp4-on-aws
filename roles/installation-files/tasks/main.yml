@@ -3,3 +3,4 @@
 - import_tasks: 1-ssh-key.yml
 - import_tasks: 2-install-config.yml
 - import_tasks: 3-manifests.yml
+- import_tasks: 4-ignition.yml
