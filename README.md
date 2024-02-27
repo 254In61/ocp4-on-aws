@@ -20,7 +20,7 @@ How to use
 
 3. While in EC2, clone this repo & run $ ./linux-env-prep  ** a script?.. clone >> starts the whole story??
 
-4. Run : $ ansible-playbook build-installation-file.yml
+4. Run : $ ansible-playbook build-installation-files.yml
 
 5. Run : $ ansible-playbook build-ignition.yml
 
