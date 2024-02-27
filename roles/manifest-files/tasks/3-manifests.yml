@@ -15,7 +15,7 @@
 #   # failed_when: master_schedulable_output["stdout"] != false
 
 - name: "manifests - Confirm masterSchedulable==false in {{ install_dir }}/manifests/cluster-scheduler-02-config.yml"
-  command: scripts/cluster-scheduler.sh
+  command: "cat {{ install_dir }}/manifests/cluster-scheduler-02-config.yml | grep mastersSchedulable"
   register: script_output
 
 - debug:
