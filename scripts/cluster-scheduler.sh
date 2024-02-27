@@ -5,7 +5,7 @@
 mastersSchedulable=yq -p yaml -o json $HOME/manifests/cluster-scheduler-02-config.yml | jq -c .spec.mastersSchedulable
 
 # Check if the mastersSchedulable equals false
-if [ "$mastersSchedulable" != false ]; then
+if [ "$mastersSchedulable" != "false" ]; then
     echo "FAIL"
     exit 1
 fi
