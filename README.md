@@ -21,7 +21,7 @@ How to use
 3. While in EC2, clone this repo & run $ ./linux-env-prep  ** a script?.. clone >> starts the whole story??
 
 4. Run : $ ansible-playbook build-manifest.yml
-   - Check that the mastersSchedulable parameter in the install-dir/manifests cluster-scheduler-02-config.yml.
+   - Check that the mastersSchedulable parameter in the $HOME/manifests/cluster-scheduler-02-config.yml.
    - ensure parameter is set to false.
    - This setting prevents pods from being scheduled on the control plane machines.
    - *** Automate this then combine step 4 & 5 in one playbook?
