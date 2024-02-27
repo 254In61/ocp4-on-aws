@@ -16,7 +16,7 @@
 
 - name: "manifests - Confirm masterSchedulable==false in {{ install_dir }}/manifests/cluster-scheduler-02-config.yml"
   command: scripts/cluster-scheduler.sh
-  debug: script_output
+  register: script_output
 
 - debug:
     var: script_output
