@@ -14,7 +14,8 @@ packages(){
 python_boto3(){
    echo "" && echo "==> installing python boto3"
    # Needed for the AWS Ansible packages.
-   python3 -m pip install boto3
+   sudo apt install -y python3-pip
+   pip install boto3
 }
 
 aws_cli(){

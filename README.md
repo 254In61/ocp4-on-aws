@@ -17,6 +17,8 @@ How to use
   - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
 
   - set these environmental variables:
+    
+    export AWS_PROFILE=OCPV4_ON_AWS  ** Keep this naming as it is.
 
     export AWS_REGION=<Your AWS Region>
 
@@ -43,7 +45,11 @@ How to use
 
 
 4. Set these enviromental variables which the ansible playbooks will consume.
+   
+   export AWS_PROFILE=OCPV4_ON_AWS ** Keep this naming as it is**
 
+   export INSTALL_DIR=$HOME *** Keep this naming as it is **
+   
    export AWS_REGION=<Your AWS Region>
 
    export AWS_ACCESS_KEY_ID=<Your AWS Access key ID>
@@ -53,8 +59,6 @@ How to use
    export BASE_DOMAIN=<Your base domain>
 
    export CLUSTER_NAME=<Your chosen ocpv4 cluster name >
-
-   export INSTALL_DIR=$HOME
 
    export RHCOS_AWS_AMI=<RHCOS AWS AMI ID>  # Obtained from the list here : https://docs.openshift.com/container-platform/4.14/installing/installing_aws/ (Chapter 2.1.10)
 
