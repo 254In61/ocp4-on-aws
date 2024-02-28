@@ -6,7 +6,6 @@
   file:
     path: "{{ item }}"
     state: absent
-    recurse: yes
   loop:
     - "{{ install_dir }}/openshift"
     - "{{ install_dir }}/manifests"
