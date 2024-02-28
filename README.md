@@ -12,7 +12,9 @@ How to use
   - Access to AWS. You'll need the aws user key and aws access secret key.
   - Access to Redhat to download the needed installation programs and pull-secret.txt.
 
-2. Build an AWS VPC from your local linux environment: 
+2. Build an AWS VPC: 
+  
+  - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
 
   - set these environmental variables:
 
@@ -32,7 +34,7 @@ How to use
 3. Clone down the repository to your EC2 Jump Server:
    - ssh into your EC2 
    - Change Directory to ~/  : $ cd $HOME 
-   - Clone down this git repository : $ git clone -b develop <this git repo>
+   - Clone down this git repository : $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
 
 4. Set these enviromental variables which the ansible playbooks will consume.
 
