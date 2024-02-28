@@ -1,8 +1,9 @@
 ---
 # Build AWS resources
-- import_tasks: 1-vpc.yml
-- import_tasks: 2-network.yml
-- import_tasks: 3-sec.yml
-- import_tasks: 4-bootstrap.yml
-- import_tasks: 5-control-plane.yml
-- import_tasks: 6-worker-node.yml
+# This order has to be like this!
+- import_tasks: vpc-info.yml
+- import_tasks: network.yml
+- import_tasks: sec.yml
+- import_tasks: bootstrap.yml
+- import_tasks: control-plane.yml
+- import_tasks: worker-node.yml
