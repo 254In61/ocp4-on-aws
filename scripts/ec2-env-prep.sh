@@ -25,11 +25,12 @@ aws_cli(){
 }
 
 openshift_packages(){
-
+   echo "" && echo "==> installing openshift-install"
    # Unzip OpenShift installer >> Move $PATH directory and test if executable works
    tar -xvzf $HOME/openshift-install-linux.tar.gz && sudo cp openshift-install /usr/local/bin/ && openshift-install version
 
    # Unzip OpenShift client >> Move to $PATH directory and test if executable works
+   echo "" && echo "==> installing openshift-client cmd packages"
    tar -xvzf $HOME/openshift-client-linux.tar.gz && sudo cp oc /usr/local/bin/ && sudo cp kubectl /usr/local/bin/
    oc version && kubectl version --short
 
