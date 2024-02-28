@@ -1,9 +1,0 @@
----
-# Build AWS vpc
-- name: vpc - Set root name
-  set_fact:
-    root_name: vpc
-    stack_to_build: "{{ vpc_cfn_stack }}"
-
-- import_tasks: ../../../modules/build-stack.yml
-    
