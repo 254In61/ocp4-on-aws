@@ -28,13 +28,19 @@ How to use
 
   - Run : $ ansible-playbook build-vpc.yml
 
-3. Build EC2 instance for your jumphost(bastion) within the same vpc you will be using. ** Assumption is an Ubuntu Linux Image is used **
+3. Download from this link : https://console.redhat.com/openshift/install/aws/user-provisioned the openShift installer, pull-secret.txt and Command-line tools
+  - OpenShift Installer and Command-line tools will be a .tar.gz files.
+  - pull-secret is a .txt file.
+
+4. Build EC2 instance for your jumphost(bastion) within the same vpc you will be using. ** Assumption is an Ubuntu Linux Image is used **
    - You could do this on the AWS console, use Terraform, Python boto3 or Ansible
 
-3. Clone down the repository to your EC2 Jump Server:
+5. Clone down the repository to your EC2 Jump Server:
    - ssh into your EC2 
    - Change Directory to ~/  : $ cd $HOME 
+   - Transfer the 3 files downloaded in step 3 from your ~/Downloads to this EC2 instance $HOME directory ** Do some chatGPT search here :) :) ***
    - Clone down this git repository : $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
+
 
 4. Set these enviromental variables which the ansible playbooks will consume.
 
@@ -51,6 +57,12 @@ How to use
    export INSTALL_DIR=$HOME
 
    export RHCOS_AWS_AMI=<RHCOS AWS AMI ID>  # Obtained from the list here : https://docs.openshift.com/container-platform/4.14/installing/installing_aws/ (Chapter 2.1.10)
+
+   export OCP_INSTALLER_DOWNLOAD_LINK=https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz  ** Confirm this link first! 
+
+   export OCP_CLIENT_DOWNLOAD_LINK=https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz  ** Confirm this link first! 
+
+   - NB: I make my life easier by having all these in a file, called env-vars ..Then I just call this file once : $ source /path/to/env-vars
 
 5. Prepare the EC2 Linux environment : $ scripts/ec2-env-prep.sh
 

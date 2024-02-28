@@ -25,19 +25,12 @@ aws_cli(){
 }
 
 openshift_packages(){
-   # Download openshift-install and openshift-client packages(https://console.redhat.com/openshift/install)
-   # Download Links for the 2 should have been obtained before hand through the RedHat console.
-   # Also download the pull-secret.txt and transfer it to the EC2 $HOME.
 
-   echo "" && echo "==> installing openshift-install, oc and kubectl"
-
-   wget $OCP_INSTALLER_DOWNLOAD_LINK  && wget $OCP_CLIENT_DOWNLOAD_LINK
-
-   # Unzip OpenShift installer >> Move to $PATH directory and test if executable works
-   tar -xvzf openshift-install-linux.tar.gz && sudo cp openshift-install /usr/local/bin/ && openshift-install version
+   # Unzip OpenShift installer >> Move $PATH directory and test if executable works
+   tar -xvzf $HOME/openshift-install-linux.tar.gz && sudo cp openshift-install /usr/local/bin/ && openshift-install version
 
    # Unzip OpenShift client >> Move to $PATH directory and test if executable works
-   tar -xvzf openshift-client-linux.tar.gz && sudo cp oc /usr/local/bin/ && sudo cp kubectl /usr/local/bin/
+   tar -xvzf $HOME/openshift-client-linux.tar.gz && sudo cp oc /usr/local/bin/ && sudo cp kubectl /usr/local/bin/
    oc version && kubectl version --short
 
 }
