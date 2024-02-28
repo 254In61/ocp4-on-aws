@@ -6,6 +6,9 @@
     stack_name: "{{ cluster_name }}-vpc-stack"
   register: vpc_stack_info
 
+- debug:
+    var: vpc_stack_info
+
 - name: "vpc-into - Set outputs as variables"
   set_fact:
     PrivateSubnetIds: "{{ vpc_stack_info.cloudformation[ 'stack_name' ][ 'stack_outputs' ][ 'PrivateSubnetIds' ] }}"
