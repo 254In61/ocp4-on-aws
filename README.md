@@ -13,28 +13,18 @@ How to use
   - Access to Redhat to download the needed installation programs and pull-secret.txt.
 
 2. Build an AWS VPC: 
-  
   - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
-
-  - set these environmental variables:
-    
-    export AWS_PROFILE=OCPV4_ON_AWS  ** Keep this naming as it is.
-
-    export AWS_REGION=<Your AWS Region>
-
-    export AWS_ACCESS_KEY_ID=<Your AWS Access key ID>
-
-    export AWS_SECRET_ACCESS_KEY=<Your AWS Secret access key>
-
+  - Update env-vars file from line 3-8.
+  - Set the environmental variables of the EC2 $ source env-vars
   - Ensure you have ansible installed on your local environment. $ sudo apt install -y ansible
-
   - Run : $ ansible-playbook build-vpc.yml
 
 3. Download from this link : https://console.redhat.com/openshift/install/aws/user-provisioned the openShift installer, pull-secret.txt and Command-line tools
   - OpenShift Installer and Command-line tools will be a .tar.gz files.
   - pull-secret is a .txt file.
 
-4. Build EC2 instance for your jumphost(bastion) within the same vpc you will be using. ** Assumption is an Ubuntu Linux Image is used **
+4. Build EC2 instance for your jumphost(bastion) within the same vpc build in STEP 2 and within the Public IP Subnet. 
+  - ** Assumption is an Ubuntu Linux Image is used **
    - You could do this on the AWS console, use Terraform, Python boto3 or Ansible
 
 5. Clone down the repository to your EC2 Jump Server:
@@ -45,24 +35,9 @@ How to use
 
 
 4. Set these enviromental variables which the ansible playbooks will consume.
-   
-   export AWS_PROFILE=OCPV4_ON_AWS ** Keep this naming as it is**
-
-   export INSTALL_DIR=$HOME *** Keep this naming as it is **
-   
-   export AWS_REGION=<Your AWS Region>
-
-   export AWS_ACCESS_KEY_ID=<Your AWS Access key ID>
-
-   export AWS_SECRET_ACCESS_KEY=<Your AWS Secret access key>
-
-   export BASE_DOMAIN=<Your base domain>
-
-   export CLUSTER_NAME=<Your chosen ocpv4 cluster name >
-
-   export RHCOS_AWS_AMI=<RHCOS AWS AMI ID>  # Obtained from the list here : https://docs.openshift.com/container-platform/4.14/installing/installing_aws/ (Chapter 2.1.10)
-
-   - NB: I make my life easier by having all these in a file, called env-vars ..Then I just call this file once : $ source /path/to/env-vars
+   - Update env-vars file from line 3-8.
+   - ** RHCOS AMI ID is Obtained from the list here : https://docs.openshift.com/container-platform/4.14/installing/installing_aws/ (Chapter 2.1.10)
+   - Set the environmental variables of the EC2 $ source env-vars
 
 5. Prepare the EC2 Linux environment : $ scripts/ec2-env-prep.sh
 
