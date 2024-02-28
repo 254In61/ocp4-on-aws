@@ -36,18 +36,10 @@ openshift_packages(){
 
 }
 
-ssh_agent(){
-   
-   echo "" && echo "==> Start the ssh agent"
-   # Start ssh agent
-   eval $(ssh-agent)
-}
-
 packages
 python_boto3
 aws_cli
 openshift_packages
-ssh_agent
 
 
 

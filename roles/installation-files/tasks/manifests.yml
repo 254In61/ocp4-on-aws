@@ -2,9 +2,14 @@
 # - The installation configuration file transforms into the Kubernetes manifests
 # - The manifests wrap into the Ignition configuration files.
 # - The ignition configuration files are later used to configure the cluster machines.
-
 - name: manifests - Delete any existing manifests created earlier
-  command: "rm -rf {{ install_dir }}/openshift && rm -rf {{ install_dir }}/manifests"
+  file:
+    path: "{{ item }}"
+    state: absent
+    recurse: yes
+  loop:
+    - "{{ install_dir }}/openshift"
+    - "{{ install_dir }}/manifests"
 
 - name: manifests - Generate the K8s manifests for the cluster
   command: "openshift-install create manifests --dir {{ install_dir }}/"

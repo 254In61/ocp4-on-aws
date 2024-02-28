@@ -58,13 +58,11 @@ How to use
 
    export RHCOS_AWS_AMI=<RHCOS AWS AMI ID>  # Obtained from the list here : https://docs.openshift.com/container-platform/4.14/installing/installing_aws/ (Chapter 2.1.10)
 
-   export OCP_INSTALLER_DOWNLOAD_LINK=https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz  ** Confirm this link first! 
-
-   export OCP_CLIENT_DOWNLOAD_LINK=https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz  ** Confirm this link first! 
-
    - NB: I make my life easier by having all these in a file, called env-vars ..Then I just call this file once : $ source /path/to/env-vars
 
 5. Prepare the EC2 Linux environment : $ scripts/ec2-env-prep.sh
+
+6. Start the ssh agent : $ eval $(ssh-agent)
 
 6. Create OCPV4 cluster installation files for AWS : $ ansible-playbook build-installation-files.yml
 
