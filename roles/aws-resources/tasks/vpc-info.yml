@@ -11,10 +11,10 @@
 
 - name: "vpc-info - Set outputs as variables"
   set_fact:
-    PrivateSubnetIds: "{{ vpc_stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'PrivateSubnetIds' ] }}"
-    PublicRouteTableId: "{{ vpc_stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'PublicRouteTableId' ] }}"
-    PublicSubnetIds: "{{ vpc_stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'PublicSubnetIds' ] }}"
-    VpcId: "{{ vpc_stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'VpcId' ] }}"
+    PrivateSubnetIds: "{{ vpc_stack_info.cloudformation[ {{ stack_name }} ][ 'stack_outputs' ][ 'PrivateSubnetIds' ] }}"
+    PublicRouteTableId: "{{ vpc_stack_info.cloudformation[ {{ stack_name }} ][ 'stack_outputs' ][ 'PublicRouteTableId' ] }}"
+    PublicSubnetIds: "{{ vpc_stack_info.cloudformation[ {{ stack_name }} ][ 'stack_outputs' ][ 'PublicSubnetIds' ] }}"
+    VpcId: "{{ vpc_stack_info.cloudformation[ {{ stack_name }} ][ 'stack_outputs' ][ 'VpcId' ] }}"
 
 
     
