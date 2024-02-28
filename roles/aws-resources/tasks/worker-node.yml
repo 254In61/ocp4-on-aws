@@ -24,12 +24,12 @@
 
 # Build worker-1
 - set_fact:
-    stack_name: "{{ cluster_name }}-{{ root_name }}-1-stack"
+    stack_name: "{{ cmpt_pln_stack }}-1"
     
 - import_tasks: build-stack.yml
 
 # Build worker-2
 - set_fact:
-    stack_name: "{{ cluster_name }}-{{ root_name }}-2-stack"
+    stack_name: "{{ cmpt_pln_stack }}-2"
 
 - import_tasks: build-stack.yml

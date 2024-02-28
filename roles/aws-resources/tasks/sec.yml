@@ -3,7 +3,7 @@
 - name: sec - Set root name
   set_fact:
     root_name: sec
-    stack_name: "{{ cluster_name }}-sec-grp-stack"
+    stack_name: "{{ sec_grp_cfn_stack }}"
   
 - import_tasks: build-stack.yml
 

@@ -3,7 +3,7 @@
 - name: network - Set root name
   set_fact:
     root_name: network
-    stack_name: "{{ cluster_name }}-nwk-and-lb-stack"
+    stack_name: "{{ ntwk_and_lb_cfn_stack }}"
 
 
 - name: "{{ root_name }} - extract and view the infrastructure name from the Ignition config file metadata"

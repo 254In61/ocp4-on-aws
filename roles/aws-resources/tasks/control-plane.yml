@@ -4,7 +4,7 @@
 - name: control-plane - Set root name
   set_fact:
     root_name: control-plane
-    stack_name: "{{ cluster_name }}-control-plane-stack"
+    stack_name: "{{ ctrl_pln_stack }}"
     ign_file: "{{ install_dir }}/master.ign"
     PrivateHostedZoneName: "{{ cluster_name }}.{{ base_domain }}"
     cert_string_file: "{{ install_dir }}/master-ign-cert.txt"
