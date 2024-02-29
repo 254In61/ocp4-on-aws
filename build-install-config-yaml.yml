@@ -11,4 +11,7 @@
         dir: group_vars
 
     - import_role:
+        name: aws-creds
+
+    - import_role:
         name: install-config
