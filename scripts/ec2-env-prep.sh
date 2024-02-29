@@ -23,6 +23,7 @@ aws_cli(){
    # AWS CLI
    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip -o -q awscliv2.zip
    sudo ./aws/install
+   rm -rf awscliv2.zip
 }
 
 openshift_packages(){
@@ -33,6 +34,9 @@ openshift_packages(){
    # Unzip OpenShift client >> Move to $PATH directory and test if executable works
    echo "" && echo "==> installing openshift-client cmd packages"
    tar -xvzf $HOME/openshift-client-linux.tar.gz && sudo cp oc /usr/local/bin/ && sudo cp kubectl /usr/local/bin/
+   rm -rf kubectl
+   rm -rf oc
+   rm -rf openshift-install
    oc version && kubectl version --short
 
 }
