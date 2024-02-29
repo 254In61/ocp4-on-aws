@@ -38,17 +38,17 @@ How to use
    - Create env-vars on your $HOME and put in the details found in sample-env-vars
    - Update sample-env-vars file from line 3-8.
    - ** RHCOS AMI ID is Obtained from the list here : https://docs.openshift.com/container-platform/4.14/installing/installing_aws/ (Chapter 2.1.10)
-   - Set the environmental variables of the EC2 $ source env-vars
+   - Set the environmental variables of the EC2 $ source $HOME/env-vars
 
-5. Prepare the EC2 Linux environment : $ scripts/ec2-env-prep.sh
+5. Start the ssh agent : $ eval $(ssh-agent)
 
-6. Start the ssh agent : $ eval $(ssh-agent)
+6. Prepare the EC2 Linux environment : $ scripts/ec2-env-prep.sh
 
-6. Create OCPV4 cluster installation files for AWS : $ ansible-playbook build-installation-files.yml
+7. Create OCPV4 cluster installation files for AWS : $ ansible-playbook build-installation-files.yml
 
-7. Create AWS infrustructure : $ ansible-playbook build-aws-resources.yml
+8. Create AWS infrustructure : $ ansible-playbook build-aws-resources.yml
 
-8. Initialze the bootstrap node on AWS with UPI : $ openshift-install wait-for bootstrap-complete --dir=${INSTALL_DIR} --log-level info
+9. Initialze the bootstrap node on AWS with UPI : $ openshift-install wait-for bootstrap-complete --dir=${INSTALL_DIR} --log-level info
 
 
 Author
