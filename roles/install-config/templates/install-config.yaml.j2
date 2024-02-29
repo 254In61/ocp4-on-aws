@@ -47,8 +47,6 @@ networking:
 platform:
   aws:
     region: {{ aws_region }}
-    user: "{{ aws_access_key_id }}"
-    password: "{{ aws_secret_access_key }}"
 publish: External
 pullSecret: 'pull_secret_string'
 sshKey: "{{ ssh_key }}"
