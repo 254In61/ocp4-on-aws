@@ -10,7 +10,7 @@ jump_host(){
 set-vars(){
     # Set env variables
     echo "" && echo "==> Set environmental variables"
-    source ./env-vars
+    source ~/env-vars
 }
 
 build-install-config-yaml(){

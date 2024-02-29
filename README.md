@@ -12,7 +12,7 @@ How to use
   - Access to AWS. You'll need the aws user key and aws access secret key.
   - Access to Redhat to download the needed installation programs and pull-secret.txt.
 
-2. Build an AWS VPC: 
+2. (OPTIONAL) Build an AWS VPC, if not having one: 
   - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
   - Update env-vars file from line 3-8.
   - Set the environmental variables of the EC2 $ source env-vars
@@ -23,8 +23,7 @@ How to use
   - OpenShift Installer and Command-line tools will be a .tar.gz files.
   - pull-secret is a .txt file.
 
-4. Build EC2 instance for your jumphost(bastion) within the same vpc build in STEP 2 and within the Public IP Subnet. 
-  - ** Assumption is an Ubuntu Linux Image is used **
+4. Build EC2 instance for your jumphost(bastion).
    - You could do this on the AWS console, use Terraform, Python boto3 or Ansible
 
 5. Clone down the repository to your EC2 Jump Server:
@@ -33,11 +32,9 @@ How to use
    - Transfer the 3 files downloaded in step 3 from your ~/Downloads to this EC2 instance $HOME directory ** Do some chatGPT search here :) :) ***
    - Clone down this git repository : $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
 
-
 4. Set these enviromental variables which the ansible playbooks will consume.
-   - Create env-vars on your $HOME and put in the details found in sample-env-vars
-   - Update sample-env-vars file from line 3-8.
-   - ** RHCOS AMI ID is Obtained from the list here : https://docs.openshift.com/container-platform/4.14/installing/installing_aws/ (Chapter 2.1.10)
+   - touch $HOME/env-vars
+   - Put in the details found in sample-env-vars
    - Set the environmental variables of the EC2 $ source $HOME/env-vars
 
 5. Start the ssh agent : $ eval $(ssh-agent)
