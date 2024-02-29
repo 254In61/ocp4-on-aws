@@ -35,7 +35,8 @@ How to use
 
 
 4. Set these enviromental variables which the ansible playbooks will consume.
-   - Update env-vars file from line 3-8.
+   - Create env-vars on your $HOME and put in the details found in sample-env-vars
+   - Update sample-env-vars file from line 3-8.
    - ** RHCOS AMI ID is Obtained from the list here : https://docs.openshift.com/container-platform/4.14/installing/installing_aws/ (Chapter 2.1.10)
    - Set the environmental variables of the EC2 $ source env-vars
 
