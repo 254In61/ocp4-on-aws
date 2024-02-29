@@ -11,9 +11,9 @@ compute:
       - {{ aws_region }}b
       - {{ aws_region }}c
       rootVolume:
-        iops: 2000
-        size: 500
-        type: io1
+        iops: {{ root_volume_iops }}
+        size: {{ root_volume_size }}
+        type: {{ root_volume_type }}
       type: {{ worker_ec2_instance_type }}
   replicas: {{ worker_replicas }}
 controlPlane:
