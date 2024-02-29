@@ -1,0 +1,8 @@
+export AWS_PROFILE=OCPV4_ON_AWS
+export INSTALL_DIR=$HOME
+export AWS_REGION=<Your AWS Region>
+export AWS_ACCESS_KEY_ID=<Your AWS Access key ID>
+export AWS_SECRET_ACCESS_KEY=<Your AWS Secret access key>
+export BASE_DOMAIN=<Your base domain>
+export CLUSTER_NAME=<Your chosen ocpv4 cluster name >
+export RHCOS_AWS_AMI=<RHCOS AWS AMI ID> 
