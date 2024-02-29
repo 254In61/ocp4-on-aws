@@ -44,19 +44,6 @@ How to use
 
 6. Build cluster : $ ./build-cluster.sh
 
-
-
-
-
-6. Prepare the EC2 Linux environment : $ scripts/ec2-env-prep.sh
-
-7. Create OCPV4 cluster installation files for AWS : $ ansible-playbook build-installation-files.yml
-
-8. Create AWS infrustructure : $ ansible-playbook build-aws-resources.yml
-
-9. Initialze the bootstrap node on AWS with UPI : $ openshift-install wait-for bootstrap-complete --dir=${INSTALL_DIR} --log-level info
-
-
 Author
 ======
 Name: 254In61
