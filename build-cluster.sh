@@ -22,7 +22,6 @@ build-install-config-yaml(){
 install-cluster(){
     # Install cluster
     echo "" && echo "==> Build cluster"
-    eval $(ssh-agent)
     openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
 }
 
