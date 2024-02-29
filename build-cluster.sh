@@ -30,3 +30,4 @@ install-cluster(){
 jump_host
 set-vars
 build-install-config-yaml
+install-cluster
