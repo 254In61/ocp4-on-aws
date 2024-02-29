@@ -1,0 +1,54 @@
+apiVersion: v1
+baseDomain: {{ base_domain }}
+compute:
+- architecture: amd64
+  hyperthreading: {{ hyperthreading }}
+  name: worker
+  platform: {}
+    aws:
+      zones:
+      - {{ aws_region }}a
+      - {{ aws_region }}b
+      - {{ aws_region }}c
+      rootVolume:
+        iops: 2000
+        size: 500
+        type: io1
+      type: {{ worker_ec2_instance_type }}
+  replicas: {{ worker_replicas }}
+controlPlane:
+  architecture: amd64
+  hyperthreading: {{ hyperthreading }}
+  name: master
+  platform:
+    aws:
+      zones:
+      - {{ aws_region }}a
+      - {{ aws_region }}b
+      - {{ aws_region }}c
+      rootVolume:
+        iops: {{ root_volume_iops }}
+        size: {{ root_volume_size }}
+        type: {{ root_volume_type }}
+      type: {{ master_ec2_instance_type }}
+  replicas: {{ master_replicas }}
+metadata:
+  creationTimestamp: null
+  name: {{ cluster_name }}
+networking:
+  clusterNetwork:
+  - cidr: {{ cluster_network_cidr }}
+    hostPrefix: {{ cluster_network_hostprefix }}
+  machineNetwork:
+  - cidr: {{ machine_network_cidr }}
+  networkType: {{  network_type }}
+  serviceNetwork:
+  - {{ service_network }}
+platform:
+  aws:
+    region: {{ aws_region }}
+    user: "{{ aws_access_key_id }}"
+    password: "{{ aws_secret_access_key }}"
+publish: External
+pullSecret: 'pull_secret_string'
+sshKey: "{{ ssh_key }}"
