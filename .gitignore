@@ -7,7 +7,7 @@
 aws-cfn-params/*.json
 
 # My git updates bash script..
-run-git.sh/
+run-git.sh
 
 # What I will be doing tommorow
 kesho.md
