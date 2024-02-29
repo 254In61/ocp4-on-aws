@@ -4,7 +4,7 @@ compute:
 - architecture: amd64
   hyperthreading: {{ hyperthreading }}
   name: worker
-  platform: {}
+  platform:
     aws:
       zones:
       - {{ aws_region }}a
