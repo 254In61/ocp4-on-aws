@@ -42,6 +42,12 @@ How to use
 
 5. Start the ssh agent : $ eval $(ssh-agent)
 
+6. Build cluster : $ ./build-cluster.sh
+
+
+
+
+
 6. Prepare the EC2 Linux environment : $ scripts/ec2-env-prep.sh
 
 7. Create OCPV4 cluster installation files for AWS : $ ansible-playbook build-installation-files.yml
