@@ -66,7 +66,7 @@ How to use
    - 7.2) Set the environmental variables : 
    - 7.3) Run the ansible script : $ ansible-playbook build-install-config-yaml.yml
 
-11. AWS CREDS
+11. SET AWS CREDS
    - Run : $ ansible-playbook write-aws-creds.yml
 
 12. CLUSTER BUILD

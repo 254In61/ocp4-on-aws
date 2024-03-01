@@ -4,7 +4,6 @@
   file:
     path: "{{ install_dir }}/.aws"
     state: directory
-  when: directory_stat.stat.exists
 
 - name: "write-creds - Write on {{ install_dir }}/.aws/credentials"
   template:
