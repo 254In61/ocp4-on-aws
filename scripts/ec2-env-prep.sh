@@ -40,7 +40,7 @@ openshift_packages(){
 set-vars(){
     # Set env variables
     echo "" && echo "==> Set environmental variables"
-    echo "export INSTALL_DIR=$HOME" >> $HOME/env-vars
+    
     source ~/env-vars
 }
 

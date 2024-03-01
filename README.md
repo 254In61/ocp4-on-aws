@@ -53,7 +53,10 @@ How to use
 
 6. Start the ssh agent : $ eval $(ssh-agent)
 
-7. Prepare install-config.yaml file : $ ansible-playbook build-install-config-yaml.yml
+7. Prepare install-config.yaml file : 
+   - 7.1) Include INSTALL_DIR in your environmental variables files : $ echo "export INSTALL_DIR=$HOME" >> $HOME/env-vars
+   - 7.2) Set the environmental variables : $ source $HOME/env-vars
+   - 7.3) Run the ansible script : $ ansible-playbook build-install-config-yaml.yml
 
 8. Build cluster : $ openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
 
