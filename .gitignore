@@ -12,3 +12,6 @@ run-git.sh
 # Terraforn
 jump-server/.terraform.lock.hcl
 jump-server/.terraform/
+
+# Theory
+theory.md

@@ -71,6 +71,15 @@ How to use
 
 12. CLUSTER BUILD
    - Run : $ openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
+   - ** This will kickstart terraform scripts that will build the AWS infra upto the end..
+   - ** Grab some coffee?
+   - Will take some time to get it done :
+
+
+DESTROY CLUSTER
+================
+$ openshift-install destroy cluster --log-level debug
+  
 
 Author
 ======

@@ -1,7 +1,0 @@
----
-# Main playbook
-# Order has to remain the same
-- import_tasks: ssh-key.yml
-- import_tasks: install-config.yml
-- import_tasks: manifests.yml
-- import_tasks: ignition.yml

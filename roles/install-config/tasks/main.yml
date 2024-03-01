@@ -2,3 +2,7 @@
 # Main file
 - import_tasks: ssh-key.yml
 - import_tasks: install-config.yml
+
+# To be included if one is doing UPI and needs to build ignition files first.
+#- import_tasks: manifests.yml
+#- import_tasks: ignition.yml
