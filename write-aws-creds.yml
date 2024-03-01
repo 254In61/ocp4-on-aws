@@ -1,5 +1,5 @@
 ---
-# Playbook for creating install-config.yaml
+# Playbook for creating aws creds on the EC2
 
 - name: creating install-config.yaml
   hosts: localhost
@@ -11,4 +11,4 @@
         dir: group_vars
 
     - import_role:
-        name: install-config
+        name: aws-creds

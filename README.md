@@ -66,7 +66,10 @@ How to use
    - 7.2) Set the environmental variables : 
    - 7.3) Run the ansible script : $ ansible-playbook build-install-config-yaml.yml
 
-11. CLUSTER BUILD
+11. AWS CREDS
+   - Run : $ ansible-playbook write-aws-creds.yml
+
+12. CLUSTER BUILD
    - Run : $ openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
 
 Author
