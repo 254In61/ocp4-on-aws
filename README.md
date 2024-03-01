@@ -49,9 +49,13 @@ How to use
    - Update the variables in $HOME/env-vars. 
    - Save the file and move to step 5.
 
-5. Start the ssh agent : $ eval $(ssh-agent)
+5. Prepare the ec2 linux environment. Run $ scripts/ec2-env-prep.sh
 
-6. Build cluster : $ ./build-cluster.sh
+6. Start the ssh agent : $ eval $(ssh-agent)
+
+7. Prepare install-config.yaml file : $ ansible-playbook build-install-config-yaml.yml
+
+8. Build cluster : $ openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
 
 Author
 ======

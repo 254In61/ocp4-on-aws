@@ -1,16 +1,2 @@
 ---
-# Prepare aws credentials file
-- name: Create ~/.aws directory to host credentials for aws-cli
-  file:
-    path: "{{ install_dir }}/.aws"
-    state: directory
-
-- name: Write on ~/.aws/credentials
-  template:
-    src: credentials.j2
-    dest: "{{ install_dir }}/.aws/credentials"
-
-- name: Write on ~/.aws/config
-  template:
-    src: config.j2
-    dest: "{{ install_dir }}/.aws/config"
+- import_tasks: write-creds.yml
