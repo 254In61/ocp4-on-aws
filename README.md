@@ -37,17 +37,21 @@ How to use
    - You could do this on the AWS console, use Terraform ( jump-server/ ) if you are comfortable with Terraform.
    - Lesson learnt : A small t2, low capacity will have a challenge running the build scripts. Go large on this one!.
 
-5. Clone down the repository to your EC2 Jump Server:
+5. Transfer downloaded files in Step 3 , from your local linux environent  to your EC2.
+   - Example : $ scp -i "ocpv4-on-aws-key-pair.pem" ~/Downloads/*.gz ubuntu@ec2-3-26-173-139.ap-southeast-2.compute.amazonaws.com:/home/ubuntu
+   - Example : $ scp -i "ocpv4-on-aws-key-pair.pem" ~/Downloads/pull-secret.txt ubuntu@ec2-3-26-173-139.ap-southeast-2.compute.amazonaws.com:/home/ubuntu
+
+5. Clone down the repository to your EC2:
    - ssh into your EC2 
    - Change Directory to ~/  : $ cd $HOME 
-   - Transfer the 3 files downloaded in step 3 from your ~/Downloads to this EC2 instance $HOME directory ** Do some chatGPT search here :) :) ***
    - Clone down this git repository : $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
 
-4. Set these enviromental variables which the ansible playbooks & bash script will consume.
-   - Create $HOME/env-vars file : $ touch $HOME/env-vars  ** You don't want your secrets on git, hence a directory outside this git repo. **
-   - Copy files/sample-env-vars to $HOME/env-vars 
-   - Update the variables in $HOME/env-vars. 
-   - Save the file and move to step 5.
+4. Set these enviromental variables of your EC2.
+   - $ touch $HOME/env-vars  ** You don't want your secrets on git, hence a directory outside this git repo. **
+   - Copy files/sample-env-vars into $HOME/env-vars 
+   - Update the variables in $HOME/env-vars.
+   - NB: 1) Update ONLY lines 2-6, leave line 1 as it is. 2) DO NOT change the environmental variables names..Just update the value after '='
+   - Set your environmental variables : $ source $HOME/env-vars
 
 5. Prepare the ec2 linux environment. Run $ scripts/ec2-env-prep.sh
 
@@ -55,7 +59,7 @@ How to use
 
 7. Prepare install-config.yaml file : 
    - 7.1) Include INSTALL_DIR in your environmental variables files : $ echo "export INSTALL_DIR=$HOME" >> $HOME/env-vars
-   - 7.2) Set the environmental variables : $ source $HOME/env-vars
+   - 7.2) Set the environmental variables : 
    - 7.3) Run the ansible script : $ ansible-playbook build-install-config-yaml.yml
 
 8. Build cluster : $ openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
