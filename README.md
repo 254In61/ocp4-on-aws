@@ -1,10 +1,20 @@
 Overview
 ========
-An ansible tool that tries to automate the steps to create OCPV4 cluster on AWS using Ansible.
+End objective is automate the deployment of OCPV4 on AWS.
+
+It is such a pain to do it manually, typing the commands as a human being!
+
+Will you call this API or UPI?? In this , we are just updating the install-config.yaml file then running the openshift-install tool.
 
 These steps are documented here : https://docs.openshift.com/container-platform/4.14/installing/installing_aws/
 
-It is such a pain to do it manually, typing the commands as a human being!
+Design
+=======
+
+- Ansible playbook to build VPC if you need one.
+- Ansible playbook that builds the install-config.yaml
+- Bash script that prepares the EC2 environment and calls the build-install-config.yml ansible script.
+
 
 How to use
 ==========
@@ -24,7 +34,8 @@ How to use
   - pull-secret is a .txt file.
 
 4. Build EC2 instance for your jumphost(bastion).
-   - You could do this on the AWS console, use Terraform, Python boto3 or Ansible
+   - You could do this on the AWS console, use Terraform ( jump-server/ ) if you are comfortable with Terraform.
+   - Lesson learnt : A small t2, low capacity will have a challenge running the build scripts. Go large on this one!.
 
 5. Clone down the repository to your EC2 Jump Server:
    - ssh into your EC2 
@@ -32,10 +43,11 @@ How to use
    - Transfer the 3 files downloaded in step 3 from your ~/Downloads to this EC2 instance $HOME directory ** Do some chatGPT search here :) :) ***
    - Clone down this git repository : $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
 
-4. Set these enviromental variables which the ansible playbooks will consume.
-   - touch $HOME/env-vars
-   - Put in the details found in sample-env-vars
-   - Set the environmental variables of the EC2 $ source $HOME/env-vars
+4. Set these enviromental variables which the ansible playbooks & bash script will consume.
+   - Create $HOME/env-vars file : $ touch $HOME/env-vars  ** You don't want your secrets on git, hence a directory outside this git repo. **
+   - Copy files/sample-env-vars to $HOME/env-vars 
+   - Update the variables in $HOME/env-vars. 
+   - Save the file and move to step 5.
 
 5. Start the ssh agent : $ eval $(ssh-agent)
 

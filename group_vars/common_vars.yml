@@ -2,7 +2,7 @@
 # Directories
 install_dir: "{{ lookup('ansible.builtin.env', 'INSTALL_DIR') }}" # Directory where all the action happens. Ensure it is outside this git repository to prevent leackage of secrets or sensitive documents online
 cfn_templates_store: aws-cfn-templates # Storage of aws cloudformation templates
-json_parameters_store: aws-cfn-params  # Stores the .json files with parameters
+json_parameters_store: "{{ lookup('ansible.builtin.env', 'INSTALL_DIR') }}"  # You don't want these parameter files being in your git repo.
 
 
 

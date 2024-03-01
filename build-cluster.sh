@@ -2,14 +2,45 @@
 
 # Script that builds the cluster.
 
-jump_host(){
-   # 1: Prepare the ec2-jump-server.
-   scripts/ec2-env-prep.sh
+packages(){
+   # Installing jq, yq, wget, curl, unzip, ansible
+   echo "" && echo "===>Installing jq, yq, wget, curl, unzip, ansible, pip"
+   sudo apt update
+   sudo apt install -y jq wget curl unzip ansible python3-pip
+   pip install boto3
+   # Install yq
+   # yq is a multifunctional tool that also supports converting YAML to JSON
+   sudo snap install yq
+   
+}
+
+aws_cli(){
+   echo "" && echo "===> installing AWS CLI"
+   # AWS CLI
+   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip -o -q awscliv2.zip
+   sudo ./aws/install
+   rm -rf awscliv2.zip
+}
+
+openshift_packages(){
+   echo "" && echo "===> installing openshift-install"
+   # Unzip OpenShift installer >> Move $PATH directory and test if executable works
+   tar -xvzf $HOME/openshift-install-linux.tar.gz && sudo cp openshift-install /usr/local/bin/ && openshift-install version
+
+   # Unzip OpenShift client >> Move to $PATH directory and test if executable works
+   echo "" && echo "==> installing openshift-client cmd packages"
+   tar -xvzf $HOME/openshift-client-linux.tar.gz && sudo cp oc /usr/local/bin/ && sudo cp kubectl /usr/local/bin/
+   rm -rf kubectl
+   rm -rf oc
+   rm -rf openshift-install
+   oc version && kubectl version --short
+
 }
 
 set-vars(){
     # Set env variables
     echo "" && echo "==> Set environmental variables"
+    echo "export INSTALL_DIR=$HOME" >> $HOME/env-vars
     source ~/env-vars
 }
 
@@ -25,8 +56,9 @@ install-cluster(){
     openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
 }
 
-
-jump_host
+packages
+aws_cli
+openshift_packages
 set-vars
 build-install-config-yaml
 install-cluster
