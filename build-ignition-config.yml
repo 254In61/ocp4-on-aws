@@ -1,6 +1,7 @@
 ---
-# Playbook for preparing the manifest and then ignition files
-- name: Preparing ignition files
+# Playbook for creating install-config.yaml
+
+- name: creating ignition config files
   hosts: localhost
   gather_facts: false
 
@@ -8,6 +9,6 @@
     - name: include vars
       include_vars:
         dir: group_vars
-    
+
     - import_role:
-        name: ignition-config-files
+        name: ignition-config

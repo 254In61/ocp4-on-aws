@@ -4,17 +4,28 @@
   set_fact:
     root_name: vpc
     stack_name: "{{ cluster_name }}-vpc-stack"
+  
+- name: "{{ root_name }} - extract and view the infrastructure name from the Ignition config file metadata"
+  command: jq -r .infraID {{ install_dir }}/metadata.json
+  register: infra_name
+
+- name: vpc - Build Parameters place holder
+  file: 
+    path: "{{ json_parameters_store }}"
+    state: directory
+    mode: '0755'
 
 - set_fact:
     template_body_file: "{{ cfn_templates_store }}/{{ root_name}}-cfn-template.yaml"
     parameters_file: "{{ json_parameters_store }}/{{ root_name }}-params.json"
+    InfrastructureName: "{{ infra_name['stdout'] }}"
 
 - name: "vpc -{{ stack_name }}- Build parameters file"
   template:
     src: "{{ root_name }}.json.j2"
     dest: "{{ parameters_file }}"
 
-- name: "vpc -{{ stack_name }} - Check if {{ stack_name }} exists"
+- name: "vpc -{{ stack_name }} - Check if {{ stack_name }} exists - Ignore errors since it shows {{ stack_name }} doesn't exist"
   command: "aws cloudformation describe-stacks --stack-name {{ stack_name }} --region {{ aws_region }}"
   register: stack_exist
   ignore_errors: yes

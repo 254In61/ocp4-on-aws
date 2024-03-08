@@ -1,4 +1,3 @@
-export INSTALL_DIR=$HOME
 export AWS_PROFILE=OCPV4_CLUSTER
 export AWS_REGION=<Your AWS Region>
 export AWS_ACCESS_KEY_ID=<Your AWS Access key ID>

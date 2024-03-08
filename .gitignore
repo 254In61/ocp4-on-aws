@@ -1,11 +1,5 @@
 # Definitely you don't want your undies with holes hanging out there in public!
 
-# You don't want your manifests, install-config.yaml or ignition files, pull-secret.txt etc 
-# They have sensitive details about your cluster!
-
-# These files have data about your cluster you don't want to publish on git
-aws-cfn-params/*.json
-
 # My git updates bash script..
 run-git.sh
 
@@ -15,3 +9,6 @@ jump-server/.terraform/
 
 # Theory
 theory.md
+
+# Copy
+copy-*
