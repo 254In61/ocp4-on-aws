@@ -19,10 +19,8 @@ resource "aws_instance" "jump-server" {
 
 
    tags = {
-     Creator     = "${var.tag_creator}"
-     Environment = "${var.tag_env}"
-     Function    = "${var.tag_function}"
-     Name        = "${var.tag_name}"
+     Environment = "${var.env}"
+     Name        = "ocpv4-jump-server"
    }
 }
 

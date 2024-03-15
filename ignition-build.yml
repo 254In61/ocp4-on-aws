@@ -1,7 +1,7 @@
 ---
-# Playbook for creating install-config.yaml
+# Playbook for creating ignition files
 
-- name: creating ignition config files
+- name: creating ignition files
   hosts: localhost
   gather_facts: false
 
@@ -11,4 +11,4 @@
         dir: group_vars
 
     - import_role:
-        name: ignition-config
+        name: ignition

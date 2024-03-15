@@ -11,7 +11,6 @@ packages(){
    # Install yq
    # yq is a multifunctional tool that also supports converting YAML to JSON
    sudo snap install yq
-   
 }
 
 aws_cli(){
@@ -23,18 +22,21 @@ aws_cli(){
 }
 
 openshift_packages(){
+   echo "" && echo "===> Download the packages"
+   wget $INSTALLER_DOWNLOAD_LINK && wget $CLI_DOWNLOAD_LINK
+   mv openshift-* $HOME
+
    echo "" && echo "===> installing openshift-install"
    # Unzip OpenShift installer >> Move $PATH directory and test if executable works
-   tar -xvzf $HOME/openshift-install-linux.tar.gz && sudo cp openshift-install /usr/local/bin/ && openshift-install version
+   sudo tar -xvzf $HOME/openshift-install-linux.tar.gz -C /usr/local/bin/
 
    # Unzip OpenShift client >> Move to $PATH directory and test if executable works
    echo "" && echo "==> installing openshift-client cmd packages"
-   tar -xvzf $HOME/openshift-client-linux.tar.gz && sudo cp oc /usr/local/bin/ && sudo cp kubectl /usr/local/bin/
-   rm -rf kubectl
-   rm -rf oc
-   rm -rf openshift-install
-   oc version && kubectl version --short
+   sudo tar -xvzf $HOME/openshift-client-linux.tar.gz -C /usr/local/bin/
 
+   # Confirm packages have been installed.
+   echo "" && echo "==> Confirm packages installed by checking versions"
+   openshift-install version && oc version && kubectl version --short
 }
 
 packages

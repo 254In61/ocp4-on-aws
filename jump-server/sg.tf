@@ -22,10 +22,8 @@ resource "aws_security_group" "ocpv4_lab_sg" {
   }
 
   tags = {
-    Creator     = "${var.tag_creator}"
-    Environment = "${var.tag_env}"
-    Function    = "${var.tag_function}"
-    Name        = "ocpv4-lab-sg"
+    Environment = "${var.env}"
+    Name        = "ocpv4-jump-server-sg"
   }
 }
 

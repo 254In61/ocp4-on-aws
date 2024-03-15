@@ -1,0 +1,4 @@
+---
+# Main file
+- import_tasks: ssh-key.yml
+- import_tasks: install-config.yml

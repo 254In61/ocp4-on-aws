@@ -3,13 +3,11 @@
 - All variables are defined here.
 */
 
-# === BACKEND ====
 variable "tfstate_backend_s3_bucket_name" {
   description = "S3_bucket_name"
-  default     = "<S3 bucket name acting as your backend>"
+  default     = "tfstate-backend-store" // Key in your S3 backend
 }
 
-# === COMMON ====
 variable "ec2_instance_type"{
   description = "EC2 instance type"
   default = "t3.2xlarge"  // Bigger capacity == Faster install
@@ -17,24 +15,26 @@ variable "ec2_instance_type"{
 
 variable "aws_region" {
   description = "AWS region to launch servers."
-  default     = "<Your region>"
+  default     = "ap-southeast-2" // Key in your region
 }
 
 # == NETWORK ===
+// Find these variables under cloudformation >> the-vpc-stack-created >> Outputs
+
 variable "vpc_id" {
-  default     = "vpc-0929eedabfc80e2a8"
+  default     = "vpc-09efffd26b9b89216"
   description = "ocpv4 on aws vpc"
 }
 
 variable "public_subnet_a_id" {
-  default     = "subnet-0c903ca08687e2f60"
+  default     = "subnet-0f66b62e3e22ea8c5"
   description = "Public subnet AZ A"
 }
 
 # === SECURITY ===
 variable "key_name" {
   description = "Desired name of AWS key pair"
-  default     = "<your AWS key pair>"
+  default     = "ocpv4-on-aws-key-pair"
 }
 
 # === AMIs ====
@@ -51,7 +51,7 @@ variable "ebs_block_volume_type" {
 
 variable "ebs_block_volume_size" {
   description = "Root block volume"
-  default     = "30"  // Free tier eligible customers can get up to 30 GB of EBS General Purpose (SSD) or Magnetic storage
+  default     = "30"
 }
 
 variable "ebs_block_device_name" {
@@ -63,23 +63,14 @@ variable "ebs_block_device_name" {
 
 variable "iam_role"{
   description  = "IAM role to attach to instance"
-  default      = "<your IAM role name>"  // IAM role that permits Session Manager
+  default      = "Ec2SSMRole"  // IAM role that permits Session Manager
 }
 
 # === TAGS ===
 
-variable "tag_env" {
+variable "env" {
   description = "Environment"
-  default     = "ocpv4-lab"
+  default     = "ocpv4-dev-lab"
 }
 
-variable "tag_function" {
-  description = "Function"
-  default     = "OCPV4 install jump server"
-}
-
-variable "tag_name"{
-  description = "Name"
-  default     = "ocpv4-jump-server"
-}
 

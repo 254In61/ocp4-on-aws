@@ -1,0 +1,14 @@
+---
+# Playbook for building manifests
+
+- name: creating manifests
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: include vars
+      include_vars:
+        dir: group_vars
+
+    - import_role:
+        name: manifests

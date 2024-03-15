@@ -10,59 +10,67 @@ These steps are documented here : https://docs.openshift.com/container-platform/
 How to use
 ==========
 
+Prerequisites
+--------------
+
+- An AWS account 
+- An IAM user with the SystemAdministrator role 
+- An AWS Key and Secret access key
+- A domain name 
+- An SSL certificate for the Openshift console 
+- Redhat account to download OCP installer, pull-secret and openshift client tools
+- Download the Pull-secret from https://console.redhat.com/openshift/install/pull-secret and save is somewhere. 
+- Ansible installed in your local environment.
+
 YOUR LOCAL ENVIRONMENT(PC)
 --------------------------
 
-1. PREREQUISITES
-  - Reffer to files/prerequisites.md
-
-3. DOWNLOAD ARTIFACTS
-  - Download from this link : https://console.redhat.com/openshift/install/aws/user-provisioned 
-  - Artifacts to download are :  1. openShift installer(.gz) 2. pull-secret.txt (.txt) 3. Command-line tools (.gz)
-
-3. VPC BUILD 
+1. VPC BUILD 
   - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
-  - $ cp files/sample-env-vars $HOME/env-vars ** You don't want your secrets on git, hence a directory outside this git repo. **
-  - Update the variables in $HOME/env-vars.Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
-  - Set your environmental variables : $ source $HOME/env-vars
+  - $ cp env-vars-files/sample-local-env-vars $HOME/env-vars ** You don't want your secrets on git, hence a directory outside this git repo. **
+  - Update the variables in $HOME/local-env-vars. 
+     ** NB : Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
+  - Set your environmental variables : $ source $HOME/local-env-vars
   - Run : $ ansible-playbook build-vpc.yml
 
-4. BASTION EC2 CREATION
+2. BASTION EC2 CREATION
    - You could do this on the AWS console OR use Terraform tool ( jump-server/ ) if you are comfortable with Terraform.
+   - If you use the terraform tool, ensure you update the variables.tf file to reflect your correct values
    - A low capacity will have challenges running the build scripts. Go large on this one!.
    - Needs to be within same subnet as the Nodes.
 
-5. TRANSFER DOWNLOADED ARTIFACTS TO CREATED BASTION EC2
-   - Example : $ scp -i "ocpv4-on-aws-key-pair.pem" ~/Downloads/*.gz ubuntu@ec2-3-26-173-139.ap-southeast-2.compute.amazonaws.com:/home/ubuntu
-   - Example : $ scp -i "ocpv4-on-aws-key-pair.pem" ~/Downloads/pull-secret.txt ubuntu@ec2-3-26-173-139.ap-southeast-2.compute.amazonaws.com:/home/ubuntu
-
-6. SSH INTO BASTION EC2
+3. SSH INTO BASTION EC2
 
 BASTION EC2
 ------------
 
-7. CLONE REPOSITORY
+4. CLONE REPOSITORY
    - Change Directory to ~/  : $ cd $HOME 
    - Clone down this git repository : $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
 
-8. ENVIRONMENTAL VARIABLES
-   - $ cp files/sample-env-vars $HOME/env-vars ** You don't want your secrets on git, hence a directory outside this git repo. **
-   - Update the variables in $HOME/env-vars.Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
-   - Set your environmental variables : $ source $HOME/env-vars
+5. SET ENVIRONMENTAL VARIABLES
+   - $ cp files/sample-ec2-env-vars $HOME/env-vars ** You don't want your secrets on git, hence a directory outside this git repo. **
+   - Update the variables in $HOME/env-vars. 
+     *** NB: 1. Leave line 1 as it is . 2. DO NOT change the environmental variables names..Just update the value after '=' **
+   - Set your environmental variables : $ source $HOME/ec2-env-vars
 
-9. PREPARE EC2 LINUX ENVIRONMENT
+6. PREPARE EC2 LINUX ENVIRONMENT
    - Run $ scripts/ec2-env-prep.sh
 
-10. START SSH AGENT
+7. START SSH AGENT
    - Start the ssh agent : $ eval $(ssh-agent)
 
-11. BUILD IGNITION CONFIGURATION FILES
-   - Run the ansible script : $ ansible-playbook build-ignition-config.yml
+8. BUILD IGNITION CONFIGURATION FILES
+   8.1) Build the install-config.yaml file : $ ansible-playbook install-config-yaml-build.yml
+       - Confirm your $HOME/install-config.yaml file is as per your expectaions.
+   8.2) Build the manifests files : $ ansible-playbook manifests-build.yml
+       - Check the $HOME/manifests files.
+   8.3) Build the ignition config files : $ ansible-playbook ignition-build.yml
 
-12. BUILD AWS INFRA
-   - Run : $ ansible-playbook build-aws-resources.yml
+9. BUILD AWS INFRA
+   - Run : $ ansible-playbook aws-resources-build.yml
 
-13. CLUSTER BUILD
+10. CLUSTER BUILD
    - Run : $ openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
    - ** This will kickstart terraform scripts that will build the AWS infra upto the end..
    - ** Grab some coffee since it will take some time.
