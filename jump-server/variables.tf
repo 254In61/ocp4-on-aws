@@ -12,7 +12,7 @@ variable "tfstate_backend_s3_bucket_name" {
 # === COMMON ====
 variable "ec2_instance_type"{
   description = "EC2 instance type"
-  default = "t3.2xlarge"  // Trying bigger capacity, to see if install can be faster
+  default = "t3.2xlarge"  // Bigger capacity == Faster install
 }
 
 variable "aws_region" {
@@ -67,11 +67,6 @@ variable "iam_role"{
 }
 
 # === TAGS ===
-
-variable "tag_creator" {
-  description = "Creator Tag"
-  default     = "<Your names here>"
-}
 
 variable "tag_env" {
   description = "Environment"

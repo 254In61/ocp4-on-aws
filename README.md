@@ -6,13 +6,6 @@ It is such a pain to do it manually, typing the commands as a human being!
 
 These steps are documented here : https://docs.openshift.com/container-platform/4.14/installing/installing_aws/
 
-Design
-=======
-
-- Ansible playbook to build VPC if you need one.
-- Ansible playbook that builds the install-config.yaml
-- Bash script that prepares the EC2 environment and calls the build-install-config.yml ansible script.
-
 
 How to use
 ==========
@@ -23,17 +16,17 @@ YOUR LOCAL ENVIRONMENT(PC)
 1. PREREQUISITES
   - Reffer to files/prerequisites.md
 
-2. VPC BUILD 
+3. DOWNLOAD ARTIFACTS
+  - Download from this link : https://console.redhat.com/openshift/install/aws/user-provisioned 
+  - Artifacts to download are :  1. openShift installer(.gz) 2. pull-secret.txt (.txt) 3. Command-line tools (.gz)
+
+3. VPC BUILD 
   - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
   - $ cp files/sample-env-vars $HOME/env-vars ** You don't want your secrets on git, hence a directory outside this git repo. **
   - Update the variables in $HOME/env-vars.Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
   - Set your environmental variables : $ source $HOME/env-vars
   - Run : $ ansible-playbook build-vpc.yml
 
-3. DOWNLOAD ARTIFACTS
-  - Download from this link : https://console.redhat.com/openshift/install/aws/user-provisioned 
-  - Artifacts to download are :  1. openShift installer(.gz) 2. pull-secret.txt (.txt) 3. Command-line tools (.gz)
- 
 4. BASTION EC2 CREATION
    - You could do this on the AWS console OR use Terraform tool ( jump-server/ ) if you are comfortable with Terraform.
    - A low capacity will have challenges running the build scripts. Go large on this one!.
