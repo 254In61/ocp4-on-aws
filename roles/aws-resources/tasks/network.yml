@@ -3,8 +3,9 @@
 - name: network - Set root name
   set_fact:
     root_name: network
-    stack_name: "{{ ntwk_and_lb_cfn_stack }}"
 
+- set_fact:
+    stack_name: "{{ root_name }}-cfn-stack"
 
 - name: "{{ root_name }} - extract and view the infrastructure name from the Ignition config file metadata"
   command: jq -r .infraID {{ install_dir }}/metadata.json

@@ -1,0 +1,3 @@
+---
+# Destroy built stacks
+- import_tasks: delete-cfn-stack.yml

@@ -1,0 +1,13 @@
+---
+# Playbook to destory build AWS cloudformation stacks
+- name: Destroy aws stacks
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: include vars
+      include_vars:
+        dir: group_vars
+
+    - import_role:
+        name: destroy

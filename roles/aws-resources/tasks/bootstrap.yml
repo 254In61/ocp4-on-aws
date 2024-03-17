@@ -6,7 +6,9 @@
 - name: bootstrap - Set root name
   set_fact:
     root_name: bootstrap
-    stack_name: "{{ btstrp_stack }}"
+
+- set_fact:
+    stack_name: "{{ root_name }}-cfn-stack"
 
 - name: create-bootstrap-node - Build S3 bucket to store the bootstrap.ign file
   amazon.aws.s3_bucket:

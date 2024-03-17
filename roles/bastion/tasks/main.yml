@@ -1,0 +1,5 @@
+---
+# Build AWS resources
+# This order has to be like this!
+- import_tasks: vpc-info.yml
+- import_tasks: jump-server.yml

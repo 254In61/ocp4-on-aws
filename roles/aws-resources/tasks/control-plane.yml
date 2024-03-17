@@ -4,10 +4,12 @@
 - name: control-plane - Set root name
   set_fact:
     root_name: control-plane
-    stack_name: "{{ ctrl_pln_stack }}"
     ign_file: "{{ install_dir }}/master.ign"
     PrivateHostedZoneName: "{{ cluster_name }}.{{ base_domain }}"
     cert_string_file: "{{ install_dir }}/master-ign-cert.txt"
+    
+- set_fact:
+    stack_name: "{{ root_name }}-cfn-stack"
 
 - name: "{{ root_name }} - Obtain CertificateAuthorities value from igniition config file"
   shell: "jq -r .ignition.security.tls.certificateAuthorities[0].source {{ ign_file }} > {{ cert_string_file }}"

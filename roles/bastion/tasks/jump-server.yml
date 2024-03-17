@@ -5,12 +5,9 @@
 
 
 # Common variables for all worker nodes
-- name: worker-node - Set root name and ignition file name
+- name: jump-server - Set root name and ignition file name
   set_fact:
-    root_name: worker-node
-    ign_file: "{{ install_dir }}/worker.ign"
-    cert_string_file: "{{ install_dir }}/worker-ign-cert.txt"
-    max_range_value: "{{ worker_replicas + 1 }}"
+    root_name: jump-server
 
 - name: "{{ root_name }} - Obtain CertificateAuthorities value from igniition config file"
   shell: "jq -r .ignition.security.tls.certificateAuthorities[0].source {{ ign_file }} > {{ cert_string_file }}"
@@ -22,8 +19,14 @@
 # From here, building different worker nodes.
 # Yeees! I should this within a loop! But I don't have much time to keep testing that.
 
-# Build worker
+# Build worker-1
 - set_fact:
-    stack_name: "{{ root_name }}-cfn-stack"
+    stack_name: "{{ cmpt_pln_stack }}-1"
+    
+- import_tasks: build-stack.yml
+
+# Build worker-2
+- set_fact:
+    stack_name: "{{ cmpt_pln_stack }}-2"
 
 - import_tasks: build-stack.yml

@@ -27,17 +27,17 @@ YOUR LOCAL ENVIRONMENT(PC)
 
 1. VPC BUILD 
   - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
-  - $ cp env-vars-files/sample-local-env-vars $HOME/env-vars ** You don't want your secrets on git, hence a directory outside this git repo. **
+  - $ cp env-vars-files/sample-local-env-vars $HOME/env-vars 
+    - ** You don't want to git commit your AWS secrets by mistake right?That's why we have them outside this git repo**
   - Update the variables in $HOME/local-env-vars. 
-     ** NB : Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
+    - ** NB : Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
   - Set your environmental variables : $ source $HOME/local-env-vars
-  - Run : $ ansible-playbook build-vpc.yml
+  - Run : $ ansible-playbook vpc-build.yml
 
-2. BASTION EC2 CREATION
-   - You could do this on the AWS console OR use Terraform tool ( jump-server/ ) if you are comfortable with Terraform.
-   - If you use the terraform tool, ensure you update the variables.tf file to reflect your correct values
-   - A low capacity will have challenges running the build scripts. Go large on this one!.
-   - Needs to be within same subnet as the Nodes.
+2. BASTION/JumpServer EC2 CREATION
+  - Create a security pair to use and call it ocpv4-on-aws-key-pair. ** If you change this , then also change in group_vars/jump-server.yml file **
+  - Save your ocpv4-on-aws-key-pair.pem download from AWS Console. You will need this to ssh into the bastion
+  - Run : $ ansible-playbook bastion-build.yml
 
 3. SSH INTO BASTION EC2
 
@@ -47,11 +47,13 @@ BASTION EC2
 4. CLONE REPOSITORY
    - Change Directory to ~/  : $ cd $HOME 
    - Clone down this git repository : $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
+   - $ cd ocpv4-on-aws
 
 5. SET ENVIRONMENTAL VARIABLES
-   - $ cp files/sample-ec2-env-vars $HOME/env-vars ** You don't want your secrets on git, hence a directory outside this git repo. **
+   - $ cp env-vars/sample-ec2-env-vars $HOME/env-vars 
+     - ** You don't want to git commit your AWS secrets by mistake right?That's why we have them outside this git repo**
    - Update the variables in $HOME/env-vars. 
-     *** NB: 1. Leave line 1 as it is . 2. DO NOT change the environmental variables names..Just update the value after '=' **
+     - *** NB: 1. Leave line 1 as it is . 2. DO NOT change the environmental variables names..Just update the value after '=' **
    - Set your environmental variables : $ source $HOME/ec2-env-vars
 
 6. PREPARE EC2 LINUX ENVIRONMENT
@@ -75,10 +77,19 @@ BASTION EC2
    - ** This will kickstart terraform scripts that will build the AWS infra upto the end..
    - ** Grab some coffee since it will take some time.
 
+DESTROY AWS RESOURCES
+======================
+- This just removes what you built on your AWS.
+- Run this from your local machine NOT from the Bastion
+- $ ansible-playbook destroy.yml
 
 DESTROY CLUSTER
 ================
-$ openshift-install destroy cluster --log-level debug
+- This destroys the cluster and leaves the VPC and Bastion intact
+- Destroying based on tag? ***
+- Run this from the Bastion
+
+- $ openshift-install destroy cluster --log-level debug
   
 
 Author

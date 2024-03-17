@@ -1,0 +1,116 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Template for Jump Server Launch (EC2 instance)
+
+Parameters:
+  JumpServerAmi:
+    Description: AMI to use for the Jump Server
+    Type: AWS::EC2::Image::Id
+  Subnet:
+    Description: The subnets to launch the node into.
+    Type: AWS::EC2::Subnet::Id
+  EC2InstanceType:
+    Description: EC2 instance type
+    Type: String
+  SshKeyPair:
+    Desciption: Remote ssh key pair
+    Type: String
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+    - Label:
+        default: "Host Information"
+      Parameters:
+      - EC2InstanceType
+      - JumpServerAmi
+    - Label:
+        default: "Network Configuration"
+      Parameters:
+      - Subnet
+    ParameterLabels:
+      Subnet:
+        default: "Subnet"
+      EC2InstanceType:
+        default: "Instance Type"
+      JumpServerAmi:
+        default: "Red Hat Enterprise Linux CoreOS AMI ID"
+      SshKeyPair:
+        default: "Key pair for remote ssh"
+
+Resources:
+  SSMIAMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: AllowSSMAndMessages
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:*
+                  - ec2messages:*
+                  - ssmmessages:*
+                Resource: "*"
+      Tags:
+        - Key: "Name"
+          Value: "ocpv4-jump-server-iam-role"
+
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Jump Server Security Group allowing ssh traffic
+      SecurityGroupIngress:
+      - IpProtocol: icmp
+        FromPort: 0
+        ToPort: 0
+        CidrIp: !Ref VpcCidr
+      - IpProtocol: http
+        FromPort: 80
+        ToPort: 80
+        CidrIp: !Ref VpcCidr
+      - IpProtocol: https
+        FromPort: 443
+        ToPort: 443
+        CidrIp: !Ref VpcCidr
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0 # Not a good idea though! This opens up your instance to all traffic from the internet, which can pose significant security risks.
+      VpcId: !Ref VpcId
+      Tags:
+        - Key: "Name"
+          Value: "ocpv4-jump-server-sec-grp"
+  JumpServerEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref JumpServerAmi
+      BlockDeviceMappings:
+      - DeviceName: /dev/xvda
+        Ebs:
+          VolumeSize: "30"
+          VolumeType: "gp2"
+      IamInstanceProfile: !Ref SSMIAMRole
+      InstanceType: !Ref EC2InstanceType
+      KeyName: !Ref SshKeyPair
+      NetworkInterfaces:
+      - AssociatePublicIpAddress: "true"
+        DeviceIndex: "0"
+        GroupSet:
+        - !Ref "SecurityGroup"
+        SubnetId: !Ref "Subnet"
+      Tags:
+      - Key: "Name"
+        Value: "ocpv4-jump-server"
+
+Outputs:
+  PublicDnsName:
+    Value: !GetAtt JumpServerEC2.PublicDnsName
+    Description: Public DNS Name of the EC2 instance
