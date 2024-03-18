@@ -1,3 +1,5 @@
 ---
 # Main file
+- import_tasks: install-config.yml
+- import_tasks: manifest.yml
 - import_tasks: ignition.yml
