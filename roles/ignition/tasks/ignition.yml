@@ -12,9 +12,11 @@
     path: "{{ item }}"
     state: absent
   loop:
-    - "{{ install_dir }}/*.json"
-    - "{{ install_dir }}/*.ing"
-    - "{{ install_dir }}/auth"  
+    - "{{ install_dir }}/metadata.json"
+    - "{{ install_dir }}/master.ign"
+    - "{{ install_dir }}/worker.ign"
+    - "{{ install_dir }}/bootstrap.ign"
+    - "{{ install_dir }}/auth" 
 
 - name: ignition - Generate the ignition files for the cluster
   command: "openshift-install create ignition-configs --dir {{ install_dir }}/"
@@ -27,8 +29,10 @@
 - name: ignition - Backup the ignition files for future reference
   command: "cp -r {{ item }} backup-ignition/"
   loop:
-    - "{{ install_dir }}/*.json"
-    - "{{ install_dir }}/*.ing"
+    - "{{ install_dir }}/metadata.json"
+    - "{{ install_dir }}/master.ign"
+    - "{{ install_dir }}/worker.ign"
+    - "{{ install_dir }}/bootstrap.ign"
     - "{{ install_dir }}/auth"
 # The step will consume the files in /manifests and /openshift, then delete the directories at the end while creating the .ign files.
 # Ignition config files are created for the bootstrap(bootstrap.ign), control plane(master.ign), and compute nodes(worker.ign). 
