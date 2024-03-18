@@ -11,6 +11,8 @@
   set_fact:
     root_name: "{{ ntwk_and_lbs }}"
 
-- import_tasks: ../../../modules/infraname-and-hostedzone.yml
+- import_tasks: ../../../modules/infra-name.yml
+
+- import_tasks: ../../../modules/hosted-zone-id.yml
 
 - import_tasks: ../../../modules/build-stack.yml

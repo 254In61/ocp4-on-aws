@@ -1,0 +1,10 @@
+---
+- name: "{{ root_name }} - extract and view the infrastructure name from the Ignition config file metadata"
+  command: jq -r .infraID {{ install_dir }}/metadata.json
+  register: infra_name
+
+# - debug:
+#     var: infra_name
+- name: "{{ root_name }} - set values"
+  set_fact:
+    InfrastructureName: "{{ infra_name['stdout'] }}"

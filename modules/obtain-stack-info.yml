@@ -12,7 +12,7 @@
 - debug:
     var: stack_info
 
-- name: "vpc-info - Set outputs as variables"
+- name: "obtain-stack-info - {{ cluster_name }}-{{ vpc }}-stack"
   set_fact:
     PrivateSubnet1: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet1' ] }}"
     PrivateSubnet2: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet2' ] }}"
@@ -26,7 +26,7 @@
     VpcId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'VpcId' ] }}"
   when: root_name == vpc
 
-- name: "{{ root_name }} - Set outputs as variables"
+- name: "obtain-stack-info - {{ cluster_name }}-{{ ntwk_and_lbs }}-stack"
   set_fact:
     ApiServerDnsName: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'ApiServerDnsName' ] }}"
     ExternalApiLoadBalancerName: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'ExternalApiLoadBalancerName' ] }}"
@@ -38,7 +38,7 @@
     RegisterNlbIpTargetsLambda: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'RegisterNlbIpTargetsLambda' ] }}"
   when: root_name == ntwk_and_lbs
 
-- name: "{{ root_name }} - Set outputs as variables"
+- name: "obtain-stack-info - {{ cluster_name }}-{{ sec_grp }}-stack"
   set_fact:
     MasterInstanceProfile: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'MasterInstanceProfile' ] }}"
     MasterSecurityGroupId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'MasterSecurityGroupId' ] }}"
