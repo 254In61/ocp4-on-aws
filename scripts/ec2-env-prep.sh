@@ -4,9 +4,9 @@
 
 packages(){
    # Installing jq, yq, wget, curl, unzip, ansible
-   echo "" && echo "===>Installing jq, yq, wget, curl, unzip, ansible, pip"
+   echo "" && echo "===>Installing jq, yq, wget, curl, unzip, ansible, pip, tree"
    sudo apt update
-   sudo apt install -y jq wget curl unzip ansible python3-pip
+   sudo apt install -y jq wget curl unzip ansible python3-pip tree
    pip install boto3
    # Install yq
    # yq is a multifunctional tool that also supports converting YAML to JSON
