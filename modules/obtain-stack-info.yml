@@ -46,5 +46,9 @@
     WorkerSecurityGroupId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'WorkerSecurityGroupId' ] }}"
   when: root_name == sec_grp
   
-
-
+- name: "obtain-stack-info - {{ cluster_name }}-{{ bootstrap }}-stack"
+  set_fact:
+    BootstrapInstanceId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'BootstrapInstanceId' ] }}"
+    BootstrapPrivateIp: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'BootstrapPrivateIp' ] }}"
+    BootstrapPublicIp: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'BootstrapPublicIp' ] }}"
+  when: root_name == bootstrap

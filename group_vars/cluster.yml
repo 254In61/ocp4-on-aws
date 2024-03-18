@@ -23,6 +23,7 @@ cfn_templates_store: aws-cfn-templates
 
 
 # Cluster Machine details
+aws_rhos_ami: ami-0d980796ce258b5d5
 master_replicas: 1
 worker_replicas: 1
 hyperthreading: Enabled
@@ -32,7 +33,6 @@ aws_machine_arch: arm64
 
 # Root names
 vpc: vpc
-bastion: bastion
 bootstrap: bootstrap
 worker: worker-node
 master: control-plane
