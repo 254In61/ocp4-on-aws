@@ -13,8 +13,16 @@
 - name: manifests - Generate the K8s manifests for the cluster
   command: "openshift-install create manifests --dir {{ install_dir }}/"
 
-- name: manifests - Create backup of the manisfests files for future refference
-  command: "cp -r {{ install_dir }}/manifests {{ install_dir }}/backup-manifests" # YES! You can use ansible builtin "copy" module
+- name: manifests - Create backup dir
+  file:
+    path: "{{ install_dir }}/backup-manifests"
+    state: directory
+
+- name: manifests - Backup the ignition files for future reference
+  command: "cp -r {{ item }} {{ install_dir }}/backup-manifests/"
+  loop:
+    - "{{ install_dir }}/manifests"
+    - "{{ install_dir }}/openshift"
 
 # This needs to be worked on!
 # - Check that the mastersSchedulable parameter in the $HOME/manifests/cluster-scheduler-02-config.yml.

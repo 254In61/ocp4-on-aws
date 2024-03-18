@@ -23,11 +23,11 @@
 
 - name: ignition - Create backup dir
   file:
-    path: backup-ignition
+    path: "{{ install_dir }}/backup-ignition"
     state: directory
 
 - name: ignition - Backup the ignition files for future reference
-  command: "cp -r {{ item }} backup-ignition/"
+  command: "cp -r {{ item }} {{ install_dir }}/backup-ignition/"
   loop:
     - "{{ install_dir }}/metadata.json"
     - "{{ install_dir }}/master.ign"
