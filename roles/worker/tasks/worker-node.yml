@@ -1,5 +1,31 @@
 ---
 # Build worker nodes
+
+# Collect vpc cloudformation stack details
+- name: "sec- - Collect {{ vpc }} stack details"
+  set_fact:
+    root_name: "{{ vpc }}"
+
+- import_tasks: ../../../modules/obtain-stack-info.yml
+
+# Collect network-and-loadbalancers cloudformation stack details
+- name: "sec - Collect {{ ntwk_and_lbs }} stack details"
+  set_fact:
+    root_name: "{{ ntwk_and_lbs }}"
+
+- import_tasks: ../../../modules/obtain-stack-info.yml
+
+# Collect sec groups and IAM roles cloudformation stack details
+- name: "sec - Collect {{ sec_grp }} stack details"
+  set_fact:
+    root_name: "{{ sec_grp }}"
+
+- import_tasks: ../../../modules/obtain-stack-info.yml
+
+- import_tasks: ../../../modules/infra-name.yml
+
+- import_tasks: ../../../modules/hosted-zone-id.yml
+
 # The CloudFormation template creates a stack that represents one worker machine. You must create a stack for each worker machine.
 # You must create at least two worker machines, so you must create at least two stacks that use this CloudFormation template.
 

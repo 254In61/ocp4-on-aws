@@ -27,7 +27,7 @@ PHASE 1 : ON YOUR LOCAL ENVIRONMENT(PC)
 1. CLONE REPO & ENV VARIABLES
    1.1)Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
    1.2)Create local environmental variables file & update your local env: 
-      - $ cp template-local-env-vars $HOME/local-env-vars 
+      - $ cp files/template-local-env-vars $HOME/local-env-vars 
       - ** You don't want to git commit your AWS secrets by mistake right? That's why we have them outside this git repo**
       - Update the variables in $HOME/local-env-vars. 
       - ** NB : Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
@@ -57,7 +57,7 @@ PHASE 2 : ON BASTION EC2
    1.3) $ cd ocpv4-on-aws
 
 2. SET ENVIRONMENTAL VARIABLES
-   2.1) $ cp template-ec2-env-vars $HOME/ec2-env-vars 
+   2.1) $ cp files/template-ec2-env-vars $HOME/ec2-env-vars 
      - ** You don't want to git commit your AWS secrets by mistake right? That's why we have them outside this git repo**
    2.2) Update the variables in $HOME/env-vars. 
      - *** NB: 1. Leave line 1 as it is . 2. DO NOT change the environmental variables names..Just update the value after '=' **

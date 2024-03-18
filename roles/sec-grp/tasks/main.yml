@@ -1,4 +1,0 @@
----
-# Build AWS resources
-# This order has to be like this!
-- import_tasks: sec.yml

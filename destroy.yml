@@ -10,33 +10,45 @@
         dir: group_vars
 
     # Yes! The length of code can be reduced with a loop! Go ahead and make this better mate!
-    - set_fact:
-        root_name: "{{ bootstrap }}"
+    - name: "destroy - {{ cluster_name }}-{{ bootstrap }}-stack"
+      cloudformation:
+        stack_name: "{{ cluster_name }}-{{ bootstrap }}-stack"
+        state: absent
+      register: stack_deletion_result
+      ignore_errors: yes
     
-    - import_tasks: modules/delete-cfn-stack.yml
+    - name: "destroy - {{ cluster_name }}-{{ worker }}-stack"
+      cloudformation:
+        stack_name: "{{ cluster_name }}-{{ worker }}-stack"
+        state: absent
+      register: stack_deletion_result
+      ignore_errors: yes
+    
+    - name: "destroy - {{ cluster_name }}-{{ master }}-stack"
+      cloudformation:
+        stack_name: "{{ cluster_name }}-{{ master }}-stack"
+        state: absent
+      register: stack_deletion_result
+      ignore_errors: yes
 
-    - set_fact:
-        root_name: "{{ worker }}"
-    
-    - import_tasks: modules/delete-cfn-stack.yml
+    - name: "destroy - {{ cluster_name }}-{{ sec_grp }}-stack"
+      cloudformation:
+        stack_name: "{{ cluster_name }}-{{ sec_grp }}-stack"
+        state: absent
+      register: stack_deletion_result
+      ignore_errors: yes
 
-    - set_fact:
-        root_name: "{{ master }}"
-    
-    - import_tasks: modules/delete-cfn-stack.yml
+    - name: "destroy - {{ cluster_name }}-{{ ntwk_and_lbs }}-stack"
+      cloudformation:
+        stack_name: "{{ cluster_name }}-{{ ntwk_and_lbs }}-stack"
+        state: absent
+      register: stack_deletion_result
+      ignore_errors: yes
 
-    - set_fact:
-        root_name: "{{ sec_grp }}"
-    
-    - import_tasks: modules/delete-cfn-stack.yml
-
-    - set_fact:
-        root_name: "{{ ntwk_and_lbs }}"
-    
-    - import_tasks: modules/delete-cfn-stack.yml
-
-    - set_fact:
-        root_name: "{{ vpc }}"
-    
-    - import_tasks: modules/delete-cfn-stack.yml
+    - name: "destroy - {{ cluster_name }}-{{ vpc }}-stack"
+      cloudformation:
+        stack_name: "{{ cluster_name }}-{{ vpc }}-stack"
+        state: absent
+      register: stack_deletion_result
+      ignore_errors: yes
 

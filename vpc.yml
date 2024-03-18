@@ -1,0 +1,13 @@
+---
+# Playbook for building AWS resources
+- name: Build AWS Resources
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: include vars
+      include_vars:
+        dir: group_vars
+
+    - import_role:
+        name: vpc

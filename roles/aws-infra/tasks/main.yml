@@ -1,4 +1,5 @@
 ---
+# Build AWS resources
 # Collect vpc cloudformation stack details
 - name: network - Collect vpc cloudformation stack details
   set_fact:
@@ -6,13 +7,13 @@
 
 - import_tasks: ../../../modules/obtain-stack-info.yml
 
-# Create network and loadbalancers objects
-- name: network - Set root name
-  set_fact:
-    root_name: "{{ ntwk_and_lbs }}"
-
+# Collect infra name
 - import_tasks: ../../../modules/infra-name.yml
 
+# Collect hosted zone id value
 - import_tasks: ../../../modules/hosted-zone-id.yml
 
-- import_tasks: ../../../modules/build-stack.yml
+- import_tasks: 1-network.yml
+- import_tasks: 2-sec.yml
+- import_tasks: 3-bootstrap.yml
+- import_tasks: 4-control-plane.yml

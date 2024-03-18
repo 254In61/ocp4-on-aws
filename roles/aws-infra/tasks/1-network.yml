@@ -1,0 +1,10 @@
+---
+# Create network and loadbalancers objects
+- name: network - Set root name
+  set_fact:
+    root_name: "{{ ntwk_and_lbs }}"
+
+- import_tasks: ../../../modules/build-stack.yml
+
+# Collect network-and-loadbalancers cloudformation stack details
+- import_tasks: ../../../modules/obtain-stack-info.yml

@@ -1,0 +1,10 @@
+---
+# Creating security groups and roles
+- name: sec - Set root name
+  set_fact:
+    root_name: "{{ sec_grp }}"
+
+- import_tasks: ../../../modules/build-stack.yml
+
+# Collect security & IAM cloudformation stack details
+- import_tasks: ../../../modules/obtain-stack-info.yml

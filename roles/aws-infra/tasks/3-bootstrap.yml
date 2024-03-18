@@ -1,30 +1,4 @@
 ---
-# Collect vpc cloudformation stack details
-- name: "sec- - Collect {{ vpc }} stack details"
-  set_fact:
-    root_name: "{{ vpc }}"
-
-- import_tasks: ../../../modules/obtain-stack-info.yml
-
-# Collect network-and-loadbalancers cloudformation stack details
-- name: "sec - Collect {{ ntwk_and_lbs }} stack details"
-  set_fact:
-    root_name: "{{ ntwk_and_lbs }}"
-
-- import_tasks: ../../../modules/obtain-stack-info.yml
-
-# Collect sec groups and IAM roles cloudformation stack details
-- name: "sec - Collect {{ sec_grp }} stack details"
-  set_fact:
-    root_name: "{{ sec_grp }}"
-
-- import_tasks: ../../../modules/obtain-stack-info.yml
-
-- import_tasks: ../../../modules/infra-name.yml
-
-- import_tasks: ../../../modules/hosted-zone-id.yml
-
-
 # - You must create the bootstrap node in Amazon Web Services (AWS) to use during OpenShift Container Platform cluster initialization. 
 # - The provided CloudFormation Template assumes that the Ignition config files for your cluster are served from an S3 bucket. 
 # - Create an S3 bucket which will hold the bootstrap.ign ignition file to your cluster.Then upload a copy of the file to the S3 bucket.
