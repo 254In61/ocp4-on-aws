@@ -32,3 +32,12 @@ Invalid value: \"m4.xlarge\": instance type supported architectures [amd64] do n
 Solution
 --------
 Changed to m6g.large for worker & m6g.xlarge for master
+
+Issue 5
+========
+AccessDenied: User: arn:aws:sts::****:assumed-role/Ec2SSMRole/i-037a0e1a4e854add6 is not authorized to perform: route53:ListHostedZones because no identity-based policy allows the route53:ListHostedZones action
+
+Issue 6
+========
+fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["openshift-install", "create", "manifests", "--dir", "/home/ubuntu/"], "delta": "0:00:02.730667", "end": "2024-03-18 07:00:57.097329", "msg": "non-zero return code", "rc": 1, "start": "2024-03-18 07:00:54.366662", "stderr": "level=info msg=Credentials loaded from the AWS config using \"EC2RoleProvider\" provider\nlevel=info msg=Consuming Install Config from target directory\nlevel=fatal msg=failed to fetch Openshift Manifests: failed to generate asset \"Openshift Manifests\": AWS credentials provided by EC2RoleProvider are not valid for default credentials mode", "stderr_lines": ["level=info msg=Credentials loaded from the AWS config using \"EC2RoleProvider\" provider", "level=info msg=Consuming Install Config from target directory", "level=fatal msg=failed to fetch Openshift Manifests: failed to generate asset \"Openshift Manifests\": AWS credentials provided by EC2RoleProvider are not valid for default credentials mode"], "stdout": "", "stdout_lines": []}
+

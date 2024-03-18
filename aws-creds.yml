@@ -1,6 +1,6 @@
 ---
-# Playbook for building AWS network resources
-- name: Build AWS network resources
+# Playbook for building AWS resources
+- name: Build AWS Resources
   hosts: localhost
   gather_facts: false
 
@@ -10,4 +10,4 @@
         dir: group_vars
       
     - import_role:
-        name: ntwk-lbs
+        name: aws-creds

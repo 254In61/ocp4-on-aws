@@ -24,14 +24,20 @@ Prerequisites
 
 YOUR LOCAL ENVIRONMENT(PC)
 --------------------------
+1. CLONE REPO & ENV VARIABLES
+   1.1)Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
+   1.2)Create local environmental variables file & update your local env: 
+      - $ cp template-local-env-vars $HOME/local-env-vars 
+      - ** You don't want to git commit your AWS secrets by mistake right? That's why we have them outside this git repo**
+      - Update the variables in $HOME/local-env-vars. 
+      - ** NB : Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
+      - Set your environmental variables : $ source $HOME/local-env-vars
+
+2. SET AWS CREDENTAILS
+   - $ ansible-playbook aws-creds.yml
 
 1. VPC BUILD 
-  - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
-  - $ cp template-local-env-vars $HOME/lacal-env-vars 
-    - ** You don't want to git commit your AWS secrets by mistake right? That's why we have them outside this git repo**
-  - Update the variables in $HOME/local-env-vars. 
-    - ** NB : Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
-  - Set your environmental variables : $ source $HOME/local-env-vars
+  
   - Run : $ ansible-playbook vpc-build.yml
 
 2. BASTION/JumpServer EC2 CREATION
