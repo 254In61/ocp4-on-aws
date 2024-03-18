@@ -26,8 +26,8 @@ cfn_templates_store: aws-cfn-templates
 master_replicas: 1
 worker_replicas: 1
 hyperthreading: Enabled
-master_ec2_instance_type: m4.xlarge
-worker_ec2_instance_type: m4.large
+master_ec2_instance_type: m6g.xlarge
+worker_ec2_instance_type: m6g.large
 aws_machine_arch: arm64
 
 # Root names
