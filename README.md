@@ -82,7 +82,7 @@ PHASE 2 : ON BASTION EC2
 
 7. BUILD AWS INFRA
    7.1) Build network and load balancers : $ ansible-playbook network.yml
-   
+   7.2) Build security groups and iam roles : $ ansible-playbook sec-grp.yml
    
 11. CLUSTER BUILD
    - Run : $ openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug

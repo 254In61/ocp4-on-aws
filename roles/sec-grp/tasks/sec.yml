@@ -1,15 +1,26 @@
 ---
+# Collect vpc cloudformation stack details
+- name: "sec- - Collect {{ vpc }} stack details"
+  set_fact:
+    root_name: "{{ vpc }}"
+
+- import_tasks: ../../../modules/obtain-stack-info.yml
+
+# Collect network-and-loadbalancers cloudformation stack details
+- name: "sec - Collect {{ ntwk_and_lbs }} stack details"
+  set_fact:
+    root_name: "{{ ntwk_and_lbs }}"
+
+- import_tasks: ../../../modules/obtain-stack-info.yml
+
+- import_tasks: ../../../modules/infra-name.yml
+
+- import_tasks: ../../../modules/hosted-zone-id.yml
+
 # Creating security groups and roles
 - name: sec - Set root name
   set_fact:
     root_name: "{{ sec_grp }}"
-     
-- import_tasks: ../../../modules/build-stack.yml
 
-- name: "{{ root_name }} - Set outputs as variables"
-  set_fact:
-    MasterInstanceProfile: "{{ stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'MasterInstanceProfile' ] }}"
-    MasterSecurityGroupId: "{{ stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'MasterSecurityGroupId' ] }}"
-    WorkerInstanceProfile: "{{ stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'WorkerInstanceProfile' ] }}"
-    WorkerSecurityGroupId: "{{ stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'WorkerSecurityGroupId' ] }}"
+- import_tasks: ../../../modules/build-stack.yml
     
