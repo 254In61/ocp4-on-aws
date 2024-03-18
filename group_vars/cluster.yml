@@ -40,6 +40,7 @@ sec_grp: sec
 ntwk_and_lbs: network
 
 # Directory where all the action happens. Ensure it is outside this git repository to prevent leackage of secrets or sensitive documents online
+# If you change this, lots of things could go wrong ;) .. Don't say I didn't warn you!
 install_dir: "{{ lookup('ansible.builtin.env', 'HOME') }}" 
 
 # S3 bucket to store ignition files.

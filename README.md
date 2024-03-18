@@ -58,24 +58,31 @@ BASTION EC2
      - *** NB: 1. Leave line 1 as it is . 2. DO NOT change the environmental variables names..Just update the value after '=' **
    - Set your environmental variables : $ source $HOME/ec2-env-vars
 
-6. PREPARE EC2 LINUX ENVIRONMENT
+6. COPY PULL-SECRET TO $HOME
+   - Yes! There's a script that will read it from here.
+   - If you change this lots could go wrong ;) ..Don't say I didn't warn you!
+   - $ cat > ~/pull-secret.txt
+     - Copy paste your pull-secret data here.
+     - cntl + c to exit and save.
+
+7. PREPARE EC2 LINUX ENVIRONMENT
    - Run $ scripts/ec2-env-prep.sh
 
-7. START SSH AGENT
+8. START SSH AGENT
    - Start the ssh agent : $ eval $(ssh-agent)
 
-8. BUILD IGNITION CONFIGURATION FILES
-   8.1) Build the install-config.yaml file : $ ansible-playbook install-config-yaml-build.yml
+9. BUILD IGNITION CONFIGURATION FILES
+   9.1) Build the install-config.yaml file : $ ansible-playbook install-config-yaml-build.yml
        - Confirm your $HOME/install-config.yaml file is as per your expectaions.
-   8.2) Build the manifests files : $ ansible-playbook manifests-build.yml
+   9.2) Build the manifests files : $ ansible-playbook manifests-build.yml
        - Check the $HOME/manifests files.
-   8.3) Build the ignition config files : $ ansible-playbook ignition-build.yml
+   9.3) Build the ignition config files : $ ansible-playbook ignition-build.yml
 
-9. BUILD AWS INFRA
-   9.1) Build network and load balancers : $ ansible-playbook network.yml
+10. BUILD AWS INFRA
+   10.1) Build network and load balancers : $ ansible-playbook network.yml
    
    
-10. CLUSTER BUILD
+11. CLUSTER BUILD
    - Run : $ openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
    - ** This will kickstart terraform scripts that will build the AWS infra upto the end..
    - ** Grab some coffee since it will take some time.
