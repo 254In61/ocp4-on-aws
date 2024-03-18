@@ -35,9 +35,9 @@ YOUR LOCAL ENVIRONMENT(PC)
   - Run : $ ansible-playbook vpc-build.yml
 
 2. BASTION/JumpServer EC2 CREATION
-  - Create an EC2 to act as Bastion.
+  - Create an EC2 to act as Bastio.
   - Go for bigger capacity than the free ones. You will need the cpu and capacity to build the cluster faster.
-  - EC2 to be within one of the private subnets
+  - EC2 to be within one of the public subnets
   - Check Output of vpc cloudformation stack
 
 3. SSH INTO BASTION EC2
