@@ -81,14 +81,16 @@ PHASE 2 : ON BASTION EC2
    - NB: Backups for all created files will be created just incase you need to troubleshoot.
 
 7. BUILD AWS INFRA
-   7.1) Build network and load balancers : $ ansible-playbook network.yml
-   7.2) Build security groups and iam roles : $ ansible-playbook sec-grp.yml
-   7.3) Create the bootstrap node in AWS to use during OCP cluster initialization : $ ansible-playbook bootstrap.yml
-   
-11. CLUSTER BUILD
-   - Run : $ openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
-   - ** This will kickstart terraform scripts that will build the AWS infra upto the end..
+   - Build aws infra resources : $ ansible-playbook aws-infra.yml
+
+8.  INITIALIZE BOOTSTRAP
+   - Initializing the bootstrap node on AWS with user-provisioned infrastructure 
+   - $ openshift-install wait-for bootstrap-complete --dir=$HOME --log-level info
    - ** Grab some coffee since it will take some time.
+   - If the command exits without a FATAL warning, your production control plane has initialized.
+
+9. CREATE WORKER NODE
+   - $ ansible-playbook worker.yml
 
 DESTROY AWS RESOURCES
 ======================
