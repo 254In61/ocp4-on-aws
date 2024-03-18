@@ -268,9 +268,21 @@ Resources:
       VpcId: !Ref VPC
 
 Outputs:
+  # VPC ID
   VpcId:
     Description: ID of the new VPC.
     Value: !Ref VPC
+
+  # Public Subnets
+  PublicSubnet1:
+    Description: Subnet IDs of the 1st public subnet
+    Value: !Ref PublicSubnet
+  PublicSubnet2:
+    Description: Subnet IDs of the 2nd public subnet
+    Value: !Ref PublicSubnet2
+  PublicSubnet3:
+    Description: Subnet IDs of the 3rd public subnet
+    Value: !Ref PublicSubnet3
   PublicSubnetIds:
     Description: Subnet IDs of the public subnets.
     Value:
@@ -278,6 +290,17 @@ Outputs:
         ",",
         [!Ref PublicSubnet, !If [DoAz2, !Ref PublicSubnet2, !Ref "AWS::NoValue"], !If [DoAz3, !Ref PublicSubnet3, !Ref "AWS::NoValue"]]
       ]
+  
+  # Private Subnets
+  PrivateSubnet1:
+    Description: Subnet IDs of the 1st private subnet
+    Value: !Ref PrivateSubnet
+  PrivateSubnet2:
+    Description: Subnet IDs of the 2nd private subnet
+    Value: !Ref PrivateSubnet2
+  PrivateSubnet3:
+    Description: Subnet IDs of the 3rd private subnet
+    Value: !Ref PrivateSubnet3
   PrivateSubnetIds:
     Description: Subnet IDs of the private subnets.
     Value:

@@ -2,10 +2,7 @@
 # Creating network objects
 - name: network - Set root name
   set_fact:
-    root_name: network
-
-- set_fact:
-    stack_name: "{{ root_name }}-cfn-stack"
+    root_name: "{{ ntwk_and_lbs }}"
 
 - name: "{{ root_name }} - extract and view the infrastructure name from the Ignition config file metadata"
   command: jq -r .infraID {{ install_dir }}/metadata.json
@@ -26,7 +23,7 @@
     InfrastructureName: "{{ infra_name['stdout'] }}"
     HostedZoneId: "{{ hosted_zone_output['stdout'] }}"
 
-- import_tasks: build-stack.yml
+- import_tasks: ../../../modules/build-stack.yml
 
 - name: "{{ root_name }} - Set outputs as variables"
   set_fact:

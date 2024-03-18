@@ -5,10 +5,7 @@
 
 - name: bootstrap - Set root name
   set_fact:
-    root_name: bootstrap
-
-- set_fact:
-    stack_name: "{{ root_name }}-cfn-stack"
+    root_name: "{{ bootstrap }}"
 
 - name: create-bootstrap-node - Build S3 bucket to store the bootstrap.ign file
   amazon.aws.s3_bucket:
@@ -30,7 +27,7 @@
 #   register: s3_files_check
 #   failed_when: "'bootstrap.ing' not in s3_files_check.stdout"
 
-- import_tasks: build-stack.yml
+- import_tasks: ../../../modules/build-stack.yml
 
 - name: "{{ root_name }} - Set outputs as variables"
   set_fact:

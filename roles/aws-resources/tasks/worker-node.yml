@@ -3,11 +3,13 @@
 # The CloudFormation template creates a stack that represents one worker machine. You must create a stack for each worker machine.
 # You must create at least two worker machines, so you must create at least two stacks that use this CloudFormation template.
 
+# Build worker
+- set_fact:
+    root_name: "{{ worker }}"
 
 # Common variables for all worker nodes
 - name: worker-node - Set root name and ignition file name
   set_fact:
-    root_name: worker-node
     ign_file: "{{ install_dir }}/worker.ign"
     cert_string_file: "{{ install_dir }}/worker-ign-cert.txt"
     max_range_value: "{{ worker_replicas + 1 }}"
@@ -22,8 +24,4 @@
 # From here, building different worker nodes.
 # Yeees! I should this within a loop! But I don't have much time to keep testing that.
 
-# Build worker
-- set_fact:
-    stack_name: "{{ root_name }}-cfn-stack"
-
-- import_tasks: build-stack.yml
+- import_tasks: ../../../modules/build-stack.yml

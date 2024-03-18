@@ -1,5 +1,4 @@
 ---
-vpc_cfn_stack: "{{ cluster_name }}-vpc-stack"   # Cloudformations stack for vpc
 # aws_rhos_ami: "{{ lookup('ansible.builtin.env', 'RHCOS_AWS_AMI') }}"
 VpcCidr: 10.0.0.0/16
 AvailabilityZoneCount: 3

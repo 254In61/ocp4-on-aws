@@ -1,0 +1,16 @@
+---
+- name: delete-cfn-stack - Set cluster name
+  set_fact:
+    stack_name: "{{ cluster_name }}-{{ root_name }}-stack"
+
+- name: "delete-cfn-stack - {{ stack_name }} - Delete CloudFormation Stacks"
+  cloudformation:
+    stack_name: "{{ stack_name }}"
+    state: absent
+  register: stack_deletion_result
+  ignore_errors: yes
+
+
+    
+
+    

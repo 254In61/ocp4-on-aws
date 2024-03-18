@@ -16,3 +16,12 @@ worker_replicas: 1
 hyperthreading: Enabled
 master_ec2_instance_type: m4.xlarge
 worker_ec2_instance_type: m4.xlarge
+
+# Root names
+vpc: vpc
+bastion: bastion
+bootstrap: bootstrap
+worker: worker-node
+master: control-plane
+sec_grp: sec
+ntwk_and_lbs: network

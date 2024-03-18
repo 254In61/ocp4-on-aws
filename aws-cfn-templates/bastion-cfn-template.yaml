@@ -1,18 +1,24 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Template for Jump Server Launch (EC2 instance)
+Description: Template for Bastion Launch (EC2 instance)
 
 Parameters:
   JumpServerAmi:
-    Description: AMI to use for the Jump Server
+    Description: AMI to use for the Bastion
     Type: AWS::EC2::Image::Id
   Subnet:
-    Description: The subnets to launch the node into.
+    Description: The subnet to launch the node into.
     Type: AWS::EC2::Subnet::Id
   EC2InstanceType:
     Description: EC2 instance type
     Type: String
   SshKeyPair:
-    Desciption: Remote ssh key pair
+    Description: Remote ssh key pair
+    Type: String
+  VpcId:
+    Description: The VPC-scoped resources will belong to this VPC.
+    Type: AWS::EC2::VPC::Id
+  VpcCidr:
+    Description: The VPC-scoped resources will belong to this supernet.
     Type: String
 
 Metadata:
@@ -61,25 +67,13 @@ Resources:
                 Resource: "*"
       Tags:
         - Key: "Name"
-          Value: "ocpv4-jump-server-iam-role"
+          Value: "ocpv4-bastion-iam-role"
 
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Jump Server Security Group allowing ssh traffic
       SecurityGroupIngress:
-      - IpProtocol: icmp
-        FromPort: 0
-        ToPort: 0
-        CidrIp: !Ref VpcCidr
-      - IpProtocol: http
-        FromPort: 80
-        ToPort: 80
-        CidrIp: !Ref VpcCidr
-      - IpProtocol: https
-        FromPort: 443
-        ToPort: 443
-        CidrIp: !Ref VpcCidr
       - IpProtocol: tcp
         FromPort: 22
         ToPort: 22
@@ -87,7 +81,7 @@ Resources:
       VpcId: !Ref VpcId
       Tags:
         - Key: "Name"
-          Value: "ocpv4-jump-server-sec-grp"
+          Value: "ocpv4-bastion-sec-grp"
   JumpServerEC2:
     Type: AWS::EC2::Instance
     Properties:
@@ -108,7 +102,7 @@ Resources:
         SubnetId: !Ref "Subnet"
       Tags:
       - Key: "Name"
-        Value: "ocpv4-jump-server"
+        Value: "ocpv4-bastion"
 
 Outputs:
   PublicDnsName:

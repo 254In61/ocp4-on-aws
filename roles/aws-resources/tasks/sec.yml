@@ -2,12 +2,9 @@
 # Creating security groups and roles
 - name: sec - Set root name
   set_fact:
-    root_name: sec
-    
-- set_fact:
-    stack_name: "{{ root_name }}-cfn-stack"
-  
-- import_tasks: build-stack.yml
+    root_name: "{{ sec_grp }}"
+     
+- import_tasks: ../../../modules/build-stack.yml
 
 - name: "{{ root_name }} - Set outputs as variables"
   set_fact:

@@ -1,8 +1,10 @@
 ---
 # Re-usable steps to build stack
-- set_fact:
+- name: "build-stack -{{ root_name }}- Setting variables"
+  set_fact:
     template_body_file: "{{ cfn_templates_store }}/{{ root_name}}-cfn-template.yaml"
-    parameters_file: "{{ json_parameters_store }}/{{ root_name }}-params.json"
+    parameters_file: "{{ install_dir }}/{{ root_name }}-params.json"
+    stack_name: "{{ cluster_name }}-{{ root_name }}-stack"
 
 - name: "build-stack -{{ stack_name }}- Build parameters file"
   template:
@@ -41,9 +43,9 @@
       command: "aws cloudformation create-stack --stack-name {{ stack_name }} --region {{ aws_region }} --template-body file://{{ template_body_file }} --parameters file://{{ parameters_file }} --capabilities CAPABILITY_NAMED_IAM"
       # when: root_name != "vpc"
 
-    - name: "build-stack -{{ stack_name }} - Sleep for 5 minutes until stack reaches CREATE_COMPLETE status"
+    - name: "build-stack -{{ stack_name }} - Sleep for 3 minutes until stack reaches CREATE_COMPLETE status"
       wait_for:
-        timeout: 300
+        timeout: 180
       delegate_to: localhost
 
   when: stack_exist["failed"]!=false

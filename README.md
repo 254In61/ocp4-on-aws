@@ -27,17 +27,18 @@ YOUR LOCAL ENVIRONMENT(PC)
 
 1. VPC BUILD 
   - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
-  - $ cp env-vars-files/sample-local-env-vars $HOME/env-vars 
-    - ** You don't want to git commit your AWS secrets by mistake right?That's why we have them outside this git repo**
+  - $ cp template-local-env-vars $HOME/lacal-env-vars 
+    - ** You don't want to git commit your AWS secrets by mistake right? That's why we have them outside this git repo**
   - Update the variables in $HOME/local-env-vars. 
     - ** NB : Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
   - Set your environmental variables : $ source $HOME/local-env-vars
   - Run : $ ansible-playbook vpc-build.yml
 
 2. BASTION/JumpServer EC2 CREATION
-  - Create a security pair to use and call it ocpv4-on-aws-key-pair. ** If you change this , then also change in group_vars/jump-server.yml file **
-  - Save your ocpv4-on-aws-key-pair.pem download from AWS Console. You will need this to ssh into the bastion
-  - Run : $ ansible-playbook bastion-build.yml
+  - Create an EC2 to act as Bastion.
+  - Go for bigger capacity than the free ones. You will need the cpu and capacity to build the cluster faster.
+  - EC2 to be within one of the private subnets
+  - Check Output of vpc cloudformation stack
 
 3. SSH INTO BASTION EC2
 
@@ -50,8 +51,8 @@ BASTION EC2
    - $ cd ocpv4-on-aws
 
 5. SET ENVIRONMENTAL VARIABLES
-   - $ cp env-vars/sample-ec2-env-vars $HOME/env-vars 
-     - ** You don't want to git commit your AWS secrets by mistake right?That's why we have them outside this git repo**
+   - $ cp template-ec2-env-vars $HOME/ec2-env-vars 
+     - ** You don't want to git commit your AWS secrets by mistake right? That's why we have them outside this git repo**
    - Update the variables in $HOME/env-vars. 
      - *** NB: 1. Leave line 1 as it is . 2. DO NOT change the environmental variables names..Just update the value after '=' **
    - Set your environmental variables : $ source $HOME/ec2-env-vars

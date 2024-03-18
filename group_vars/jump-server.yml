@@ -1,4 +1,0 @@
----
-jump_server_ami: ami-04f5097681773b989 # Canonical, Ubuntu, 22.04 LTS, amd64 jammy image build on 2023-12-07
-jump_server_ec2_instance_type: t3.2xlarge # Bigger capacity == Faster install
-ssh_key_pair_name: ocpv4-on-aws-key-pair  # Name your keypair
