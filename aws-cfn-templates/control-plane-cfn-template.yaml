@@ -48,7 +48,7 @@ Parameters:
     Description: IAM profile to associate with master nodes.
     Type: String
   MasterInstanceType:
-    Default: m5.xlarge
+    Description: EC2 instance type for Master Node
     Type: String
 
   AutoRegisterELB:
