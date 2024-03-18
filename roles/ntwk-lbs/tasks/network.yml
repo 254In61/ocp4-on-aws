@@ -6,7 +6,6 @@
 
 - import_tasks: ../../../modules/obtain-stack-info.yml
 
-
 # Create network and loadbalancers objects
 - name: network - Set root name
   set_fact:
