@@ -9,8 +9,8 @@
     stack_name: "{{ cfn_stack }}" 
   register: stack_info
 
-- debug:
-    var: stack_info
+# - debug:
+#     var: stack_info
 
 - name: "obtain-stack-info - {{ cluster_name }}-{{ vpc }}-stack"
   set_fact:
