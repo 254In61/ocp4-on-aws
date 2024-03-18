@@ -16,7 +16,7 @@
   set_fact:
     PrivateSubnet1: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet1' ] }}"
     PrivateSubnet2: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet2' ] }}"
-    PrivateSubnet1: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet2' ] }}"
+    PrivateSubnet3: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet3' ] }}"
     PrivateSubnetIds: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnetIds' ] }}"
     PublicRouteTableId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PublicRouteTableId' ] }}"
     PublicSubnet1: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PublicSubnet1' ] }}"
