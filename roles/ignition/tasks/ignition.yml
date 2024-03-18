@@ -19,6 +19,8 @@
 - name: ignition - Generate the ignition files for the cluster
   command: "openshift-install create ignition-configs --dir {{ install_dir }}/"
 
+- name: ignition - Backup the ignition files for future reference
+  shell: mkdir backup-ignition && cp *.ign backup-ignition/ && cp metadata.json backup-ignition/
 # The step will consume the files in /manifests and /openshift, then delete the directories at the end while creating the .ign files.
 # Ignition config files are created for the bootstrap(bootstrap.ign), control plane(master.ign), and compute nodes(worker.ign). 
 # The kubeadmin-password and kubeconfig files are created in the install-dir/auth directory:
