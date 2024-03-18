@@ -16,7 +16,7 @@ packages(){
 aws_cli(){
    echo "" && echo "===> installing AWS CLI"
    # AWS CLI
-   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip -o -q awscliv2.zip
+   curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip" && unzip -o -q awscliv2.zip
    sudo ./aws/install
    rm -rf awscliv2.zip
 }

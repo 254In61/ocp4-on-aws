@@ -49,3 +49,11 @@ Solution
 --------
 - The openshift-install tool will then use the AWS credentials from the CLI configuration.
 - In this case, the credentials are read from [default] profile in the ~/.aws/credentials & ~/.aws/config
+
+Issue 7
+=======
+"msg": "[Errno 8] Exec format error: b'aws'", "rc": 8}
+
+Solution
+--------
+Had installed AWS for the wrong machine architecture
