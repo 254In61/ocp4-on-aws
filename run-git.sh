@@ -4,3 +4,6 @@ git add *
 git add .gitignore
 git commit -m "$(date) - Updates"
 git push
+echo ""
+git status
+echo ""
