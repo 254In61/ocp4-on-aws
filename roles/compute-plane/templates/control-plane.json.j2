@@ -1,0 +1,74 @@
+[
+  {
+    "ParameterKey": "InfrastructureName", 
+    "ParameterValue": "{{ InfrastructureName }}"  
+  },
+  {
+    "ParameterKey": "RhcosAmi", 
+    "ParameterValue": "{{ aws_rhos_ami }}"  
+  },
+  {
+    "ParameterKey": "AutoRegisterDNS", 
+    "ParameterValue": "yes" 
+  },
+  {
+    "ParameterKey": "PrivateHostedZoneId", 
+    "ParameterValue": "{{ PrivateHostedZoneId }}" 
+  },
+  {
+    "ParameterKey": "PrivateHostedZoneName", 
+    "ParameterValue": "{{ PrivateHostedZoneName }}" 
+  },
+  {
+    "ParameterKey": "Master0Subnet", 
+    "ParameterValue": "{{ PrivateSubnetIds }}" 
+  },
+  {
+    "ParameterKey": "Master1Subnet", 
+    "ParameterValue": "{{ PrivateSubnetIds }}" 
+  },
+  {
+    "ParameterKey": "Master2Subnet", 
+    "ParameterValue": "{{ PrivateSubnetIds }}" 
+  },
+  {
+    "ParameterKey": "MasterSecurityGroupId", 
+    "ParameterValue": "{{ MasterSecurityGroupId }}" 
+  },
+  {
+    "ParameterKey": "IgnitionLocation", 
+    "ParameterValue": "https://api-int.{{ cluster_name }}.{{ base_domain }}:22623/config/master" 
+  },
+  {
+    "ParameterKey": "CertificateAuthorities", 
+    "ParameterValue": "{{ CertificateAuthorities }}" 
+  },
+  {
+    "ParameterKey": "MasterInstanceProfileName", 
+    "ParameterValue": "{{ MasterInstanceProfile }}" 
+  },
+  {
+    "ParameterKey": "MasterInstanceType", 
+    "ParameterValue": "m4.xlarge" 
+  },
+  {
+    "ParameterKey": "AutoRegisterELB", 
+    "ParameterValue": "yes" 
+  },
+  {
+    "ParameterKey": "RegisterNlbIpTargetsLambdaArn", 
+    "ParameterValue": "{{ RegisterNlbIpTargetsLambda }}" 
+  },
+  {
+    "ParameterKey": "ExternalApiTargetGroupArn", 
+    "ParameterValue": "{{ ExternalApiTargetGroupArn }}" 
+  },
+  {
+    "ParameterKey": "InternalApiTargetGroupArn", 
+    "ParameterValue": "{{ InternalApiTargetGroupArn }}" 
+  },
+  {
+    "ParameterKey": "InternalServiceTargetGroupArn", 
+    "ParameterValue": "{{ InternalServiceTargetGroupArn }}" 
+  }
+]

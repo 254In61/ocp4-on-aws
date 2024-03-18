@@ -1,0 +1,11 @@
+---
+# Role variables
+# Common variables
+cluster_name: "{{ lookup('ansible.builtin.env', 'CLUSTER_NAME') }}"
+base_domain: "{{ lookup('ansible.builtin.env', 'BASE_DOMAIN') }}"
+
+# Directory where all the action happens. Ensure it is outside this git repository to prevent leackage of secrets or sensitive documents online
+install_dir: "{{ lookup('ansible.builtin.env', 'HOME') }}" 
+
+# S3 bucket to store ignition files.
+s3_ignition_file_store: "{{ cluster_name }}-infra"

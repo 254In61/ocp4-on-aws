@@ -36,7 +36,9 @@ openshift_packages(){
 
    # Confirm packages have been installed.
    echo "" && echo "==> Confirm packages installed by checking versions"
-   openshift-install version && oc version && kubectl version --short
+   echo "" && openshift-install version
+   echo "" && oc version
+   echo "" && kubectl version
 
    ## To be checked??
    ## bash: /usr/local/bin/openshift-install: cannot execute binary file: Exec format error?? 

@@ -1,7 +1,7 @@
 apiVersion: v1
 baseDomain: {{ base_domain }}
 compute:
-- architecture: amd64
+- architecture: {{ aws_machine_arch }}
   hyperthreading: {{ hyperthreading }}
   name: worker
   platform:
@@ -17,7 +17,7 @@ compute:
       type: {{ worker_ec2_instance_type }}
   replicas: {{ worker_replicas }}
 controlPlane:
-  architecture: amd64
+  architecture: {{ aws_machine_arch }}
   hyperthreading: {{ hyperthreading }}
   name: master
   platform:

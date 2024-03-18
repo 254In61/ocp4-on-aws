@@ -1,0 +1,50 @@
+---
+# Collect vpc cloudformation stack output
+- name: Set variable
+  set_fact:
+    cfn_stack: "{{ cluster_name }}-{{ root_name }}-stack" 
+
+- name: "obtain-stack-info - Get {{ cfn_stack }} stack facts"
+  amazon.aws.cloudformation_info:
+    stack_name: "{{ cfn_stack }}" 
+  register: stack_info
+
+- debug:
+    var: stack_info
+
+- name: "vpc-info - Set outputs as variables"
+  set_fact:
+    PrivateSubnet1: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet1' ] }}"
+    PrivateSubnet2: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet2' ] }}"
+    PrivateSubnet1: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet2' ] }}"
+    PrivateSubnetIds: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnetIds' ] }}"
+    PublicRouteTableId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PublicRouteTableId' ] }}"
+    PublicSubnet1: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PublicSubnet1' ] }}"
+    PublicSubnet2: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PublicSubnet2' ] }}"
+    PublicSubnet3: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PublicSubnet3' ] }}"
+    PublicSubnetIds: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PublicSubnetIds' ] }}"
+    VpcId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'VpcId' ] }}"
+  when: root_name == vpc
+
+- name: "{{ root_name }} - Set outputs as variables"
+  set_fact:
+    ApiServerDnsName: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'ApiServerDnsName' ] }}"
+    ExternalApiLoadBalancerName: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'ExternalApiLoadBalancerName' ] }}"
+    ExternalApiTargetGroupArn: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'ExternalApiTargetGroupArn' ] }}"
+    InternalApiLoadBalancerName: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'InternalApiLoadBalancerName' ] }}"
+    InternalApiTargetGroupArn: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'InternalApiTargetGroupArn' ] }}"
+    InternalServiceTargetGroupArn: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'InternalServiceTargetGroupArn' ] }}"
+    PrivateHostedZoneId: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'PrivateHostedZoneId' ] }}"
+    RegisterNlbIpTargetsLambda: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'RegisterNlbIpTargetsLambda' ] }}"
+  when: root_name == ntwk_and_lbs
+
+- name: "{{ root_name }} - Set outputs as variables"
+  set_fact:
+    MasterInstanceProfile: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'MasterInstanceProfile' ] }}"
+    MasterSecurityGroupId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'MasterSecurityGroupId' ] }}"
+    WorkerInstanceProfile: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'WorkerInstanceProfile' ] }}"
+    WorkerSecurityGroupId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'WorkerSecurityGroupId' ] }}"
+  when: root_name == sec_grp
+  
+
+

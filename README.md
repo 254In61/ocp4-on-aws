@@ -35,7 +35,8 @@ YOUR LOCAL ENVIRONMENT(PC)
   - Run : $ ansible-playbook vpc-build.yml
 
 2. BASTION/JumpServer EC2 CREATION
-  - Create an EC2 to act as Bastio.
+  - Create an EC2 to act as Bastion. 
+     - NB: The scripts/ec2-env-prep.sh(Step 5) is designed for an Ubuntu OS & running on AWS ARM Architecture
   - Go for bigger capacity than the free ones. You will need the cpu and capacity to build the cluster faster.
   - EC2 to be within one of the public subnets
   - Check Output of vpc cloudformation stack
@@ -71,8 +72,9 @@ BASTION EC2
    8.3) Build the ignition config files : $ ansible-playbook ignition-build.yml
 
 9. BUILD AWS INFRA
-   - Run : $ ansible-playbook aws-resources-build.yml
-
+   9.1) Build network and load balancers : $ ansible-playbook network.yml
+   
+   
 10. CLUSTER BUILD
    - Run : $ openshift-install create cluster --dir=${INSTALL_DIR} --log-level debug
    - ** This will kickstart terraform scripts that will build the AWS infra upto the end..
