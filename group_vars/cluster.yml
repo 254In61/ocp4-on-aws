@@ -12,7 +12,7 @@ base_domain: "{{ lookup('ansible.builtin.env', 'BASE_DOMAIN') }}"
 cluster_network_cidr: 10.128.0.0/14
 cluster_network_hostprefix: 23
 machine_network_cidr: 10.0.0.0/16
-network_type: OpenShiftSDN
+network_type: OVNKubernetes #networkType OpenShiftSDN is deprecated, please use OVNKubernetes
 service_network: 172.30.0.0/16
 root_volume_iops: 4000
 root_volume_size: 500
