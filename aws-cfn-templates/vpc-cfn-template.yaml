@@ -47,12 +47,18 @@ Conditions:
   DoAz2: !Or [!Equals [2, !Ref AvailabilityZoneCount], Condition: DoAz3]
 
 Resources:
+  # 1. Build VPC
   VPC:
     Type: "AWS::EC2::VPC"
     Properties:
       EnableDnsSupport: "true"
       EnableDnsHostnames: "true"
       CidrBlock: !Ref VpcCidr
+      Tags:
+      - Key: Name
+      - Value: ocpv4-cluster-vpc
+
+  # 2. Build Public Subnets ( Those that don't route through NGW )
   PublicSubnet:
     Type: "AWS::EC2::Subnet"
     Properties:
@@ -61,6 +67,9 @@ Resources:
       AvailabilityZone: !Select
       - 0
       - Fn::GetAZs: !Ref "AWS::Region"
+      Tags:
+      - Key: Name
+      - Value: ocpv4-cluster-vpc-PublicSubnet1
   PublicSubnet2:
     Type: "AWS::EC2::Subnet"
     Condition: DoAz2
@@ -70,6 +79,9 @@ Resources:
       AvailabilityZone: !Select
       - 1
       - Fn::GetAZs: !Ref "AWS::Region"
+      Tags:
+      - Key: Name
+      - Value: ocpv4-cluster-vpc-PublicSubnet2
   PublicSubnet3:
     Type: "AWS::EC2::Subnet"
     Condition: DoAz3
@@ -79,17 +91,34 @@ Resources:
       AvailabilityZone: !Select
       - 2
       - Fn::GetAZs: !Ref "AWS::Region"
+      Tags:
+      - Key: Name
+      - Value: ocpv4-cluster-vpc-PublicSubnet3
+
+  # 3. Build the IGW 
+  #    - attach the IGW to the VPC
   InternetGateway:
     Type: "AWS::EC2::InternetGateway"
+    Properties:
+      Tags:
+      - Key: Name
+      - Value: ocpv4-cluster-vpc-IGW
   GatewayToInternet:
     Type: "AWS::EC2::VPCGatewayAttachment"
     Properties:
       VpcId: !Ref VPC
       InternetGatewayId: !Ref InternetGateway
+  
+  # 4. Build Route Table for Public Subnets
+  #    - Create a default route pointing IGW as the Gateway
+  #    - Associate the 3 public subnets to this Routing table.
   PublicRouteTable:
     Type: "AWS::EC2::RouteTable"
     Properties:
       VpcId: !Ref VPC
+      Tags:
+      - Key: Name
+      - Value: ocpv4-cluster-vpc-PublicRouteTable
   PublicRoute:
     Type: "AWS::EC2::Route"
     DependsOn: GatewayToInternet
@@ -114,6 +143,14 @@ Resources:
     Properties:
       SubnetId: !Ref PublicSubnet3
       RouteTableId: !Ref PublicRouteTable
+  
+  # 5. Create Private Subnet. For each subnet:
+  #    - Create Route Table per subnet
+  #    - Associate the private subnet to the Route Table.
+  #    - Create a NAT gateway
+  #    - NGW has a connection to Public Subnet
+  #    - EIP created and assigned to the NGE external network interface ( eni)
+  #    - Default route created the points to the NGW
   PrivateSubnet:
     Type: "AWS::EC2::Subnet"
     Properties:
@@ -122,6 +159,9 @@ Resources:
       AvailabilityZone: !Select
       - 0
       - Fn::GetAZs: !Ref "AWS::Region"
+      Tags:
+      - Key: Name
+      - Value: ocpv4-cluster-vpc-PrivateSubnet1
   PrivateRouteTable:
     Type: "AWS::EC2::RouteTable"
     Properties:
@@ -141,6 +181,9 @@ Resources:
         - EIP
         - AllocationId
       SubnetId: !Ref PublicSubnet
+      Tags:
+      - Key: Name
+      - Value: ocpv4-cluster-vpc-PrivateSubnet1-NGW
   EIP:
     Type: "AWS::EC2::EIP"
     Properties:
@@ -243,6 +286,12 @@ Resources:
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId:
         Ref: NAT3
+        
+  #6. VPC Endpoint is created.
+  # - The VPCE is a Gateway that allows access to the rest of AWS Cloud services without transiting through NGW or IGW.
+  # - It is less costly and traffic never leaves AWS Cloud.
+  # - AWS has prefixes within which the AWS services are hosted.
+  # - All the route table created are added to this GW.
   S3Endpoint:
     Type: AWS::EC2::VPCEndpoint
     Properties:

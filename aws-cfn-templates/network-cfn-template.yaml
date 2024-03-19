@@ -78,6 +78,7 @@ Resources:
       IpAddressType: ipv4
       Subnets: !Ref PublicSubnets
       Type: network
+      
   
   # Build Network ELB to loadbalance for the Private Subnets.
   IntApiElb:

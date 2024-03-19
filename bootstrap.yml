@@ -1,0 +1,13 @@
+---
+# Playbook for building  cluster Bootstrap
+- name: Build Cluster Bootstrap
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: include vars
+      include_vars:
+        dir: group_vars
+    
+    - import_role:
+        name: bootrap

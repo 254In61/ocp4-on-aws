@@ -1,0 +1,13 @@
+---
+# Playbook for building  master nodes
+- name: Build master nodes
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: include vars
+      include_vars:
+        dir: group_vars
+    
+    - import_role:
+        name: master
