@@ -78,12 +78,12 @@ PHASE 2 : ON BASTION EC2
    - Start the ssh agent : $ eval $(ssh-agent)
 
 6. BUILD IGNITION CONFIGURATION FILES
-   - $ ansible-playbook ignition-build.yml
+   - $ ansible-playbook ignition.yml
    - NB: Backups for all created files will be created just incase you need to troubleshoot.
 
 7. BUILD AWS SERVICES
    - Build aws network, loadbalancers, sec groups and IAM roles 
-   - Run : $ ansible-playbook aws-infra.yml
+   - Run : $ ansible-playbook aws-services.yml
 
 8. BOOTSTRAP
    - Build bootstrap
