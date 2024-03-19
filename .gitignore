@@ -15,3 +15,8 @@ copy-*
 
 # Candles
 files/candles.md
+
+# bastion
+bastion/.terraform/
+bastion/.terraform.lock.hcl
+bastion/variables.tf

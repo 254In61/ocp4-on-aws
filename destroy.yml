@@ -44,11 +44,13 @@
         state: absent
       register: stack_deletion_result
       ignore_errors: yes
-
-    - name: "destroy - {{ cluster_name }}-{{ vpc }}-stack"
-      cloudformation:
-        stack_name: "{{ cluster_name }}-{{ vpc }}-stack"
-        state: absent
-      register: stack_deletion_result
-      ignore_errors: yes
+    
+    # Keeping the VPC around..Not costing much, right? :) 
+    
+    # - name: "destroy - {{ cluster_name }}-{{ vpc }}-stack"
+    #   cloudformation:
+    #     stack_name: "{{ cluster_name }}-{{ vpc }}-stack"
+    #     state: absent
+    #   register: stack_deletion_result
+    #   ignore_errors: yes
 
