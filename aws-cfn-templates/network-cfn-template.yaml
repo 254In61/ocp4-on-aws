@@ -71,6 +71,7 @@ Metadata:
 Resources:
   # ====> LOADBALANCERS
   # Building Network ELB that loadbalances for the Public Subnets of the VPC
+  # Clients external to the cluster needing to reach K*s API and its extensions
   ExtApiElb:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -78,7 +79,7 @@ Resources:
       IpAddressType: ipv4
       Subnets: !Ref PublicSubnets
       Type: network
-      
+
   
   # Build Network ELB to loadbalance for the Private Subnets.
   IntApiElb:
