@@ -8,6 +8,9 @@
     - name: include vars
       include_vars:
         dir: group_vars
+
+    - import_role:
+        name: aws-creds
     
     - import_role:
         name: aws-services
