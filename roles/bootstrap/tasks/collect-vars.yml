@@ -13,9 +13,9 @@
 - import_tasks: ../../../modules/hosted-zone-id.yml
 
 # Collect network and load balancers details
-- name: "Collect {{ ntwk_and_lbs }} stack info"
+- name: "Collect {{ lbs_dns }} stack info"
   set_fact:
-    root_name: "{{ ntwk_and_lbs }}"
+    root_name: "{{ lbs_dns }}"
 
 - import_tasks: ../../../modules/obtain-stack-info.yml
 

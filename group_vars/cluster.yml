@@ -37,7 +37,7 @@ bootstrap: bootstrap
 worker: worker
 master: master
 sec_grp: sec
-ntwk_and_lbs: network
+lbs_dns: lb-dns
 
 # Directory where all the action happens. Ensure it is outside this git repository to prevent leackage of secrets or sensitive documents online
 # If you change this, lots of things could go wrong ;) .. Don't say I didn't warn you!

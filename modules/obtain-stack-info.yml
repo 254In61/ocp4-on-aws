@@ -26,7 +26,7 @@
     VpcId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'VpcId' ] }}"
   when: root_name == vpc
 
-- name: "obtain-stack-info - {{ cluster_name }}-{{ ntwk_and_lbs }}-stack"
+- name: "obtain-stack-info - {{ cluster_name }}-{{ lbs_dns }}-stack"
   set_fact:
     ApiServerDnsName: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'ApiServerDnsName' ] }}"
     ExternalApiLoadBalancerName: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'ExternalApiLoadBalancerName' ] }}"
@@ -36,7 +36,7 @@
     InternalServiceTargetGroupArn: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'InternalServiceTargetGroupArn' ] }}"
     PrivateHostedZoneId: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'PrivateHostedZoneId' ] }}"
     RegisterNlbIpTargetsLambda: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'RegisterNlbIpTargetsLambda' ] }}"
-  when: root_name == ntwk_and_lbs
+  when: root_name == lbs_dns
 
 - name: "obtain-stack-info - {{ cluster_name }}-{{ sec_grp }}-stack"
   set_fact:
