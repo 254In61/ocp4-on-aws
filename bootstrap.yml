@@ -10,4 +10,4 @@
         dir: group_vars
     
     - import_role:
-        name: bootrap
+        name: bootstrap
