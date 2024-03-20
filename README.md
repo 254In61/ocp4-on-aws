@@ -22,30 +22,25 @@ Prerequisites
 - Download the Pull-secret from https://console.redhat.com/openshift/install/pull-secret and save is somewhere. 
 - Ansible installed in your local environment.
 
+Assumptions
+-----------
+- AWS Machine architecture used is ARM for ALL the EC2s i.e Bastion, Bootstrap, Master, Worker.
+- Bastion EC2 AMI is Ubuntu Server 22.*
+
 PHASE 1 : ON YOUR LOCAL ENVIRONMENT(PC)
 -----------------------------------------
-1. CLONE REPO & ENV VARIABLES
-   1.1)Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
-   1.2)Create local environmental variables file & update your local env: 
-      - $ cp files/template-local-env-vars $HOME/local-env-vars 
-      - ** You don't want to git commit your AWS secrets by mistake right? That's why we have them outside this git repo**
-      - Update the variables in $HOME/local-env-vars. 
-      - ** NB : Leave line 1 as it is . DO NOT change the environmental variables names..Just update the value after '='
-      - Set your environmental variables : $ source $HOME/local-env-vars
+1. CLONE REPO
+   - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
 
-2. SET AWS CREDENTAILS
-   - $ ansible-playbook aws-creds.yml
+2. SET ENVIRONMENTAL VARIABLES
+   - Set your local environmental variables found files/env-vars as your template.
 
 3. VPC BUILD 
    - Run : $ ansible-playbook vpc-build.yml
 
 4. BASTION/JumpServer EC2 CREATION
-   - Create an EC2 to act as Bastion.
-   - You could use terraform IAC within bastion/ directory or any other way you like 
-     - NB: The scripts/ec2-env-prep.sh(Step 5) is designed for an Ubuntu OS & running on AWS ARM Architecture
-   - Go for bigger capacity than the free ones. You will need the cpu and capacity to build the cluster faster.
-   - EC2 to be within one of the public subnets
-   - Check Output of vpc cloudformation stack
+   - Create an EC2 to act as Bastion within the VPC created and within one of the Public Subnets
+   - You could use terraform IAC in bastion/
 
 5. SSH INTO BASTION EC2
 
@@ -53,53 +48,37 @@ PHASE 2 : ON BASTION EC2
 -------------------------
 
 1. CLONE REPOSITORY
-   1.1) Change Directory to ~/  : $ cd $HOME 
-   1.2) Clone down this git repository : $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
-   1.3) $ cd ocpv4-on-aws
-
+   - $ cd $HOME && git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
+   
 2. SET ENVIRONMENTAL VARIABLES
-   2.1) $ cp files/template-ec2-env-vars $HOME/env-vars 
-     - ** You don't want to git commit your AWS secrets by mistake right? That's why we have them outside this git repo**
-   2.2) Update the variables in $HOME/env-vars. 
-     - *** NB: 1. Leave line 1 as it is . 2. DO NOT change the environmental variables names..Just update the value after '=' **
-   2.3) Set your environmental variables : $ source $HOME/env-vars
+   - Set your local environmental variables found files/env-vars as your template.
 
 3. COPY PULL-SECRET TO $HOME
-   - Yes! There's a script that will read it from here.
-   - If you change this lots could go wrong ;) ..Don't say I didn't warn you!
    - $ cat > ~/pull-secret.txt
      - Copy paste your pull-secret data here.
      - cntl + c to exit and save.
 
 4. PREPARE EC2 LINUX ENVIRONMENT
-   - Run $ scripts/ec2-env-prep.sh
+   - Install needed packages : $ scripts/ec2-env-prep.sh
+   - Start the ssh agent     : $ eval $(ssh-agent)
 
-5. START SSH AGENT
-   - Start the ssh agent : $ eval $(ssh-agent)
-
-6. BUILD IGNITION CONFIGURATION FILES
+5. BUILD IGNITION CONFIGURATION FILES
    - $ ansible-playbook ignition.yml
-   - NB: Backups for all created files will be created just incase you need to troubleshoot.
 
-7. BUILD AWS SERVICES
-   - Build aws network, loadbalancers, sec groups and IAM roles 
+7. BUILD AWS SERVICES ( network, loadbalancers, sec groups and IAM roles) 
    - Run : $ ansible-playbook aws-services.yml
 
-8. BOOTSTRAP
-   - Build bootstrap
+8. BUILD BOOTSTRAP
    - Run : $ ansible-playbook bootstap.yml
 
-9. CONTROL PLANE
-   - Build master nodes
+9. BUILD CONTROL PLANE/MASTER NODES
    - Run : $ ansible-playbook master.yml
 
-10.  INITIALIZE BOOTSTRAP
-   - Initializing the bootstrap node on AWS with user-provisioned infrastructure 
+10. INITIALIZE BOOTSTRAP 
    - $ openshift-install wait-for bootstrap-complete --dir=$HOME --log-level info
-   - ** Grab some coffee since it will take some time.
    - If the command exits without a FATAL warning, your production control plane has initialized.
 
-11. CREATE WORKER NODE
+11. BUILD WORKER NODES
    - $ ansible-playbook worker.yml
 
 DESTROY AWS RESOURCES

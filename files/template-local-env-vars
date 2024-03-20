@@ -1,4 +1,0 @@
-export AWS_PROFILE=OCPV4_CLUSTER
-export REGION=<Your AWS Region>
-export ACCESS_KEY_ID=<Your AWS Access key ID>
-export SECRET_ACCESS_KEY=<Your AWS Secret access key>
