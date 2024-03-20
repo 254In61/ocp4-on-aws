@@ -34,8 +34,8 @@ aws_machine_arch: arm64
 # Root names
 vpc: vpc
 bootstrap: bootstrap
-worker: worker-node
-master: control-plane
+worker: worker
+master: master
 sec_grp: sec
 ntwk_and_lbs: network
 

@@ -69,9 +69,6 @@ Metadata:
         default: "Public Hosted Zone ID"
 
 Resources:
-  # ====> LOADBALANCERS
-  # Building Network ELB that loadbalances for the Public Subnets of the VPC
-  # Clients external to the cluster needing to reach K*s API and its extensions
   ExtApiElb:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -80,8 +77,6 @@ Resources:
       Subnets: !Ref PublicSubnets
       Type: network
 
-  
-  # Build Network ELB to loadbalance for the Private Subnets.
   IntApiElb:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -90,9 +85,6 @@ Resources:
       IpAddressType: ipv4
       Subnets: !Ref PrivateSubnets
       Type: network
-
-  # ===> DNS
-  # ==> Build privates hosted zone? .. Should be for internal consumption by Workers and Applications?
 
   IntDns:
     Type: "AWS::Route53::HostedZone"
@@ -109,7 +101,6 @@ Resources:
       - VPCId: !Ref VpcId
         VPCRegion: !Ref "AWS::Region"
   
-  # Build an A-Record within the public hosted Zone, routing traffic to the External NLB.
   ExternalApiServerRecord:
     Type: AWS::Route53::RecordSetGroup
     Properties:
@@ -126,7 +117,6 @@ Resources:
           HostedZoneId: !GetAtt ExtApiElb.CanonicalHostedZoneID
           DNSName: !GetAtt ExtApiElb.DNSName
   
-  # Building an A-Record within the Private Zone. Pointing this to the internal NLB
   InternalApiServerRecord:
     Type: AWS::Route53::RecordSetGroup
     Properties:
@@ -152,7 +142,6 @@ Resources:
           HostedZoneId: !GetAtt IntApiElb.CanonicalHostedZoneID
           DNSName: !GetAtt IntApiElb.DNSName
   
-  # API Listener for the External NLB
   ExternalApiListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
@@ -243,7 +232,6 @@ Resources:
       - Key: deregistration_delay.timeout_seconds
         Value: 60
   
-  # IAM Role
   RegisterTargetLambdaIamRole:
     Type: AWS::IAM::Role
     Properties:

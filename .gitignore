@@ -3,10 +3,6 @@
 # My git updates bash script..
 run-git.sh
 
-# Terraforn
-jump-server/.terraform.lock.hcl
-jump-server/.terraform/
-
 # Theory
 theory.md
 
@@ -14,7 +10,7 @@ theory.md
 copy-*
 
 # Candles
-files/candles.md
+files/
 
 # bastion
 bastion/.terraform/

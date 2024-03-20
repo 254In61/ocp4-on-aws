@@ -33,7 +33,7 @@ PHASE 1 : ON YOUR LOCAL ENVIRONMENT(PC)
    - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
 
 2. SET ENVIRONMENTAL VARIABLES
-   - Set your local environmental variables found files/env-vars as your template.
+   - Set your local environmental variables found in env-vars.
 
 3. VPC BUILD 
    - Run : $ ansible-playbook vpc-build.yml
@@ -51,7 +51,7 @@ PHASE 2 : ON BASTION EC2
    - $ cd $HOME && git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
    
 2. SET ENVIRONMENTAL VARIABLES
-   - Set your local environmental variables found files/env-vars as your template.
+   - Set your local environmental variables found in env-vars.
 
 3. PULL-SECRET
    - Add to $HOME the pull-secret.txt obtained from https://console.redhat.com/openshift/install/pull-secret.

@@ -57,3 +57,35 @@ Issue 7
 Solution
 --------
 Had installed AWS for the wrong machine architecture
+
+Issue 8
+=======
+- $ openshift-install wait-for bootstrap-complete --dir=$HOME --log-level info
+INFO Waiting up to 20m0s (until 2:33AM UTC) for the Kubernetes API at https://api.ocp4-apse2-99.lab-aws.ldcloud.com.au:6443... 
+ERROR Attempted to gather ClusterOperator status after wait failure: listing ClusterOperator objects: Get "https://api.ocp4-apse2-99.lab-aws.ldcloud.com.au:6443/apis/config.openshift.io/v1/clusteroperators": dial tcp 10.0.89.18:6443: connect: connection refused 
+INFO Use the following commands to gather logs from the cluster 
+INFO openshift-install gather bootstrap --help    
+ERROR Bootstrap failed to complete: Get "https://api.ocp4-apse2-99.lab-aws.ldcloud.com.au:6443/version": dial tcp 10.0.55.20:6443: connect: connection refused 
+ERROR Failed waiting for Kubernetes API. This error usually happens when there is a problem on the bootstrap host that prevents creating a temporary control plane. 
+
+
+Solution
+--------
+- Looking at Ext LB listeners, all of them are Unhealthy? Why? Could this be an issue?
+
+$ curl -vv https://api.ocp4-apse2-99.lab-aws.ldcloud.com.au:6443
+*   Trying 10.0.69.169:6443...
+* connect to 10.0.69.169 port 6443 failed: Connection refused
+*   Trying 10.0.89.18:6443...
+* connect to 10.0.89.18 port 6443 failed: Connection refused
+*   Trying 10.0.55.20:6443...
+* connect to 10.0.55.20 port 6443 failed: Connection refused
+* Failed to connect to api.ocp4-apse2-99.lab-aws.ldcloud.com.au port 6443 after 7 ms: Connection refused
+* Closing connection 0
+curl: (7) Failed to connect to api.ocp4-apse2-99.lab-aws.ldcloud.com.au port 6443 after 7 ms: Connection refused
+
+# Checkin which IP my EC2 is using as the source of curl.
+$ curl ifconfig.me
+3.25.167.23
+
+Could this be the reason why I am getting blocked? Sec Grp for Master and Bootstraps 
