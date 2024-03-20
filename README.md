@@ -63,7 +63,7 @@ PHASE 2 : ON BASTION EC2
 5. BUILD IGNITION CONFIGURATION FILES
    - $ ansible-playbook ignition.yml
 
-7. BUILD AWS SERVICES ( network, loadbalancers, sec groups and IAM roles) 
+7. BUILD AWS SERVICES ( dns, loadbalancers, sec groups and IAM roles) 
    - Run : $ ansible-playbook aws-services.yml
 
 8. BUILD BOOTSTRAP

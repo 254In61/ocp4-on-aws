@@ -1,8 +1,8 @@
 ---
 # Create network and loadbalancers objects
-- name: network - Set root name
+- name: lb-dns - Set root name
   set_fact:
-    root_name: "{{ ntwk_and_lbs }}"
+    root_name: "{{ lbs_dns }}"
 
 - import_tasks: ../../../modules/build-stack.yml
 

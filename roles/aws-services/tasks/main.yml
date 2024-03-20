@@ -1,5 +1,5 @@
 ---
 # Build AWS resources
 - import_tasks: collect-vars.yml
-- import_tasks: lbs-dns.yml
+- import_tasks: lb-dns.yml
 - import_tasks: sec.yml
