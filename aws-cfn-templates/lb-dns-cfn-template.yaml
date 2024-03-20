@@ -69,6 +69,18 @@ Metadata:
         default: "Public Hosted Zone ID"
 
 Resources:
+  ExtApiElbSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: External LB Security Group
+      SecurityGroupIngress:
+      - IpProtocol: '-1'  # -1 indicates all protocols
+        CidrIp: 0.0.0.0/0  # Allow traffic from anywhere
+      VpcId: !Ref VpcId
+      Tags:
+        - Key: Name
+          Value: ExtApiElbSecurityGroup
+
   ExtApiElb:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -76,6 +88,19 @@ Resources:
       IpAddressType: ipv4
       Subnets: !Ref PublicSubnets
       Type: network
+      SecurityGroups: [!Ref ExtApiElbSecurityGroup]
+  
+  IntApiElbSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Internal LB Security Group
+      SecurityGroupIngress:
+      - IpProtocol: '-1'  # -1 indicates all protocols
+        CidrIp: 0.0.0.0/0  # Allow traffic from anywhere
+      VpcId: !Ref VpcId
+      Tags:
+      - Key: Name
+        Value: IntApiElbSecurityGroup
 
   IntApiElb:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
@@ -85,6 +110,7 @@ Resources:
       IpAddressType: ipv4
       Subnets: !Ref PrivateSubnets
       Type: network
+      SecurityGroups: [!Ref IntApiElbSecurityGroup]
 
   IntDns:
     Type: "AWS::Route53::HostedZone"
