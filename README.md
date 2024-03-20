@@ -53,10 +53,8 @@ PHASE 2 : ON BASTION EC2
 2. SET ENVIRONMENTAL VARIABLES
    - Set your local environmental variables found files/env-vars as your template.
 
-3. COPY PULL-SECRET TO $HOME
-   - $ cat > ~/pull-secret.txt
-     - Copy paste your pull-secret data here.
-     - cntl + c to exit and save.
+3. PULL-SECRET
+   - Add to $HOME the pull-secret.txt obtained from https://console.redhat.com/openshift/install/pull-secret.
 
 4. PREPARE EC2 LINUX ENVIRONMENT
    - Install needed packages : $ scripts/ec2-env-prep.sh

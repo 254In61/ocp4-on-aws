@@ -1,4 +1,11 @@
 ---
+# Collect network and loadbalancers stack details
+- name: sec - Set root name
+  set_fact:
+    root_name: "{{ ntwk_and_lbs }}"
+
+- import_tasks: ../../../modules/obtain-stack-info.yml
+
 # Creating security groups and roles
 - name: sec - Set root name
   set_fact:
@@ -6,5 +13,3 @@
 
 - import_tasks: ../../../modules/build-stack.yml
 
-# Collect security & IAM cloudformation stack details
-- import_tasks: ../../../modules/obtain-stack-info.yml
