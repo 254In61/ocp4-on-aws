@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Template for OpenShift Cluster Node Launch (EC2 worker instance)
+Description: Template for OpenShift Cluster Worker Nodes Launch
 
 Parameters:
   InfrastructureName:
@@ -32,7 +32,7 @@ Parameters:
   WorkerInstanceType:
     Default: m5.large
     Type: String
-
+  
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
