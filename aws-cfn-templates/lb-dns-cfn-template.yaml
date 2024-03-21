@@ -398,6 +398,12 @@ Resources:
       Subnets: !Ref PrivateSubnets
 
 Outputs:
+  ExtApiElbSecurityGroupId:
+    Description: External LB Sec Group ID
+    Value: !Ref ExtApiElbSecurityGroup.GroupId
+  IntApiElbSecurityGroupId:
+    Description: Internal LB Sec Group ID
+    Value: !Ref IntApiElbSecurityGroup.GroupId
   PrivateHostedZoneId:
     Description: Hosted zone ID for the private DNS, which is required for private records.
     Value: !Ref IntDns

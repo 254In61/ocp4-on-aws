@@ -21,6 +21,12 @@ Parameters:
   PrivateSubnets:
     Description: The internal subnets.
     Type: List<AWS::EC2::Subnet::Id>
+  ExtApiElbSecurityGroupId:
+    Description: Security Group for loadbalancer.
+    Type: AWS::EC2::SecurityGroup
+  IntApiElbSecurityGroupId:
+    Description: Security Group for loadbalancer.
+    Type: AWS::EC2::SecurityGroup
 
 Metadata:
   AWS::CloudFormation::Interface:
@@ -98,6 +104,26 @@ Resources:
       Description: etcd
       FromPort: 2379
       ToPort: 2380
+      IpProtocol: tcp
+
+  MasterIngressExternalLoadBalancer:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt MasterSecurityGroup.GroupId
+      SourceSecurityGroupId: !Ref ExtApiElbSecurityGroupId
+      Description: externallb
+      FromPort: 6443
+      ToPort: 6443
+      IpProtocol: tcp
+  
+  MasterIngressInternalLoadBalancer:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt MasterSecurityGroup.GroupId
+      SourceSecurityGroupId: !Ref IntApiElbSecurityGroupId
+      Description: internallb
+      FromPort: 6443
+      ToPort: 6443
       IpProtocol: tcp
 
   MasterIngressVxlan:

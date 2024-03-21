@@ -31,6 +31,8 @@
     ApiServerDnsName: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'ApiServerDnsName' ] }}"
     ExternalApiLoadBalancerName: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'ExternalApiLoadBalancerName' ] }}"
     ExternalApiTargetGroupArn: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'ExternalApiTargetGroupArn' ] }}"
+    ExtApiElbSecurityGroupId: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'ExtApiElbSecurityGroupId' ] }}"
+    IntApiElbSecurityGroupId: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'IntApiElbSecurityGroupId' ] }}"
     InternalApiLoadBalancerName: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'InternalApiLoadBalancerName' ] }}"
     InternalApiTargetGroupArn: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'InternalApiTargetGroupArn' ] }}"
     InternalServiceTargetGroupArn: "{{ stack_info.cloudformation[ cfn_stack  ][ 'stack_outputs' ][ 'InternalServiceTargetGroupArn' ] }}"
