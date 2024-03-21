@@ -67,7 +67,7 @@ PHASE 2 : ON BASTION EC2
    - Run : $ ansible-playbook aws-services.yml
 
 8. BUILD BOOTSTRAP
-   - Run : $ ansible-playbook bootstap.yml
+   - Run : $ ansible-playbook bootstrap.yml
 
 9. BUILD CONTROL PLANE/MASTER NODES
    - Run : $ ansible-playbook master.yml
