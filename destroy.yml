@@ -38,9 +38,9 @@
       register: stack_deletion_result
       ignore_errors: yes
 
-    - name: "destroy - {{ cluster_name }}-{{ ntwk_and_lbs }}-stack"
+    - name: "destroy - {{ cluster_name }}-{{ lbs_dns }}-stack"
       cloudformation:
-        stack_name: "{{ cluster_name }}-{{ ntwk_and_lbs }}-stack"
+        stack_name: "{{ cluster_name }}-{{ lbs_dns }}-stack"
         state: absent
       register: stack_deletion_result
       ignore_errors: yes
