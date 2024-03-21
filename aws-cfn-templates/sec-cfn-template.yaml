@@ -23,10 +23,10 @@ Parameters:
     Type: List<AWS::EC2::Subnet::Id>
   ExtApiElbSecurityGroupId:
     Description: Security Group for loadbalancer.
-    Type: AWS::EC2::SecurityGroup
+    Type: AWS::EC2::SecurityGroup::Id
   IntApiElbSecurityGroupId:
     Description: Security Group for loadbalancer.
-    Type: AWS::EC2::SecurityGroup
+    Type: AWS::EC2::SecurityGroup::Id
 
 Metadata:
   AWS::CloudFormation::Interface:
