@@ -56,7 +56,7 @@ Resources:
       CidrBlock: !Ref VpcCidr
       Tags:
       - Key: "Name"
-      - Value: "ocpv4-vpc"
+        Value: "ocpv4-vpc"
 
   # 2. Build Public Subnets ( Those that don't route through NGW )
   PublicSubnet:
@@ -69,7 +69,7 @@ Resources:
       - Fn::GetAZs: !Ref "AWS::Region"
       Tags:
       - Key: "Name"
-      - Value: "PublicSubnet1"
+        Value: "PublicSubnet1"
   PublicSubnet2:
     Type: "AWS::EC2::Subnet"
     Condition: DoAz2
@@ -81,7 +81,7 @@ Resources:
       - Fn::GetAZs: !Ref "AWS::Region"
       Tags:
       - Key: "Name"
-      - Value: "PublicSubnet2"
+        Value: "PublicSubnet2"
   PublicSubnet3:
     Type: "AWS::EC2::Subnet"
     Condition: DoAz3
@@ -93,7 +93,7 @@ Resources:
       - Fn::GetAZs: !Ref "AWS::Region"
       Tags:
       - Key: "Name"
-      - Value: "PublicSubnet3"
+        Value: "PublicSubnet3"
 
   # 3. Build the IGW 
   #    - attach the IGW to the VPC
@@ -102,7 +102,7 @@ Resources:
     Properties:
       Tags:
       - Key: Name
-      - Value: "vpc-IGW"
+        Value: "vpc-IGW"
   GatewayToInternet:
     Type: "AWS::EC2::VPCGatewayAttachment"
     Properties:
@@ -118,7 +118,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
       - Key: "Name"
-      - Value: "PublicRouteTable"
+        Value: "PublicRouteTable"
   PublicRoute:
     Type: "AWS::EC2::Route"
     DependsOn: GatewayToInternet
@@ -161,7 +161,7 @@ Resources:
       - Fn::GetAZs: !Ref "AWS::Region"
       Tags:
       - Key: "Name"
-      - Value: "PrivateSubnet1"
+        Value: "PrivateSubnet1"
   PrivateRouteTable:
     Type: "AWS::EC2::RouteTable"
     Properties:
@@ -183,7 +183,7 @@ Resources:
       SubnetId: !Ref PublicSubnet
       Tags:
       - Key: "Name"
-      - Value: "PrivateSubnet1-NGW"
+        Value: "PrivateSubnet1-NGW"
   EIP:
     Type: "AWS::EC2::EIP"
     Properties:
@@ -207,7 +207,7 @@ Resources:
       - Fn::GetAZs: !Ref "AWS::Region"
       Tags:
       - Key: "Name"
-      - Value: "PrivateSubnet2"
+        Value: "PrivateSubnet2"
   PrivateRouteTable2:
     Type: "AWS::EC2::RouteTable"
     Condition: DoAz2
@@ -232,7 +232,7 @@ Resources:
       SubnetId: !Ref PublicSubnet2
       Tags:
       - Key: "Name"
-      - Value: "PrivateSubnet2-NGW"
+        Value: "PrivateSubnet2-NGW"
   EIP2:
     Type: "AWS::EC2::EIP"
     Condition: DoAz2
@@ -258,7 +258,7 @@ Resources:
       - Fn::GetAZs: !Ref "AWS::Region"
       Tags:
       - Key: "Name"
-      - Value: "PrivateSubnet3"
+        Value: "PrivateSubnet3"
   PrivateRouteTable3:
     Type: "AWS::EC2::RouteTable"
     Condition: DoAz3
@@ -283,7 +283,7 @@ Resources:
       SubnetId: !Ref PublicSubnet3
       Tags:
       - Key: "Name"
-      - Value: "PrivateSubnet3-NGW"
+        Value: "PrivateSubnet3-NGW"
   EIP3:
     Type: "AWS::EC2::EIP"
     Condition: DoAz3
