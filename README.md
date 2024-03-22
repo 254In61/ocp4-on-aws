@@ -59,11 +59,11 @@ PHASE 2 : ON BASTION EC2
 4. AWS INFRA
   - Run : $ ./build-infra.sh
 
-10. INITIALIZE BOOTSTRAP 
+5. INITIALIZE BOOTSTRAP 
    - $ openshift-install wait-for bootstrap-complete --dir=$HOME --log-level info
    - If the command exits without a FATAL warning, your production control plane has initialized.
 
-11. BUILD WORKER NODES
+6. BUILD WORKER NODES
    - $ ansible-playbook worker.yml
 
 DESTROY AWS RESOURCES

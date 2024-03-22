@@ -1,7 +1,30 @@
 ---
 # Control plane tasks
-# You must create the control plane machines in Amazon Web Services (AWS) for your cluster to use. 
-- name: control-plane - Set root name
+# You must create the control plane machines in Amazon Web Services (AWS) for your cluster to use.
+
+# Collect vpc cloudformation stack details
+- name: "master - Collect {{ vpc }} stack info"
+  set_fact:
+    root_name: "{{ vpc }}"
+
+- import_tasks: ../../../modules/set-vars.yml
+
+# Collect network and load balancers details
+- name: "master - Collect {{ lbs_dns }} stack info"
+  set_fact:
+    root_name: "{{ lbs_dns }}"
+
+- import_tasks: ../../../modules/set-vars.yml
+
+# Collect sec groups and IAM roles details
+- name: "master - Collect {{ sec_grp }} stack info"
+  set_fact:
+    root_name: "{{ sec_grp }}"
+
+- import_tasks: ../../../modules/set-vars.yml
+
+# Build Master Nodes
+- name: master - control-plane - Set root name
   set_fact:
     root_name: "{{ master }}"
     ign_file: "{{ install_dir }}/master.ign"

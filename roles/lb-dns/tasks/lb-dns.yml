@@ -1,4 +1,11 @@
 ---
+# Collect vpc cloudformation stack details
+- name: "lb-dn - Collect {{ vpc }} stack details"
+  set_fact:
+    root_name: "{{ vpc }}"
+
+- import_tasks: ../../../modules/set-vars.yml
+
 # Create network and loadbalancers objects
 - name: lb-dns - Set root name
   set_fact:

@@ -4,7 +4,7 @@
   set_fact:
     cfn_stack: "{{ cluster_name }}-{{ root_name }}-stack" 
 
-- name: "modules/obtain-stack-info - Get {{ cfn_stack }} stack facts"
+- name: "modules/set-vars - Get {{ cfn_stack }} stack facts"
   amazon.aws.cloudformation_info:
     stack_name: "{{ cfn_stack }}" 
   register: stack_info
@@ -12,7 +12,7 @@
 # - debug:
 #     var: stack_info
 
-- name: "modules/obtain-stack-info - {{ cluster_name }}-{{ vpc }}-stack"
+- name: "modules/set-vars - {{ cluster_name }}-{{ vpc }}-stack"
   set_fact:
     PrivateSubnet1: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet1' ] }}"
     PrivateSubnet2: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet2' ] }}"
@@ -26,7 +26,7 @@
     VpcId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'VpcId' ] }}"
   when: root_name == vpc
 
-- name: "modules/obtain-stack-info - {{ cluster_name }}-{{ lbs_dns }}-stack"
+- name: "modules/set-vars - {{ cluster_name }}-{{ lbs_dns }}-stack"
   set_fact:
     ApiServerDnsName:              "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'ApiServerDnsName' ] }}"
     ExternalApiLoadBalancerName:   "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'ExternalApiLoadBalancerName' ] }}"
@@ -40,7 +40,7 @@
     RegisterNlbIpTargetsLambda:    "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'RegisterNlbIpTargetsLambda' ] }}"
   when: root_name == lbs_dns
 
-- name: "modules/obtain-stack-info - {{ cluster_name }}-{{ sec_grp }}-stack"
+- name: "modules/set-vars - {{ cluster_name }}-{{ sec_grp }}-stack"
   set_fact:
     MasterInstanceProfile: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'MasterInstanceProfile' ] }}"
     MasterSecurityGroupId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'MasterSecurityGroupId' ] }}"
@@ -48,9 +48,28 @@
     WorkerSecurityGroupId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'WorkerSecurityGroupId' ] }}"
   when: root_name == sec_grp
   
-- name: "modules/obtain-stack-info - {{ cluster_name }}-{{ bootstrap }}-stack"
+- name: "modules/set-vars - {{ cluster_name }}-{{ bootstrap }}-stack"
   set_fact:
     BootstrapInstanceId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'BootstrapInstanceId' ] }}"
     BootstrapPrivateIp: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'BootstrapPrivateIp' ] }}"
     BootstrapPublicIp: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'BootstrapPublicIp' ] }}"
   when: root_name == bootstrap
+
+- name: "modules/set-vars d - Obtain the hosted zone ID for the Route 53 base domain"
+  shell: "aws route53 list-hosted-zones-by-name --dns-name {{ base_domain }} --query 'HostedZones[0].Id' --output text | sed 's#/hostedzone/##'"
+  register: hosted_zone_output
+
+# - debug:
+#     var: hosted_zone_output
+
+- name: "modules/set-vars - {{ root_name }} - extract and view the infrastructure name from the Ignition config file metadata"
+  command: jq -r .infraID {{ install_dir }}/metadata.json
+  register: infra_name
+
+# - debug:
+#     var: infra_name
+
+- name: "modules/set-vars - {{ root_name }} - set values"
+  set_fact:
+    InfrastructureName: "{{ infra_name['stdout'] }}"
+    HostedZoneId: "{{ hosted_zone_output['stdout'] }}"

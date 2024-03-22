@@ -3,6 +3,27 @@
 # - The provided CloudFormation Template assumes that the Ignition config files for your cluster are served from an S3 bucket. 
 # - Create an S3 bucket which will hold the bootstrap.ign ignition file to your cluster.Then upload a copy of the file to the S3 bucket.
 
+# Collect vpc cloudformation stack details
+- name: "bootstrap - Collect {{ vpc }} stack info"
+  set_fact:
+    root_name: "{{ vpc }}"
+
+- import_tasks: ../../../modules/set-vars.yml
+
+# Collect network and load balancers details
+- name: "bootstrap - Collect {{ lbs_dns }} stack info"
+  set_fact:
+    root_name: "{{ lbs_dns }}"
+
+- import_tasks: ../../../modules/set-vars.yml
+
+# Collect sec groups and IAM roles details
+- name: "bootstrap - Collect {{ sec_grp }} stack info"
+  set_fact:
+    root_name: "{{ sec_grp }}"
+
+- import_tasks: ../../../modules/set-vars.yml
+
 - name: bootstrap - Set root name
   set_fact:
     root_name: "{{ bootstrap }}"
