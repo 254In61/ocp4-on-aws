@@ -14,7 +14,7 @@ ssh_agent(){
 build_infra(){
    
     echo "" && echo "==> Build baseline infra"
-    ansible-playbook pre-infra.yml
+    ansible-playbook base-infra.yml
 }
 
 
