@@ -2,6 +2,7 @@
 
 1_prep_ec2(){
     scripts/ec2-env-prep.sh
+    eval $(ssh-agent)
 }
 
 2_ignition_files(){
