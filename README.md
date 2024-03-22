@@ -57,7 +57,7 @@ PHASE 2 : ON BASTION EC2
    - Add to $HOME the pull-secret.txt obtained from https://console.redhat.com/openshift/install/pull-secret.
 
 4. AWS INFRA
-  - Run : $ ./aws-infra.sh
+  - Run : $ ./build-infra.sh
 
 10. INITIALIZE BOOTSTRAP 
    - $ openshift-install wait-for bootstrap-complete --dir=$HOME --log-level info

@@ -20,9 +20,6 @@ build_infra(){
 
 prep_ec2
 ssh_agent
-ignition_files
-aws_services
-bootstrap
-master
+build_infra
 
 
