@@ -1,37 +1,41 @@
 #!/usr/bin/bash
 
-prep_ec2(){
-    scripts/ec2-env-prep.sh
-    eval $(ssh-agent)
-}
-
 ignition_files(){
+    echo "" && echo "==> Start the ssh agent"
+    eval $(ssh-agent)
+
+    echo "" && echo "==> Build ignition configuration files"
     ansible-playbook ignition.yml
 }
 
-lab_dns(){
+aws_services(){
+    echo "" && echo "==> Build dns, loadbalancers, sec groups and IAM roles"
     ansible-playbook aws-services.yml
 }
 
 bootstrap(){
+    echo "" && echo "==> Build bootstrap machine"
     ansible-playbook bootstrap.yml
 }
 
 master(){
+    echo "" && echo "==> Build cluster master nodes"
     ansible-playbook master.yml
 }
 
 initialize_bootstrap(){
+    echo "" && echo "==> Initialize Bootstrap"
     openshift-install wait-for bootstrap-complete --dir=$HOME --log-level info
 }
 
 worker(){
+    echo "" && echo "==> Build cluster worker nodes"
     ansible-playbook worker.yml
 }
 
 prep_ec2
 ignition_files
-lb_dns
+aws_services
 bootstrap
 master
 # 5_initialize_bootstrap
