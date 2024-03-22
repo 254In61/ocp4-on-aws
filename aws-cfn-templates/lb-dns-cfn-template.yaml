@@ -88,7 +88,7 @@ Resources:
       IpAddressType: ipv4
       Subnets: !Ref PublicSubnets
       Type: network
-      SecurityGroups: [!Ref ExtApiElbSecurityGroup]
+      # SecurityGroups: [!Ref ExtApiElbSecurityGroup] Couldn't resolved dig with this here
   
   IntApiElbSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -110,7 +110,7 @@ Resources:
       IpAddressType: ipv4
       Subnets: !Ref PrivateSubnets
       Type: network
-      SecurityGroups: [!Ref IntApiElbSecurityGroup]
+      # SecurityGroups: [!Ref IntApiElbSecurityGroup] Couldn't resolved dig with this here
 
   IntDns:
     Type: "AWS::Route53::HostedZone"
