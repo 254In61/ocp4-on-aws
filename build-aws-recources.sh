@@ -1,34 +1,39 @@
 #!/usr/bin/bash
 
-1_prep_ec2(){
+prep_ec2(){
     scripts/ec2-env-prep.sh
     eval $(ssh-agent)
 }
 
-2_ignition_files(){
+ignition_files(){
     ansible-playbook ignition.yml
 }
 
-3_bootstrap(){
+lab_dns(){
+    ansible-playbook aws-services.yml
+}
+
+bootstrap(){
     ansible-playbook bootstrap.yml
 }
 
-4_master(){
+master(){
     ansible-playbook master.yml
 }
 
-5_initialize_bootstrap(){
+initialize_bootstrap(){
     openshift-install wait-for bootstrap-complete --dir=$HOME --log-level info
 }
 
-6_worker(){
+worker(){
     ansible-playbook worker.yml
 }
 
-1_prep_ec2
-2_ignition_files
-3_bootstrap
-4_master
+prep_ec2
+ignition_files
+lb_dns
+bootstrap
+master
 # 5_initialize_bootstrap
 # 6_worker
 
