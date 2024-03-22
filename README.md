@@ -56,23 +56,8 @@ PHASE 2 : ON BASTION EC2
 3. PULL-SECRET
    - Add to $HOME the pull-secret.txt obtained from https://console.redhat.com/openshift/install/pull-secret.
 
-4. PREPARE EC2 LINUX ENVIRONMENT
-   - Install needed packages : $ scripts/ec2-env-prep.sh
-
-5. SSH AGENT
-   - Start the ssh agent     : $ eval $(ssh-agent)
-
-6. BUILD IGNITION CONFIGURATION FILES
-   - $ ansible-playbook ignition.yml
-
-7. BUILD AWS SERVICES ( dns, loadbalancers, sec groups and IAM roles) 
-   - Run : $ ansible-playbook aws-services.yml
-
-8. BUILD BOOTSTRAP
-   - Run : $ ansible-playbook bootstrap.yml
-
-9. BUILD CONTROL PLANE/MASTER NODES
-   - Run : $ ansible-playbook master.yml
+4. AWS INFRA
+  - Run : $ ./aws-infra.sh
 
 10. INITIALIZE BOOTSTRAP 
    - $ openshift-install wait-for bootstrap-complete --dir=$HOME --log-level info
