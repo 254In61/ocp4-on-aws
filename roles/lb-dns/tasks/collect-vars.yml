@@ -1,0 +1,13 @@
+---
+# Collect vpc cloudformation stack details
+- name: " collect-vars - Collect {{ vpc }} stack details"
+  set_fact:
+    root_name: "{{ vpc }}"
+
+- import_tasks: ../../../modules/obtain-stack-info.yml
+
+# Collect infra name
+- import_tasks: ../../../modules/infra-name.yml
+
+# Collect hosted zone id value
+- import_tasks: ../../../modules/hosted-zone-id.yml

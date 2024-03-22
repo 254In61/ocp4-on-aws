@@ -6,5 +6,7 @@
 
 - import_tasks: ../../../modules/build-stack.yml
 
-# Collect network-and-loadbalancers cloudformation stack details
-- import_tasks: ../../../modules/obtain-stack-info.yml
+- name: "lb-dns - Sleep for 5 minutes for Api Server Dns Name to build in the lb-dns stack"
+  wait_for:
+    timeout: 300
+  delegate_to: localhost

@@ -1,0 +1,8 @@
+---
+# Creating security groups and roles
+- name: sec - Set root name
+  set_fact:
+    root_name: "{{ sec_grp }}"
+
+- import_tasks: ../../../modules/build-stack.yml
+

@@ -4,7 +4,7 @@
   set_fact:
     cfn_stack: "{{ cluster_name }}-{{ root_name }}-stack" 
 
-- name: "obtain-stack-info - Get {{ cfn_stack }} stack facts"
+- name: "modules/obtain-stack-info - Get {{ cfn_stack }} stack facts"
   amazon.aws.cloudformation_info:
     stack_name: "{{ cfn_stack }}" 
   register: stack_info
@@ -12,7 +12,7 @@
 # - debug:
 #     var: stack_info
 
-- name: "obtain-stack-info - {{ cluster_name }}-{{ vpc }}-stack"
+- name: "modules/obtain-stack-info - {{ cluster_name }}-{{ vpc }}-stack"
   set_fact:
     PrivateSubnet1: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet1' ] }}"
     PrivateSubnet2: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'PrivateSubnet2' ] }}"
@@ -26,7 +26,7 @@
     VpcId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'VpcId' ] }}"
   when: root_name == vpc
 
-- name: "obtain-stack-info - {{ cluster_name }}-{{ lbs_dns }}-stack"
+- name: "modules/obtain-stack-info - {{ cluster_name }}-{{ lbs_dns }}-stack"
   set_fact:
     ApiServerDnsName:              "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'ApiServerDnsName' ] }}"
     ExternalApiLoadBalancerName:   "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'ExternalApiLoadBalancerName' ] }}"
@@ -40,7 +40,7 @@
     RegisterNlbIpTargetsLambda:    "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'RegisterNlbIpTargetsLambda' ] }}"
   when: root_name == lbs_dns
 
-- name: "obtain-stack-info - {{ cluster_name }}-{{ sec_grp }}-stack"
+- name: "modules/obtain-stack-info - {{ cluster_name }}-{{ sec_grp }}-stack"
   set_fact:
     MasterInstanceProfile: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'MasterInstanceProfile' ] }}"
     MasterSecurityGroupId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'MasterSecurityGroupId' ] }}"
@@ -48,7 +48,7 @@
     WorkerSecurityGroupId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'WorkerSecurityGroupId' ] }}"
   when: root_name == sec_grp
   
-- name: "obtain-stack-info - {{ cluster_name }}-{{ bootstrap }}-stack"
+- name: "modules/obtain-stack-info - {{ cluster_name }}-{{ bootstrap }}-stack"
   set_fact:
     BootstrapInstanceId: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'BootstrapInstanceId' ] }}"
     BootstrapPrivateIp: "{{ stack_info.cloudformation[ cfn_stack ][ 'stack_outputs' ][ 'BootstrapPrivateIp' ] }}"

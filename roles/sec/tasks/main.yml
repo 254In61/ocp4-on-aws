@@ -1,0 +1,4 @@
+---
+# Build AWS resources
+- import_tasks: collect-vars.yml
+- import_tasks: sec.yml
