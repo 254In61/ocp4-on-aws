@@ -50,10 +50,10 @@
 
   when: stack_exist["failed"]!=false
 
-- name: "build-stack - {{ stack_name }} - Get CloudFormation stack facts"
-  amazon.aws.cloudformation_info:
-    stack_name: "{{ stack_name }}"
-  register: stack_info
+# - name: "build-stack - {{ stack_name }} - Get CloudFormation stack facts"
+#   amazon.aws.cloudformation_info:
+#     stack_name: "{{ stack_name }}"
+#   register: stack_info
 
-- debug:
-    var: stack_info
+# - debug:
+#     var: stack_info
