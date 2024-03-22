@@ -12,6 +12,9 @@
     
     - import_role:
         name: aws-creds
-        
+
+    - name: Start the ssh agent 
+      shell: 'eval $(ssh-agent)'
+
     - import_role:
         name: ignition
