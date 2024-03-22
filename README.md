@@ -58,9 +58,11 @@ PHASE 2 : ON BASTION EC2
 
 4. PREPARE EC2 LINUX ENVIRONMENT
    - Install needed packages : $ scripts/ec2-env-prep.sh
+
+5. SSH AGENT
    - Start the ssh agent     : $ eval $(ssh-agent)
 
-5. BUILD IGNITION CONFIGURATION FILES
+6. BUILD IGNITION CONFIGURATION FILES
    - $ ansible-playbook ignition.yml
 
 7. BUILD AWS SERVICES ( dns, loadbalancers, sec groups and IAM roles) 
@@ -88,9 +90,6 @@ DESTROY AWS RESOURCES
 DESTROY CLUSTER
 ================
 - This destroys the cluster and leaves the VPC and Bastion intact
-- Destroying based on tag? ***
-- Run this from the Bastion
-
 - $ openshift-install destroy cluster --log-level debug
   
 
