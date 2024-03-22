@@ -39,7 +39,3 @@
     CertificateAuthorities: "{{ lookup('ansible.builtin.file', '{{ cert_string_file }}') }}"
 
 - import_tasks: ../../../modules/build-stack.yml
-
-- name: "{{ root_name }} - Set outputs as variables"
-  set_fact:
-    PrivateIPs: "{{ stack_info.cloudformation[ stack_name ][ 'stack_outputs' ][ 'PrivateIPs' ] }}"
