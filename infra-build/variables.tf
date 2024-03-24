@@ -11,7 +11,7 @@ variable "region"{
 }
 
 variable "cluster_name"{
-  default = ocp4-apse2-77
+  default = "ocp4-apse2-77"
   type    = string
 }
 
