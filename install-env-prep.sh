@@ -3,7 +3,7 @@
 base_packages(){
    # Installing jq, yq, wget, curl, unzip, ansible
    echo "" && echo "===>Installing jq, wget, curl, unzip, ansible"
-   sudo apt update && sudo apt upgrade
+   sudo apt update y && sudo apt upgrade -y
    sudo apt install -y jq wget curl unzip ansible
    
    # Install yq
@@ -13,7 +13,7 @@ base_packages(){
 terraform_install(){
    echo "" && echo "===>Installing terraform"
    # 1. You’ll need curl and some software-properties-common packages to add the repository key and repository.
-   sudo apt install curl software-properties-common
+   sudo apt install -y curl software-properties-common
    
    # 2. Add the HashiCorp Repository
    # Terraform is developed by HashiCorp, and you need to add the HashiCorp GPG (GNU Privacy Guard) key 
@@ -23,7 +23,7 @@ terraform_install(){
    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 
    # Install Terraform
-   sudo apt update && sudo apt install terraform
+   sudo apt update y && sudo apt install -y terraform
 
    terraform version
 }
