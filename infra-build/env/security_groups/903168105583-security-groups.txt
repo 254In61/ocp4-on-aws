@@ -1,0 +1,30 @@
+{ 
+  # Ensure sg name key below does not start with "sg-"
+  ext_liferay_sg  = {
+                      description = "Security Group for External Liferay ALB"
+                      sg_ingress  = {
+                                      test_NAT2          = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["44.225.79.62/32"],    self = false }
+                                      leonardo_melbourne = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["60.242.35.138/32"],   self = false }
+                                      awssso-swatson     = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["12.181.77.186/32"],   self = false }
+                                      awssso-ksanches    = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["122.3.190.196/32"],   self = false }
+                                      awssso-fzahire     = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["162.192.42.22/32"],   self = false }
+                                      awssso-jshi        = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["175.39.135.55/32"],   self = false }
+                                      aws-amguire        = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["101.182.36.172/32"],  self = false }
+                                      awssso-nsiregar    = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["220.233.8.65/32"],    self = false }
+                                      soliman            = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["182.239.165.41/32"], self = false }
+                                      awssso-rharvey     = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["76.214.44.151/32"],   self = false }
+                                      awssso-rbissel     = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["47.150.9.109/32"],    self = false }
+                                      slee               = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["116.255.35.250/32"],  self = false }
+                                      awssso-hdenolf     = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["71.221.133.151/32"],  self = false }
+                                      awssso-ljeganathan = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["124.188.132.197/32"], self = false }
+                                      awssso-nyoung      = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["49.105.83.159/32"],   self = false }
+                                      awssso-abirch      = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["124.184.198.238/32"], self = false }
+                                      awssso-hneil       = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["137.147.222.15/32"],  self = false }
+                                      test_NAT1          = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["52.33.11.135/32"],    self = false }
+                                      leo                = { from_port = 443,  to_port = 443,   protocol = "tcp", cidr_blocks = ["121.200.7.101/32"],   self = false }
+                                    }
+                       sg_egress  = {
+                                      All-Egress      = { from_port = 0,    to_port = 0,     protocol = "-1",  cidr_blocks = ["0.0.0.0/0"], self = false }
+                                    }
+                     }
+}

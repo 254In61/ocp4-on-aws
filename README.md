@@ -27,8 +27,28 @@ Assumptions
 - AWS Machine architecture used is ARM for ALL the EC2s i.e Bastion, Bootstrap, Master, Worker.
 - Bastion EC2 AMI is Ubuntu Server 22.*
 
+
+PHASE 1 : BASTION EC2
+----------------------
+- Build Bastion/Jump Server. Could be a different VPC or a default VPC.** Assumption is Ubuntu 22.0* server & ARM arch.
+- SSH into the bastion EC2.
+
+PHASE 2 : INSTALL ENV PREP & IGNITION FILES BUILD
+--------------------------------------------------
+- Clone repo : git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
+- Set your local environmental variables found in env-vars.
+- Add to $HOME the pull-secret.txt obtained from https://console.redhat.com/openshift/install/pull-secret.
+- Run script : $ ./install-env-prep.sh 
+
+PHASE 3 : BUILD INFRA
+----------------------
+*** Auto accept the terragrunt??.. Could be put into PHASE 2 script if yes!!
+
+
+
+
 PHASE 1 : ON YOUR LOCAL ENVIRONMENT(PC)
------------------------------------------
+----------------------------------------
 1. CLONE REPO
    - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
 

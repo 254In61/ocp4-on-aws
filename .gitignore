@@ -4,7 +4,7 @@
 run-git.sh
 
 # Theory
-theory.md
+theory*
 
 # Copy
 copy-*
@@ -16,3 +16,10 @@ files/
 bastion/.terraform/
 bastion/.terraform.lock.hcl
 bastion/variables.tf
+
+# infra-build
+infra-build/.terraform/
+infra-build/.terraform.lock.hcl
+
+# temp-files
+temp*
