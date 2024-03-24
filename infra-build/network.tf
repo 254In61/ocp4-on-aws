@@ -5,7 +5,7 @@ locals {
 ##############
 # VPC
 ##############
-resource "aws_vpc" "create_vpc" {
+resource "aws_vpc" "cluster_vpc" {
   cidr_block            = "${local.vpc_cidr}"
   enable_dns_hostnames  = true
   enable_dns_support    = true
@@ -22,11 +22,10 @@ resource "aws_vpc" "create_vpc" {
 
 // TO BE MADE DRY WITH TERRAGRUNT AT SOME POINT
 
-resource "aws_subnet" "create_subnets" {
- for_each             = "${var.cluster_vpc_subnets}"
- vpc_id               = aws_vpc.my_vpc.id
- cidr_block           = each.value.cidr
- availability_zone    = each.value.az
+resource "aws_subnet" "public-subnet-1" {
+ vpc_id               = aws_vpc.cluster_vpc.id
+ cidr_block           = "${var.public_subnet_1.cidr}"
+ availability_zone    = "${var.public_subnet_1.az}"
  
  tags = {
    "Name"                                    = "${each.key}"
@@ -34,3 +33,13 @@ resource "aws_subnet" "create_subnets" {
  }
 }
 
+resource "aws_subnet" "private-subnet-1" {
+ vpc_id               = aws_vpc.cluster_vpc.id
+ cidr_block           = "${var.private_subnet_1.cidr}"
+ availability_zone    = "${var.private_subnet_1.az}"
+ 
+ tags = {
+   "Name"                                    = "${each.key}"
+   "kubernetes.io/cluster/${var.infra_name}" = "owned"
+ }
+}

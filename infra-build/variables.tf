@@ -1,24 +1,25 @@
 // COMMON
+// Defined on the CLI
 variable "infra_name"{
-  // Obtained by running : $ jq -r .infraID ~/metadata.json
-  default = "ocp4-apse2-77-sk592"
-  type    = string
+  description = "Obtained by running : $ jq -r .infraID ~/metadata.json"
+  type        = string
 }
 
 variable "region"{
-  type    = string
-  default = "ap-southeast-2"
+  description  = "AWS region"
+  type         = string
 }
 
 variable "cluster_name"{
-  default = "ocp4-apse2-77"
-  type    = string
+  description  = "Chose cluster name"
+  type         = string
 }
 
 
 // SUBNETS
 // Map defined in terrafor.tfvars file
 
+/*
 variable "cluster_vpc_subnets" {
    type = map(object({
    cidr = string
@@ -28,3 +29,17 @@ variable "cluster_vpc_subnets" {
  description = "Subnets for the cluster vpc"
 }
 
+- Tempting to build like this! But how do I get the subnet IDs down the line?
+- Will make my life hard!
+
+*/
+
+variable "public_subnet_1" {
+   description = "Public subnet 1"
+   type        = map
+}
+
+variable "private_subnet_1" {
+   description = "Private subnet 1"
+   type        = map
+}
