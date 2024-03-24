@@ -24,7 +24,7 @@ resource "aws_subnet" "public-subnet-1" {
  availability_zone    = "${var.public_subnet_1.az}"
  
  tags = {
-   "Name"                                    = "${each.key}"
+   "Name"                                    = "${var.public_subnet_1.name}"
    "kubernetes.io/cluster/${var.infra_name}" = "owned"
  }
 }
@@ -35,7 +35,7 @@ resource "aws_subnet" "private-subnet-1" {
  availability_zone    = "${var.private_subnet_1.az}"
  
  tags = {
-   "Name"                                    = "${each.key}"
+   "Name"                                    = "${var.private_subnet_1.name}"
    "kubernetes.io/cluster/${var.infra_name}" = "owned"
  }
 }
