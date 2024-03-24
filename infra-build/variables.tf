@@ -15,6 +15,11 @@ variable "cluster_name"{
   type         = string
 }
 
+// VPC
+variable "vpc_cidr"{
+  description  = "
+  type         = string
+}
 
 // SUBNETS
 // Map defined in terrafor.tfvars file

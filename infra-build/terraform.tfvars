@@ -1,3 +1,6 @@
+// VPC
+vpc_cidr = "10.0.0.0/16" 
+
 // Cluster subnets 
 
 public_subnet_1  = { cidr = "10.0.1.0/24" , az = "ap-southeast-2a" }
