@@ -1,5 +1,11 @@
 terraform {
   required_version = ">= 1.0"
+  /*
+  Changed this to address this error:
+  This configuration does not support Terraform version 1.7.5. To proceed, either choose another supported 
+  Terraform version or update this version constraint. Version constraints are normally set for
+│ good reason, so updating the constraint may lead to other errors or unexpected behavior.
+  */
 
   required_providers {
     aws = {

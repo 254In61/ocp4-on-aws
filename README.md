@@ -28,8 +28,8 @@ Assumptions
 - Bastion EC2 AMI is Ubuntu Server 22.*
 
 
-PHASE 1 : BASTION EC2
-----------------------
+PHASE 1 : CREATE BASTION
+-------------------------
 - Build Bastion/Jump Server. Could be a different VPC or a default VPC.** Assumption is Ubuntu 22.0* server & ARM arch.
 - SSH into the bastion EC2.
 
@@ -42,7 +42,9 @@ PHASE 2 : INSTALL ENV PREP & IGNITION FILES BUILD
 
 PHASE 3 : BUILD INFRA
 ----------------------
-*** Auto accept the terragrunt??.. Could be put into PHASE 2 script if yes!!
+- $cd infra-build
+- Obtain infra-name : $ jq -r .infraID ~/metadata.json
+- Update the variables.tf , infra_name variable.
 
 
 

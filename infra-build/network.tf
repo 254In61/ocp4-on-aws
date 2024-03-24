@@ -1,41 +1,5 @@
 locals {
-   aws_region                 = run_cmd("echo", "$REGION")
-   cluster_name               = run_cmd("echo", "$CLUSTER_NAME")
-   infra_name                 = run_cmd("jq", "-r", ".infraID", "$HOME/metadata.json")
-   vpc_cidr                   = "10.0.0.0/16"
-   k8s_base_tag_key           = "kubernetes.io/cluster/${local.infra_name}"
-
-   tags                       = {
-      local.k8s_base_tag_key  = "owned"
-   } 
-}
-
-// COMMON
-variable "infra_name"{
-  // obtained as a dynamic variable
-  type    = string
-}
-
-variable "region"{
-  type    = string
-  default = "ap-southeast-2"
-}
-
-variable "cluster_name"{
-  // obtained as a dynamic varible
-  type    = string
-}
-
-
-// Dynamically obtain infra name value
-// Use the external data source to call an external program/script
-
-data "external" "infra_name" {
-  program = ["bash", "-c", "echo 'output_value=$(jq -r .infraID ~/metadata.json)'"]
-}
-
-data "external" "cluster_name" {
-  program = ["bash", "-c", "echo 'output_value=$(echo $CLUSTER_NAME)'"]
+   vpc_cidr                   = "10.0.0.0/16" 
 }
 
 ##############
@@ -65,7 +29,7 @@ resource "aws_subnet" "create_subnets" {
  availability_zone    = each.value.az
  
  tags = {
-   Name = "${each.key}"
+   "Name"                                    = "${each.key}"
    "kubernetes.io/cluster/${var.infra_name}" = "owned"
  }
 }
