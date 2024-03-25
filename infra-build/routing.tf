@@ -282,3 +282,4 @@ resource "aws_vpc_endpoint_route_table_association" "vpce-rta-private-3" {
   route_table_id  = aws_route_table.private-rt3.id
   vpc_endpoint_id = aws_vpc_endpoint.s3-vpce.id
 }
+
