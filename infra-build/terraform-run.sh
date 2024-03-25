@@ -8,4 +8,4 @@ cd .. && ansible-playbook ignition-files.yml
 
 echo "" && echo "===> Change directory back to run terraform"
 echo "" && echo "===> Run terraform apply"
-cd infra-build && terraform apply
+cd infra-build && terraform apply -var-file="$HOME/cluster.tfvars"
