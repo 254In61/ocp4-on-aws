@@ -17,4 +17,4 @@
 - name: tf-vars - Create cluster.tfvars
   template:
     src: terraform.tfvars.j2
-    dest: "{{ terraform_dir }}/cluster.tfvars"
+    dest: "{{ terraform_dir }}/terraform.tfvars"
