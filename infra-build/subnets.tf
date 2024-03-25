@@ -42,7 +42,7 @@ resource "aws_subnet" "public-subnet-2" {
  }
 }
 
-resource "aws_subnet" "private-subnet-1" {
+resource "aws_subnet" "private-subnet-2" {
  vpc_id               = aws_vpc.cluster_vpc.id
  cidr_block           = "${var.private_subnet_2.cidr}"
  availability_zone    = "${var.private_subnet_2.az}"
