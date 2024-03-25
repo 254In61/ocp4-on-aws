@@ -3,11 +3,12 @@
 // 1.1 : Create target group 
 
 resource "aws_lb_target_group" "ext-tg" {
-  name        = "${var.infra_name}-ext"
-  port        = 6443
-  protocol    = "TCP"
-  target_type = "ip"
-  vpc_id      = aws_vpc.cluster_vpc.id
+  name                 = "${var.infra_name}-ext"
+  port                 = 6443
+  protocol             = "TCP"
+  target_type          = "ip"
+  vpc_id               = aws_vpc.cluster_vpc.id
+  deregistration_delay = 60
 
   health_check {
     interval             = 10
@@ -16,7 +17,6 @@ resource "aws_lb_target_group" "ext-tg" {
     protocol             = "HTTPS"
     healthy_threshold    = 2
     unhealthy_threshold  = 2
-    deregistration_delay = 60
   }
 
   tags = {
@@ -44,11 +44,12 @@ resource "aws_lb_listener" "ext-ls" {
 // 2.1 : Create target group 
 
 resource "aws_lb_target_group" "int-tg" {
-  name        = "${var.infra_name}-int"
-  port        = 6443
-  protocol    = "TCP"
-  target_type = "ip"
-  vpc_id      = aws_vpc.cluster_vpc.id
+  name                 = "${var.infra_name}-int"
+  port                 = 6443
+  protocol             = "TCP"
+  target_type          = "ip"
+  vpc_id               = aws_vpc.cluster_vpc.id
+  deregistration_delay = 60
 
   health_check {
     interval             = 10
@@ -57,7 +58,6 @@ resource "aws_lb_target_group" "int-tg" {
     protocol             = "HTTPS"
     healthy_threshold    = 2
     unhealthy_threshold  = 2
-    deregistration_delay = 60
   }
 
   tags = {
@@ -85,11 +85,12 @@ resource "aws_lb_listener" "int-ls" {
 // 3.1 : Create target group 
 
 resource "aws_lb_target_group" "int-s-tg" {
-  name        = "${var.infra_name}-int"
-  port        = 22623
-  protocol    = "TCP"
-  target_type = "ip"
-  vpc_id      = aws_vpc.cluster_vpc.id
+  name                 = "${var.infra_name}-int"
+  port                 = 22623
+  protocol             = "TCP"
+  target_type          = "ip"
+  vpc_id               = aws_vpc.cluster_vpc.id
+  deregistration_delay = 60
 
   health_check {
     interval             = 10
@@ -98,7 +99,6 @@ resource "aws_lb_target_group" "int-s-tg" {
     protocol             = "HTTPS"
     healthy_threshold    = 2
     unhealthy_threshold  = 2
-    deregistration_delay = 60
   }
 
   tags = {
