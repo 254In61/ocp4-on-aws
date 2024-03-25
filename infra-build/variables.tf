@@ -52,3 +52,14 @@ variable "private_subnet_3" {
    description = "Private subnet 3"
    type        = map
 }
+
+// DNS
+
+variable "hosted_zone_name"{
+   description = "Hosted zone domain"
+   type        = string
+}
+variable "hosted_zone_id"{
+   description = "Public Hosted Zone ID"
+   type        = string
+}
