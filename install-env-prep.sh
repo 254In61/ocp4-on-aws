@@ -79,7 +79,7 @@ build_ignition_files(){
 }
 
 
-
+git pull
 base_packages
 terraform_install
 #terragrunt_install

@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+git pull
 
 infra_name=$(jq -r .infraID ~/metadata.json)
 
