@@ -9,7 +9,7 @@ resource "aws_lb_target_group" "ext-tg" {
   target_type = "ip"
   vpc_id      = aws_vpc.cluster_vpc.id
 
-  health_check = {
+  health_check {
     interval             = 10
     path                 = "/readyz"
     port                 = 6443
@@ -50,7 +50,7 @@ resource "aws_lb_target_group" "int-tg" {
   target_type = "ip"
   vpc_id      = aws_vpc.cluster_vpc.id
 
-  health_check = {
+  health_check {
     interval             = 10
     path                 = "/readyz"
     port                 = 6443
@@ -91,7 +91,7 @@ resource "aws_lb_target_group" "int-s-tg" {
   target_type = "ip"
   vpc_id      = aws_vpc.cluster_vpc.id
 
-  health_check = {
+  health_check {
     interval             = 10
     path                 = "/readyz"
     port                 = 22623
