@@ -16,5 +16,5 @@
 
 - name: tf-vars - Create terraform.tfvars
   template:
-    src: tf-vars.j2
+    src: terraform.tfvars.j2
     dest: "{{ terraform_dir }}/terraform.tfvars"
