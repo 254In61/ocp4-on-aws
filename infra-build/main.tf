@@ -21,8 +21,8 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "tfstate-backend-store"
-    key    = "terraform.tfstate"
+    bucket = "tfstate-backend-store" // Name of the s3 bucket storing the tfstate files.
+    key    = "ocpv4-cluster.terraform.tfstate" // Specific name of the tfstate file.
     region = "ap-southeast-2"
 
   }
