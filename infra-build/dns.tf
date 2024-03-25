@@ -27,8 +27,8 @@ resource "aws_route53_record" "ext-api-record" {
   type    = "A"
 
   alias {
-    name                   = aws_elb.ext-lb.dns_name
-    zone_id                = aws_elb.ext-lb.zone_id
+    name                   = aws_lb.ext-lb.dns_name
+    zone_id                = aws_lb.ext-lb.zone_id
     evaluate_target_health = true
   }
 }

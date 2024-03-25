@@ -24,7 +24,7 @@ resource "aws_route_table" "public-rt" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.infra_name}-public"
+     "Name" = "${var.infra_name}-public"
   }
 }
 
@@ -47,7 +47,7 @@ resource "aws_route_table_association" "c" {
 
 // 3. PRIVATE SUBNETS ROUTING 
 
-// 3.1 : Route Private Subnet 1
+// 3.1 : Route Private Subnet 1 / Availability zone a 
 
 // 3.1.1 : Obtain EIP 
 
@@ -57,7 +57,7 @@ resource "aws_eip" "eip_1" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.infra_name}-eip-${var.private_subnet_1.az}"
+     "Name" = "${var.infra_name}-eip-${var.a.az_name}"
   }
 
 }
@@ -72,7 +72,7 @@ resource "aws_nat_gateway" "ngw_1" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.infra_name}-nat-${var.private_subnet_1.az}"
+     "Name" = "${var.infra_name}-nat-${var.a.az_name}"
   }
 
   // To ensure proper ordering, it is recommended to add an explicit dependency on the Internet Gateway for the VPC.
@@ -92,7 +92,7 @@ resource "aws_route_table" "private-rt1" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.infra_name}-private-${var.private_subnet_1.az}"
+     "Name" = "${var.infra_name}-private-$${var.a.az_name}"
   }
 }
 
@@ -103,7 +103,7 @@ resource "aws_route_table_association" "priv-rta-1" {
   route_table_id = aws_route_table.private-rt1.id
 }
 
-// 3.2 : Route Private Subnet 2
+// 3.2 : Route Private Subnet 2 / availability zone b
 
 // 3.2.1 : Obtain EIP 
 
@@ -113,7 +113,7 @@ resource "aws_eip" "eip_2" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.infra_name}-eip-${var.private_subnet_2.az}"
+     "Name" = "${var.infra_name}-eip-${var.b.az_name}"
   }
 
 }
@@ -128,7 +128,7 @@ resource "aws_nat_gateway" "ngw_2" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.infra_name}-nat-${var.private_subnet_2.az}"
+     "Name" = "${var.infra_name}-nat-${var.b.az_name}"
   }
 
   // To ensure proper ordering, it is recommended to add an explicit dependency on the Internet Gateway for the VPC.
@@ -148,7 +148,7 @@ resource "aws_route_table" "private-rt2" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.infra_name}-private-${var.private_subnet_2.az}"
+     "Name"= "${var.infra_name}-private-${var.b.az_name}"
   }
 }
 
@@ -160,7 +160,7 @@ resource "aws_route_table_association" "priv-rta-2" {
 }
 
 
-// 3.3 : Route Private Subnet 3
+// 3.3 : Route Private Subnet 3 / availability zone c
 
 // 3.3.1 : Obtain EIP 
 
@@ -170,7 +170,7 @@ resource "aws_eip" "eip_3" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.infra_name}-eip-${var.private_subnet_3.az}"
+     "Name" = "${var.infra_name}-eip-${var.c.az_name}"
   }
 
 }
@@ -185,7 +185,7 @@ resource "aws_nat_gateway" "ngw_3" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.infra_name}-nat-${var.private_subnet_3.az}"
+     "Name" = "${var.infra_name}-nat-${var.c.az_name}"
   }
 
   // To ensure proper ordering, it is recommended to add an explicit dependency on the Internet Gateway for the VPC.
@@ -205,7 +205,7 @@ resource "aws_route_table" "private-rt3" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.infra_name}-private-${var.private_subnet_3.az}"
+     "Name" = "${var.infra_name}-private-${var.c.az_name}"
   }
 }
 
