@@ -28,65 +28,35 @@ Assumptions
 - Bastion EC2 AMI is Ubuntu Server 22.*
 
 
-PHASE 1 : CREATE BASTION
--------------------------
-- Build Bastion/Jump Server. Could be a different VPC or a default VPC.** Assumption is Ubuntu 22.0* server & ARM arch.
-- SSH into the bastion EC2.
+STEP 1 : CREATE BASTION >> CLONE REPO >> SET ENV VARIABLES
+------------------------------------------------------------
+1.1) Build Bastion/Jump Server. Could be a different VPC or a default VPC.
+1.2) SSH into the bastion EC2.
+1.3) Clone repo : git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
+1.4) Set your local environmental variables found in env-vars.
 
-PHASE 2 : INSTALL ENV PREP & IGNITION FILES BUILD
---------------------------------------------------
-- Clone repo : git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
-- Set your local environmental variables found in env-vars.
-- Add to $HOME the pull-secret.txt obtained from https://console.redhat.com/openshift/install/pull-secret.
-- Run script : $ ./install-env-prep.sh 
-
-PHASE 3 : BUILD INFRA
+STEP 2 : PULL SECRET
 ----------------------
-- $cd infra-build
-- Obtain infra-name : $ jq -r .infraID ~/metadata.json
-- Update the variables.tf , infra_name variable.
+2.1) Add to $HOME the pull-secret.txt obtained from https://console.redhat.com/openshift/install/pull-secret.
 
+STEP 3 : PREPARE BASTION/JUMP-SERVER
+-------------------------------------
+3.1) Run script : $ ./install-env-prep.sh 
 
-
-
-PHASE 1 : ON YOUR LOCAL ENVIRONMENT(PC)
-----------------------------------------
-1. CLONE REPO
-   - Clone this repository to your local environment :  $ git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
-
-2. SET ENVIRONMENTAL VARIABLES
-   - Set your local environmental variables found in env-vars.
-
-3. VPC BUILD 
-   - Run : $ ansible-playbook vpc-build.yml
-
-4. BASTION/JumpServer EC2 CREATION
-   - Create an EC2 to act as Bastion within the VPC created and within one of the Public Subnets
-   - You could use terraform IAC in bastion/
-
-5. SSH INTO BASTION EC2
-
-PHASE 2 : ON BASTION EC2
+STEP 4 : BUILD AWS INFRA
 -------------------------
+4.1) $cd infra-build
+4.2) Run : $./terraform-run
 
-1. CLONE REPOSITORY
-   - $ cd $HOME && git clone -b develop https://github.com/254In61/ocpv4-on-aws.git
-   
-2. SET ENVIRONMENTAL VARIABLES
-   - Set your local environmental variables found in env-vars.
 
-3. PULL-SECRET
-   - Add to $HOME the pull-secret.txt obtained from https://console.redhat.com/openshift/install/pull-secret.
+STEP 5. INITIALIZE BOOTSTRAP
+-----------------------------
+- $ openshift-install wait-for bootstrap-complete --dir=$HOME --log-level info
+- If the command exits without a FATAL warning, your production control plane has initialized.
 
-4. AWS INFRA
-  - Run : $ ./build-infra.sh
-
-5. INITIALIZE BOOTSTRAP 
-   - $ openshift-install wait-for bootstrap-complete --dir=$HOME --log-level info
-   - If the command exits without a FATAL warning, your production control plane has initialized.
-
-6. BUILD WORKER NODES
-   - $ ansible-playbook worker.yml
+STEP 6. BUILD WORKER NODES
+---------------------------
+- $ ansible-playbook worker.yml
 
 DESTROY AWS RESOURCES
 ======================

@@ -24,7 +24,7 @@ resource "aws_subnet" "public-subnet-1" {
  availability_zone    = "${var.public_subnet_1.az}"
  
  tags = {
-   "Name"                                    = "${var.public_subnet_1.name}"
+   "Name"                                    = "${var.infra_name}-public-${var.public_subnet_1.az}"
    "kubernetes.io/cluster/${var.infra_name}" = "owned"
  }
 }
@@ -35,7 +35,8 @@ resource "aws_subnet" "private-subnet-1" {
  availability_zone    = "${var.private_subnet_1.az}"
  
  tags = {
-   "Name"                                    = "${var.private_subnet_1.name}"
+   "Name"                                    = "${var.infra_name}-private-${var.private_subnet_1.az}"
    "kubernetes.io/cluster/${var.infra_name}" = "owned"
+   "kubernetes.io/role/internal-elb"         = ""
  }
 }
