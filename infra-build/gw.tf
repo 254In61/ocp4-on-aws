@@ -5,7 +5,7 @@ resource "aws_internet_gateway" "igw" {
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
-     "Name"                                    = "${var.cluster_name}-igw"
+     "Name"                                    = "${var.infra_name}-igw"
   }
 }
 
