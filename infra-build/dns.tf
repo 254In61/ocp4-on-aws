@@ -21,6 +21,7 @@ resource "aws_lb" "ext-lb" {
 }
 
 // 1.2 : build DNS A-record that will route traffic to the external LB
+
 resource "aws_route53_record" "ext-api-record" {
   zone_id = "${var.hosted_zone_id}"
   name    = "api.${var.cluster_name}.${var.hosted_zone_name}"

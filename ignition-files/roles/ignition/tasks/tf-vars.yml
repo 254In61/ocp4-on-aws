@@ -14,7 +14,7 @@
     InfrastructureName: "{{ infra_name['stdout'] }}"
     HostedZoneId: "{{ hosted_zone_output['stdout'] }}"
 
-- name: tf-vars - Create cluster.tfvars
+- name: tf-vars - Create terraform.tfvars
   template:
     src: terraform.tfvars.j2
-    dest: "{{ terraform_dir }}/terraform.tfvars"
+    dest: "../infra-build/terraform.tfvars"
