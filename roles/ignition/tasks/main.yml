@@ -4,3 +4,4 @@
 - import_tasks: install-config.yml
 - import_tasks: manifests.yml
 - import_tasks: ignition.yml
+- import_tasks: tf-vars.yml
