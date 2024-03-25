@@ -1,0 +1,26 @@
+// This file is populated by Ansible playbook that runs prior to terraform.
+
+// AWS
+vpc_cidr         = {{ VpcCidr }}
+region           = {{ region }}
+hosted_zone_id   = {{ HostedZoneId }}
+hosted_zone_name = {{ base_domain }}
+
+// Cluster subnets 
+
+// az a
+av_zn_a = { priv_cidr = "{{ za_private_subnet_cidr }}" , pub_cidr = "{{ za_public_subnet_cidr }}" , az_name = "{{ az_a_name }}" }
+
+// az b
+av_zn_a = { priv_cidr = "{{ zb_private_subnet_cidr }}" , pub_cidr = "{{ zb_public_subnet_cidr }}" , az_name = "{{ az_b_name }}" }
+
+// az c
+av_zn_c = { priv_cidr = "{{ zc_private_subnet_cidr }}" , pub_cidr = "{{ zc_public_subnet_cidr }}" , az_name = "{{ az_c_name }}" }
+
+
+// Cluster-specific
+infra_name      = {{ InfrastructureName }}
+cluster_name    = {{ cluster_name }}
+
+
+
