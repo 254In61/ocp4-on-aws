@@ -1,3 +1,0 @@
----
-# Build AWS resources
-- import_tasks: worker-node.yml
