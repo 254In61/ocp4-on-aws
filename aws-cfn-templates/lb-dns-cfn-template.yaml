@@ -69,18 +69,6 @@ Metadata:
         default: "Public Hosted Zone ID"
 
 Resources:
-  ExtApiElbSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: External LB Security Group
-      SecurityGroupIngress:
-      - IpProtocol: '-1'  # -1 indicates all protocols
-        CidrIp: 0.0.0.0/0  # Allow traffic from anywhere
-      VpcId: !Ref VpcId
-      Tags:
-        - Key: Name
-          Value: ExtApiElbSecurityGroup
-
   ExtApiElb:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -90,18 +78,6 @@ Resources:
       Type: network
       # SecurityGroups: [!Ref ExtApiElbSecurityGroup] Couldn't resolved dig with this here
   
-  IntApiElbSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: Internal LB Security Group
-      SecurityGroupIngress:
-      - IpProtocol: '-1'  # -1 indicates all protocols
-        CidrIp: 0.0.0.0/0  # Allow traffic from anywhere
-      VpcId: !Ref VpcId
-      Tags:
-      - Key: Name
-        Value: IntApiElbSecurityGroup
-
   IntApiElb:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -398,12 +374,6 @@ Resources:
       Subnets: !Ref PrivateSubnets
 
 Outputs:
-  ExtApiElbSecurityGroupId:
-    Description: External LB Sec Group ID
-    Value: !GetAtt ExtApiElbSecurityGroup.GroupId
-  IntApiElbSecurityGroupId:
-    Description: Internal LB Sec Group ID
-    Value: !GetAtt IntApiElbSecurityGroup.GroupId
   PrivateHostedZoneId:
     Description: Hosted zone ID for the private DNS, which is required for private records.
     Value: !Ref IntDns
