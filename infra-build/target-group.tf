@@ -1,9 +1,9 @@
 // 1. EXT API TARGET GROUP 
 
-// 1.1 : Create target group 
+// 1.1 : Create target group - external applications
 
 resource "aws_lb_target_group" "ext-tg" {
-  name                 = "${var.infra_name}-ext"
+  name                 = "${var.infra_name}-aext"
   port                 = 6443
   protocol             = "TCP"
   target_type          = "ip"
@@ -41,10 +41,10 @@ resource "aws_lb_listener" "ext-ls" {
 
 // 2. INT API TARGET GROUP 
 
-// 2.1 : Create target group 
+// 2.1 : Create target group - internall applications
 
 resource "aws_lb_target_group" "int-tg" {
-  name                 = "${var.infra_name}-int"
+  name                 = "${var.infra_name}-aint"
   port                 = 6443
   protocol             = "TCP"
   target_type          = "ip"
@@ -82,10 +82,10 @@ resource "aws_lb_listener" "int-ls" {
 
 // 3. INT SERVICE TARGET GROUP
 
-// 3.1 : Create target group 
+// 3.1 : Create target group - service applications
 
 resource "aws_lb_target_group" "int-s-tg" {
-  name                 = "${var.infra_name}-int"
+  name                 = "${var.infra_name}-sint"
   port                 = 22623
   protocol             = "TCP"
   target_type          = "ip"
@@ -94,7 +94,7 @@ resource "aws_lb_target_group" "int-s-tg" {
 
   health_check {
     interval             = 10
-    path                 = "/readyz"
+    path                 = "/healthz"
     port                 = 22623
     protocol             = "HTTPS"
     healthy_threshold    = 2
