@@ -38,7 +38,7 @@ resource "aws_subnet" "public-subnet-2" {
  
  tags = {
    "Name" = "${var.infra_name}-public-${var.b.az_name}"
-   "kubernetes.io/cluster/${var.infra_name}" = "owned""
+   "kubernetes.io/cluster/${var.infra_name}" = "owned"
  }
 }
 
