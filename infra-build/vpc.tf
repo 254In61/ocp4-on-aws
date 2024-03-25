@@ -17,7 +17,7 @@ resource "aws_vpc" "cluster_vpc" {
 
 resource "aws_vpc_dhcp_options" "dns_resolver" {
   domain_name           = "${var.region}.compute.internal"
-  domain_name_servers   = "AmazonProvidedDNS"
+  domain_name_servers   = ["AmazonProvidedDNS"]
 
   tags                  = {
      "kubernetes.io/cluster/${var.infra_name}" = "owned"
