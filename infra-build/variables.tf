@@ -40,21 +40,6 @@ variable "c" {
 }
 
 
-variable "private_subnet_1" {
-   description = "Private subnet 1"
-   type        = map
-}
-
-variable "private_subnet_2" {
-   description = "Private subnet 2"
-   type        = map
-}
-
-variable "private_subnet_3" {
-   description = "Private subnet 3"
-   type        = map
-}
-
 // DNS
 
 variable "hosted_zone_name"{
