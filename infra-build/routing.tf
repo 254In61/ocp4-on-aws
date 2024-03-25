@@ -215,3 +215,70 @@ resource "aws_route_table_association" "priv-rta-3" {
   subnet_id      = aws_subnet.private-subnet-3.id
   route_table_id = aws_route_table.private-rt3.id
 }
+
+// 4. S3 VPCE
+
+/*
+- The VPCE is a Gateway that allows access to the rest of AWS Cloud services without transiting 
+  through NGW or IGW.
+- The created VPCE routes to S3
+- It is less costly and traffic never leaves AWS Cloud.
+- AWS has prefixes within which the AWS services are hosted.
+- All the route table created are added to this GW.
+*/
+
+// 4.1 : Create s3 vpce
+
+resource "aws_vpc_endpoint" "s3-vpce" {
+  vpc_id            = aws_vpc.cluster_vpc.id
+  service_name      = "com.amazonaws.${var.region}.s3"
+  // vpc_endpoint_type = "Gateway" Defaults to Gateway.
+  
+  tags                  = {
+     "kubernetes.io/cluster/${var.infra_name}" = "owned"
+  }
+
+}
+
+// 4.2 : vpce endpoint policy 
+resource "aws_vpc_endpoint_policy" "s3-vpce-policy" {
+  vpc_endpoint_id = aws_vpc_endpoint.s3-vpce.id
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "S3VPCEAllowAll",
+        "Effect" : "Allow",
+        "Principal" : "*",
+        "Action" : "*",
+        "Resource" : "*"
+      }
+    ]
+  })
+}
+
+// 4.3 : VPC Endpoint Route Table Association
+
+// 4.3.1  : Association to public route table
+
+resource "aws_vpc_endpoint_route_table_association" "vpce-rta-public" {
+  route_table_id  = aws_route_table.public-rt.id
+  vpc_endpoint_id = aws_vpc_endpoint.s3-vpce.id
+}
+
+// 4.3.2 : Association to private route tables 1,2 and 3
+
+resource "aws_vpc_endpoint_route_table_association" "vpce-rta-private-1" {
+  route_table_id  = aws_route_table.private-rt1.id
+  vpc_endpoint_id = aws_vpc_endpoint.s3-vpce.id
+}
+
+resource "aws_vpc_endpoint_route_table_association" "vpce-rta-private-2" {
+  route_table_id  = aws_route_table.private-rt2.id
+  vpc_endpoint_id = aws_vpc_endpoint.s3-vpce.id
+}
+
+resource "aws_vpc_endpoint_route_table_association" "vpce-rta-private-3" {
+  route_table_id  = aws_route_table.private-rt3.id
+  vpc_endpoint_id = aws_vpc_endpoint.s3-vpce.id
+}
