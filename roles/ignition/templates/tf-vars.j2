@@ -6,16 +6,16 @@ region           = {{ region }}
 hosted_zone_id   = {{ HostedZoneId }}
 hosted_zone_name = {{ base_domain }}
 
-// Cluster subnets 
+// Cluster subnets per availability zone
 
 // az a
-av_zn_a = { priv_cidr = "{{ za_private_subnet_cidr }}" , pub_cidr = "{{ za_public_subnet_cidr }}" , az_name = "{{ az_a_name }}" }
+a = { priv_cidr = "{{ za_private_subnet_cidr }}" , pub_cidr = "{{ za_public_subnet_cidr }}" , az_name = "{{ az_a_name }}" }
 
 // az b
-av_zn_a = { priv_cidr = "{{ zb_private_subnet_cidr }}" , pub_cidr = "{{ zb_public_subnet_cidr }}" , az_name = "{{ az_b_name }}" }
+b = { priv_cidr = "{{ zb_private_subnet_cidr }}" , pub_cidr = "{{ zb_public_subnet_cidr }}" , az_name = "{{ az_b_name }}" }
 
 // az c
-av_zn_c = { priv_cidr = "{{ zc_private_subnet_cidr }}" , pub_cidr = "{{ zc_public_subnet_cidr }}" , az_name = "{{ az_c_name }}" }
+c = { priv_cidr = "{{ zc_private_subnet_cidr }}" , pub_cidr = "{{ zc_public_subnet_cidr }}" , az_name = "{{ az_c_name }}" }
 
 
 // Cluster-specific

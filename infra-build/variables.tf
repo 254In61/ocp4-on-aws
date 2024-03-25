@@ -23,20 +23,22 @@ variable "vpc_cidr"{
 // SUBNETS
 // Map defined in terrafor.tfvars file
 
-variable "public_subnet_1" {
-   description = "Public subnet 1"
+variable "a" {
+   description = "Availability zone A"
    type        = map
 }
 
-variable "public_subnet_2" {
-   description = "Public subnet 2"
+variable "b" {
+   description = "Availability zone B"
    type        = map
 }
 
-variable "public_subnet_3" {
-   description = "Public subnet 3"
+
+variable "c" {
+   description = "Availability zone C"
    type        = map
 }
+
 
 variable "private_subnet_1" {
    description = "Private subnet 1"
