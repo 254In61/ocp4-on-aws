@@ -84,8 +84,8 @@ resource "aws_route53_record" "api-int" {
   type    = "A"
 
   alias {
-    name                   = aws_elb.int-lb.dns_name
-    zone_id                = aws_elb.int-lb.zone_id
+    name                   = aws_lb.int-lb.dns_name
+    zone_id                = aws_lb.int-lb.zone_id
     evaluate_target_health = true
   }
 }
@@ -96,8 +96,8 @@ resource "aws_route53_record" "api-ext" {
   type    = "A"
 
   alias {
-    name                   = aws_elb.int-lb.dns_name
-    zone_id                = aws_elb.int-lb.zone_id
+    name                   = aws_lb.int-lb.dns_name
+    zone_id                = aws_lb.int-lb.zone_id
     evaluate_target_health = true
   }
 }
