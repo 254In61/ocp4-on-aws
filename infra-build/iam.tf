@@ -1,4 +1,50 @@
-// IAM ROLES 
+// IAM ROLES
+
+// BOOTSTRAP IAM ROLE
+
+resource "aws_iam_role" "BootstrapIamRole" {
+  name = "${var.infra_name}-bootstrap-role"
+
+  // Terraform's "jsonencode" function converts a Terraform expression result to valid JSON syntax.
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = "AssumeEC2Service"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+
+  inline_policy {
+    name = "${var.infra_name}-bootstrap-policy"
+
+    policy = jsonencode({
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action   = [
+                "ec2:Describe*",
+                "ec2:AttachVolume",
+                "ec2:DetachVolume",
+                "s3:Get*"
+            ]
+          Effect   = "Allow"
+          Resource = "*"
+        },
+      ]
+    })
+  }  
+
+  tags = {
+   "Name" = "${var.infra_name}-bootstrap-role"
+   "kubernetes.io/cluster/${var.infra_name}" = "owned"
+  }
+}
 
 // MASTER IAM ROLE 
 
