@@ -71,6 +71,12 @@ DESTROY CLUSTER
 ================
 - This destroys the cluster and leaves the VPC and Bastion intact
 - $ openshift-install destroy cluster --log-level debug
+
+
+FUTURE IMPROVEMENTS
+===================
+=> Yeeees! Looots of repetition in this code!
+=> Need to go DRY!..Terragrunt will do that for me... I just need to find time for it.
   
 
 Author
