@@ -184,6 +184,7 @@ resource "aws_security_group_rule" "IpsecNat-m-2-w" {
   type                     = "ingress"
   from_port                = 4500
   to_port                  = 4500
+  protocol                 = "udp"
 }
 
 // IPSEC ESP PACKETS
