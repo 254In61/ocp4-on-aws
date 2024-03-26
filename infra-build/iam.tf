@@ -79,3 +79,47 @@ resource "aws_iam_role" "MasterIamRole" {
    "kubernetes.io/cluster/${var.infra_name}" = "owned"
   }
 }
+
+// WORKER IAM ROLE 
+
+resource "aws_iam_role" "WorkerIamRole" {
+  name = "${var.infra_name}-worker-role"
+
+  // Terraform's "jsonencode" function converts a Terraform expression result to valid JSON syntax.
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = "AssumeEC2Service"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+
+  inline_policy {
+    name = "${var.infra_name}-master-policy"
+
+    policy = jsonencode({
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action   = [
+                "ec2:DescribeInstances",
+                "ec2:DescribeRegions"
+            ]
+          Effect   = "Allow"
+          Resource = "*"
+        },
+      ]
+    })
+  }  
+
+  tags = {
+   "Name" = "${var.infra_name}-master-role"
+   "kubernetes.io/cluster/${var.infra_name}" = "owned"
+  }
+}
