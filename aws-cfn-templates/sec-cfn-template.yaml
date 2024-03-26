@@ -352,24 +352,6 @@ Resources:
       ToPort: 500
       IpProtocol: udp
 
-  WorkerIngressIpsecNat:
-    Type: AWS::EC2::SecurityGroupIngress
-    Properties:
-      GroupId: !GetAtt WorkerSecurityGroup.GroupId
-      SourceSecurityGroupId: !GetAtt WorkerSecurityGroup.GroupId
-      Description: IPsec NAT-T packets
-      FromPort: 4500
-      ToPort: 4500
-      IpProtocol: udp
-
-  WorkerIngressIpsecEsp:
-    Type: AWS::EC2::SecurityGroupIngress
-    Properties:
-      GroupId: !GetAtt WorkerSecurityGroup.GroupId
-      SourceSecurityGroupId: !GetAtt WorkerSecurityGroup.GroupId
-      Description: IPsec ESP packets
-      IpProtocol: 50
-
   WorkerIngressMasterIpsecIke:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
@@ -378,6 +360,16 @@ Resources:
       Description: IPsec IKE packets
       FromPort: 500
       ToPort: 500
+      IpProtocol: udp
+
+  WorkerIngressIpsecNat:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt WorkerSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt WorkerSecurityGroup.GroupId
+      Description: IPsec NAT-T packets
+      FromPort: 4500
+      ToPort: 4500
       IpProtocol: udp
 
   WorkerIngressMasterIpsecNat:
@@ -395,6 +387,14 @@ Resources:
     Properties:
       GroupId: !GetAtt WorkerSecurityGroup.GroupId
       SourceSecurityGroupId: !GetAtt MasterSecurityGroup.GroupId
+      Description: IPsec ESP packets
+      IpProtocol: 50
+  
+  WorkerIngressIpsecEsp:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !GetAtt WorkerSecurityGroup.GroupId
+      SourceSecurityGroupId: !GetAtt WorkerSecurityGroup.GroupId
       Description: IPsec ESP packets
       IpProtocol: 50
 
