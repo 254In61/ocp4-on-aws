@@ -162,6 +162,9 @@ resource "aws_security_group_rule" "IpsecNat-w-2-m" {
   protocol                 = "udp"
 }
 
+/*
+!!! Needs from_port and to_port!
+
 resource "aws_security_group_rule" "IpsecEsp-m-2-m" {
   description              = "master to master IpsecEsp traffic"
   security_group_id        = aws_security_group.master-sg.id
@@ -177,6 +180,9 @@ resource "aws_security_group_rule" "IpsecEsp-w-2-m" {
   type                     = "ingress"
   protocol                 = 50
 }
+
+*/
+
 
 resource "aws_security_group_rule" "ClusterComms-m-2-m-tcp" {
   description              = "master to master ClusterComms traffic - tcp"
