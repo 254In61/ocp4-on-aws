@@ -15,17 +15,19 @@ resource "aws_network_interface" "bootstrap-ni" {
   }
 }
 
-resource "aws_instance" "bootstrap" {
+resource "aws_instance" "bootstrap-machine" {
   ami                         = "${var.aws_rhos_ami}"
   iam_instance_profile        = aws_iam_role.BootstrapIamRole.name
   instance_type               = "${var.bootstrap_ec2_instance_type}"
   key_name                    = "${var.ec2_key_pair}"
   associate_public_ip_address = true
-
+  
+  /*
   network_interface {
     network_interface_id      = aws_network_interface.bootstrap-ni.id
     device_index              = 0
   }
+  */
 
   user_data = base64encode(
                 templatefile(
@@ -38,6 +40,12 @@ resource "aws_instance" "bootstrap" {
    "Name" = "${var.infra_name}-bootstrap"
    "kubernetes.io/cluster/${var.infra_name}" = "owned"
   }
+}
+
+resource "aws_network_interface_attachment" "bootstrap-ni-attach" {
+  instance_id          = aws_instance.bootstrap-machine.id
+  network_interface_id = aws_network_interface.bootstrap-ni.id
+  device_index         = 0
 }
 
 
