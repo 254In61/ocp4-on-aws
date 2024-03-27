@@ -3,10 +3,11 @@
 // 1. BOOTSTRAP INSTANCE
 
 resource "aws_network_interface" "bootstrap-ni" {
-  subnet_id        = aws_subnet.public-subnet-1.id
-  // private_ips      = ["${var.bootstrap_priv_ip}"]
-  security_groups  = [aws_security_group.bootstrap-sg.id, aws_security_group.master-sg.id]
-  description      = "Bootstrap network interface"
+  subnet_id                   = aws_subnet.public-subnet-1.id
+  // private_ips              = ["${var.bootstrap_priv_ip}"]
+  security_groups             = [aws_security_group.bootstrap-sg.id, aws_security_group.master-sg.id]
+  description                 = "Bootstrap network interface"
+  associate_public_ip_address = true
 
   tags = {
    "Name" = "${var.infra_name}-bootstrap"
@@ -18,7 +19,6 @@ resource "aws_instance" "bootstrap" {
   ami                         = "${var.aws_rhos_ami}"
   iam_instance_profile        = aws_iam_role.BootstrapIamRole.name
   instance_type               = "${var.bootstrap_ec2_instance_type}"
-  associate_public_ip_address = true
   key_name                    = "${var.ec2_key_pair}"
 
   network_interface {
