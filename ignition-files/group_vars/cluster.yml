@@ -40,14 +40,23 @@ root_volume_type: io1
 cfn_templates_store: aws-cfn-templates
 
 
+# AWS AMI
+# If you are deploying an OpenShift Container Platform cluster using an 
+# AWS Marketplace image, you must first subscribe through AWS. 
+# Subscribing to the offer provides you with the AMI ID that the 
+# installation program uses to deploy compute nodes.
+# https://aws.amazon.com/marketplace/fulfillment?productId=59ead7de-2540-4653-a8b0-fa7926d5c845
+# aws_rhos_ami: ami-0fc3a5fb63f4e680b
+# Re-using what was used in IPI deployment.
+aws_rhos_ami: ami-07013a63289350c3c # AMI NAME : rhcos-415.92.202402130021-0-aarch64
+
+
 # Cluster Machine details
-aws_rhos_ami: ami-0d980796ce258b5d5
-master_replicas: 1
-worker_replicas: 1
+master_replicas: 3
+worker_replicas: 2
 hyperthreading: Enabled
-master_ec2_instance_type: m6g.xlarge
-worker_ec2_instance_type: m6g.large
-aws_machine_arch: arm64
+ec2_instance_type: m6g.xlarge # Seems like what's available for the region?
+aws_machine_arch: x86_64
 
 # Root names
 vpc: vpc

@@ -50,3 +50,10 @@ variable "hosted_zone_id"{
    description = "Public Hosted Zone ID"
    type        = string
 }
+
+// EC2 AMI
+
+variable "rhos_ami"{
+   description = "RHOS AWS AMI used"
+   type        = string
+}

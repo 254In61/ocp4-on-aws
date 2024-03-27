@@ -24,7 +24,7 @@ Prerequisites
 
 Assumptions
 -----------
-- AWS Machine architecture used is ARM for ALL the EC2s i.e Bastion, Bootstrap, Master, Worker.
+- AWS Machine architecture used is ARM for the Bastion.
 - Bastion EC2 AMI is Ubuntu Server 22.*
 
 

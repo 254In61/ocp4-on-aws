@@ -46,6 +46,7 @@ resource "aws_iam_role" "BootstrapIamRole" {
   }
 }
 
+
 // MASTER IAM ROLE 
 
 resource "aws_iam_role" "MasterIamRole" {
@@ -168,4 +169,12 @@ resource "aws_iam_role" "WorkerIamRole" {
    "Name" = "${var.infra_name}-master-role"
    "kubernetes.io/cluster/${var.infra_name}" = "owned"
   }
+}
+
+
+// Attachin ssm policy to all Roles
+resource "aws_iam_policy_attachment" "aws_managed_policy_attachment" {
+  name       = "aws-managed-policy-attachment"
+  roles      = [aws_iam_role.BootstrapIamRole.name, aws_iam_role.MasterIamRole.name, aws_iam_role.WorkerIamRole.name]
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
