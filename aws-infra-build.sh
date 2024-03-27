@@ -8,6 +8,6 @@ git pull
 
 
 echo "" && echo "===> Change directory to run terraform"
-cd infra-build/ && terraform apply
+cd infra-build/ && terraform init && terraform apply
 cd ..
 
