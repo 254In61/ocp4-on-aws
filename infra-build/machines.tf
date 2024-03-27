@@ -26,7 +26,12 @@ resource "aws_instance" "bootstrap" {
     device_index              = 0
   }
 
-  user_data = base64encode(templatefile("${path.module}/user_data.tpl", { S3Loc = "${var.bootstrap_ignition_location} }" ))
+  user_data = base64encode(
+                templatefile(
+                  "${path.module}/user_data.tpl", 
+                  { S3Loc = "${var.bootstrap_ignition_location}" } 
+                )
+            )
 
   tags = {
    "Name" = "${var.infra_name}-bootstrap"
