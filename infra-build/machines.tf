@@ -4,7 +4,7 @@
 
 resource "aws_network_interface" "bootstrap-ni" {
   subnet_id        = aws_subnet.public-subnet-1.id
-  private_ips      = ["${var.a.bootstrap_priv_ip}"]
+  private_ips      = ["${var.bootstrap_priv_ip}"]
   security_groups  = [aws_security_group.bootstrap-sg.id, aws_security_group.master-sg.id]
   description      = "Bootstrap network interface"
 

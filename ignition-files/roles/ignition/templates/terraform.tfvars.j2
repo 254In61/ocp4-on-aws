@@ -32,8 +32,7 @@ a = {
       pub_cidr          = "{{ za_public_subnet_cidr }}" , 
       az_name           = "{{ az_a_name }}",
       master_priv_ip    = "{{ za_master_priv_ip }}",
-      worker_priv_ip    = "{{ za_worker_priv_ip }}",
-      bootstrap_priv_ip = "{{ bootstrap_priv_ip }}"
+      worker_priv_ip    = "{{ za_worker_priv_ip }}"
     }
 
 // az b
@@ -54,4 +53,4 @@ c = {
       worker_priv_ip    = "{{ zc_worker_priv_ip }}"  
     }
 
-
+bootstrap_priv_ip = "{{ bootstrap_priv_ip }}"
