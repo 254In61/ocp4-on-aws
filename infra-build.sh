@@ -8,11 +8,10 @@ terraform_vars(){
 
 terraform_iac(){
     echo "" && echo "===> Run terraform IAC"
-    cd infra-build/ && terraform init && terraform apply -auto-approve && cd ..
+    cd aws-infra-build/ && terraform init && terraform apply -auto-approve && cd ..
 }
 
 echo "" && echo "git pull for updates..."
 git pull
-ssh_agent
 build_ignition_files
 terraform_iac
