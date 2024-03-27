@@ -12,17 +12,23 @@ SubnetBits: 12
 az_a_name: "{{ region }}a"
 za_public_subnet_cidr: "10.0.1.0/24"
 za_private_subnet_cidr: "10.0.11.0/24"
+za_master_priv_ip: "10.0.11.99/24"
+za_worker_priv_ip: "10.0.11.100/24"
+bootstrap_priv_ip: "10.0.11.98/24"
 
 # AZ b
 az_b_name: "{{ region }}b"
 zb_public_subnet_cidr: "10.0.2.0/24"
 zb_private_subnet_cidr: "10.0.12.0/24"
-
+zb_master_priv_ip: "10.0.12.99/24"
+zb_worker_priv_ip: "10.0.12.100/24"
 
 # AZ c
 az_c_name: "{{ region }}c"
 zc_public_subnet_cidr: "10.0.3.0/24"
 zc_private_subnet_cidr: "10.0.13.0/24"
+zc_master_priv_ip: "10.0.13.99/24"
+zc_worker_priv_ip: "10.0.13.100/24"
 
 # Cluster network details
 cluster_name: "{{ lookup('ansible.builtin.env', 'CLUSTER_NAME') }}"
@@ -58,7 +64,8 @@ hyperthreading: Enabled
 worker_ec2_instance_type: m6g.xlarge # Seems like what's available for the region?
 master_ec2_instance_type: m6g.xlarge
 bootstrap_ec2_instance_type: m6g.xlarge
-aws_machine_arch: arm64  # Or arm64??
+aws_machine_arch: arm64  
+ec2_key_pair: ocpv4-on-aws-key-pair
 
 # Root names
 vpc: vpc
@@ -76,3 +83,4 @@ install_dir: "{{ lookup('ansible.builtin.env', 'HOME') }}"
 
 # S3 bucket to store ignition files.
 s3_ignition_file_store: "{{ cluster_name }}-infra"
+bootstrap_ignition_location: "s3://{{ s3_ignition_file_store }}/bootstrap.ign"

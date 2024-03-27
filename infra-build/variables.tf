@@ -1,3 +1,5 @@
+// YES!! LOTS OF REPITITION HERE!! Terragrunt is the magic bullet!
+
 // COMMON
 variable "infra_name"{
   description = "Obtained by running : $ jq -r .infraID ~/metadata.json"
@@ -78,5 +80,43 @@ variable "aws_machine_arch"{
    type        = string
 }
 
+variable "za_master_priv_ip"{
+   description = "Private IP for master node"
+   type        = string
+}
 
+variable "za_worker_priv_ip"{
+   description = "Private IP for master node"
+   type        = string
+}
 
+variable "zb_master_priv_ip"{
+   description = "Private IP for master node"
+   type        = string
+}
+
+variable "zb_worker_priv_ip"{
+   description = "Private IP for master node"
+   type        = string
+}
+
+variable "zc_master_priv_ip"{
+   description = "Private IP for master node"
+   type        = string
+}
+
+variable "zc_worker_priv_ip"{
+   description = "Private IP for master node"
+   type        = string
+}
+
+variable "bootstrap_priv_ip"{
+   description = "Private IP for bootstrap"
+   type        = string
+}
+
+// Ignition files location 
+variable "bootstrap_ignition_location"{
+   description = "URL for s3 stored ignition file"
+   type        = string
+}

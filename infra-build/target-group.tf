@@ -38,9 +38,6 @@ resource "aws_lb_listener" "ext-ls" {
   }
 }
 
-
-// 2. INT API TARGET GROUP 
-
 // 2.1 : Create target group - internall applications
 
 resource "aws_lb_target_group" "int-tg" {
