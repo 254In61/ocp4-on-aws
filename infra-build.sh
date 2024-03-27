@@ -13,5 +13,5 @@ terraform_iac(){
 
 echo "" && echo "git pull for updates..."
 git pull
-build_ignition_files
+terraform_vars
 terraform_iac
