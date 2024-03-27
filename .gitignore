@@ -18,5 +18,5 @@ bastion/.terraform.lock.hcl
 bastion/variables.tf
 
 # infra-build
-infra-build/.terraform/
-infra-build/.terraform.lock.hcl
+aws-infra-build/.terraform/
+aws-infra-build/.terraform.lock.hcl
