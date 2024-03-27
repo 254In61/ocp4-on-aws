@@ -17,9 +17,19 @@ resource "aws_network_interface" "bootstrap-ni" {
 }
 */
 
+resource "aws_iam_instance_profile" "bootstrap-instance-profile" {
+  name = "${var.infra_name}-bootstrap-instance-profile"
+  role = aws_iam_role.BootstrapIamRole.name
+
+  tags = {
+   "Name" = "${var.infra_name}-bootstrap-instance-profile"
+   "kubernetes.io/cluster/${var.infra_name}" = "owned"
+  }
+}
+
 resource "aws_instance" "bootstrap-machine" {
   ami                         = "${var.aws_rhos_ami}"
-  iam_instance_profile        = aws_iam_role.BootstrapIamRole.name
+  iam_instance_profile        = aws_iam_instance_profile.bootstrap-instance-profile.name
   instance_type               = "${var.bootstrap_ec2_instance_type}"
   key_name                    = "${var.ec2_key_pair}"
   associate_public_ip_address = true
