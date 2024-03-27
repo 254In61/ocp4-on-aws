@@ -80,36 +80,6 @@ variable "aws_machine_arch"{
    type        = string
 }
 
-variable "za_master_priv_ip"{
-   description = "Private IP for master node"
-   type        = string
-}
-
-variable "za_worker_priv_ip"{
-   description = "Private IP for master node"
-   type        = string
-}
-
-variable "zb_master_priv_ip"{
-   description = "Private IP for master node"
-   type        = string
-}
-
-variable "zb_worker_priv_ip"{
-   description = "Private IP for master node"
-   type        = string
-}
-
-variable "zc_master_priv_ip"{
-   description = "Private IP for master node"
-   type        = string
-}
-
-variable "zc_worker_priv_ip"{
-   description = "Private IP for master node"
-   type        = string
-}
-
 variable "bootstrap_priv_ip"{
    description = "Private IP for bootstrap"
    type        = string
