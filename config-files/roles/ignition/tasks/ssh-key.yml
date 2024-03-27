@@ -1,0 +1,24 @@
+---
+# Generating a key pair for cluster node SSH access
+# During an OpenShift Container Platform installation, you can provide an SSH public key to the installation program. 
+# The key is passed to the RHCOS nodes through their Ignition config files and is used to authenticate SSH access to the nodes.
+# You will need to ssh to perfom installation debuggin or disaster recovery.
+# The key is added to the ~/.ssh/authorized_keys list for the 'core' user on each node, which enables password-less authentication.
+# You must use a local key, not one that you configured with platform-specific approaches such as AWS key pairs.
+# Do not skip this procedure in production environments, where disaster recovery and debugging is required.
+
+- name: "ssh-key - Generating a key pair for cluster node SSH access"
+  openssh_keypair:
+    path: "{{ install_dir }}/{{ ssh_key_name }}"
+    type: ed25519
+    force: true # Key be regenerated even if it already exists
+
+# If this stage fails , start the ssh agent on your machine : eval $(ssh-agent)
+- name: "ssh-key - Add the SSH private key identity to the SSH agent for your local user"
+  command: "ssh-add {{ install_dir }}/{{ ssh_key_name }}"
+
+- name: "ssh-key - Set ssh_key variable"
+  set_fact:
+    ssh_key: "{{ lookup('ansible.builtin.file', '{{ install_dir }}/{{ ssh_key_name }}.pub') }}"
+
+
