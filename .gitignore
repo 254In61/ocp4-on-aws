@@ -20,6 +20,3 @@ bastion/variables.tf
 # infra-build
 infra-build/.terraform/
 infra-build/.terraform.lock.hcl
-
-# temp-files
-temp*
