@@ -57,7 +57,7 @@ worker_replicas: 2
 hyperthreading: Enabled
 worker_ec2_instance_type: m6g.xlarge # Seems like what's available for the region?
 master_ec2_instance_type: m6g.xlarge
-aws_machine_arch: x86_64
+aws_machine_arch: amd64
 
 # Root names
 vpc: vpc
