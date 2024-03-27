@@ -39,9 +39,8 @@ resource "aws_instance" "bootstrap" {
   }
 }
 
-// Register with NLB Target Group
 
-
+/*
 
 // 2. MASTER INSTANCES
 
@@ -109,3 +108,5 @@ resource "aws_instance" "worker-1" {
    "kubernetes.io/cluster/${var.infra_name}" = "owned"
   }
 }
+
+*/
