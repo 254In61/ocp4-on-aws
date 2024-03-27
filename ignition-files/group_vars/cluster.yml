@@ -55,7 +55,8 @@ aws_rhos_ami: ami-07013a63289350c3c # AMI NAME : rhcos-415.92.202402130021-0-aar
 master_replicas: 3
 worker_replicas: 2
 hyperthreading: Enabled
-ec2_instance_type: m6g.xlarge # Seems like what's available for the region?
+worker_ec2_instance_type: m6g.xlarge # Seems like what's available for the region?
+master_ec2_instance_type: m6g.xlarge
 aws_machine_arch: x86_64
 
 # Root names
