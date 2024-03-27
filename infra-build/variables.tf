@@ -51,9 +51,32 @@ variable "hosted_zone_id"{
    type        = string
 }
 
-// EC2 AMI
+// MACHINE DETAILS
 
-variable "rhos_ami"{
+variable "aws_rhos_ami"{
    description = "RHOS AWS AMI used"
    type        = string
 }
+
+variable "bootstrap_ec2_instance_type"{
+   description = "Worker ec2 instance type"
+   type        = string
+}
+
+variable "master_ec2_instance_type"{
+   description = "Worker ec2 instance type"
+   type        = string
+}
+
+variable "worker_ec2_instance_type"{
+   description = "Worker ec2 instance type"
+   type        = string
+}
+
+variable "aws_machine_arch"{
+   description = "Machine architecture type"
+   type        = string
+}
+
+
+

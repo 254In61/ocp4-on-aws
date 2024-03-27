@@ -19,8 +19,13 @@ c = { priv_cidr = "{{ zc_private_subnet_cidr }}" , pub_cidr = "{{ zc_public_subn
 
 
 // Cluster-specific
-infra_name      = "{{ InfrastructureName }}"
-cluster_name    = "{{ cluster_name }}"
+infra_name                  = "{{ InfrastructureName }}"
+cluster_name                = "{{ cluster_name }}"
 
 
-
+// Machine details
+aws_rhos_ami                = "{{ aws_rhos_ami }}"
+aws_machine_arch            = "{{ aws_machine_arch }}"
+bootstrap_ec2_instance_type = "{{ bootstrap_ec2_instance_type }}"
+master_ec2_instance_type    = "{{ master_ec2_instance_type }}"
+worker_ec2_instance_type    = "{{ worker_ec2_instance_type }}"

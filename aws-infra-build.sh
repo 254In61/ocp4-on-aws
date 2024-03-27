@@ -1,13 +1,22 @@
 #!/usr/bin/bash
-echo "" && echo "===> git pull for any repo updates"
-# rm -rf infra-build/terraform.tfvars
+ssh_agent(){
+    echo "" && echo "==> Start the ssh agent"
+    eval $(ssh-agent)
+}
+
+build_ignition_files(){
+    # One day I will remove Ansible and put Bash or Python script
+    echo "" && echo "==> Build ignition files"
+    cd ignition-files/ && ansible-playbook ignition-files.yml && cd ..
+}
+
+terraform_iac(){
+    echo "" && echo "===> Change directory to run terraform"
+    cd infra-build/ && terraform init && terraform apply && cd ..
+}
+
+echo "" && echo "git pull for updates..."
 git pull
-
-# echo "" && echo "===> Change directory backwards to run ansible"
-# cd .. && ansible-playbook ignition-files.yml && cd infra-build
-
-
-echo "" && echo "===> Change directory to run terraform"
-cd infra-build/ && terraform init && terraform apply
-cd ..
-
+ssh_agent
+build_ignition_files
+terraform_iac
