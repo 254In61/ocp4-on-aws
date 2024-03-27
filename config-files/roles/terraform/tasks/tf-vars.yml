@@ -17,4 +17,4 @@
 - name: tf-vars - Create terraform.tfvars
   template:
     src: terraform.tfvars.j2
-    dest: "../infra-build/terraform.tfvars"
+    dest: "../aws-infra-build/terraform.tfvars"
