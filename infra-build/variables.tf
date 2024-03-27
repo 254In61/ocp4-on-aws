@@ -85,8 +85,15 @@ variable "bootstrap_priv_ip"{
    type        = string
 }
 
-// Ignition files location 
+// Ignition files location
+
 variable "bootstrap_ignition_location"{
    description = "URL for s3 stored ignition file"
+   type        = string
+}
+
+// Key pair 
+variable "ec2_key_pair"{
+   description = " EC2 key pair"
    type        = string
 }
