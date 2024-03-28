@@ -92,6 +92,11 @@ variable "master_ignition_location"{
    type        = string
 }
 
+variable "worker_ignition_location"{
+   description = "URL for worker ignition file"
+   type        = string
+}
+
 
 // Key pair 
 variable "ec2_key_pair"{

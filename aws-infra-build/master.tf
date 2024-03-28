@@ -151,17 +151,14 @@ resource "aws_instance" "master-3" {
 resource "aws_lb_target_group_attachment" "ext-tg-m-3" {
   target_group_arn = aws_lb_target_group.ext-tg.arn
   target_id        = aws_instance.master-3.private_ip
-  // port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "int-tg-m-3" {
   target_group_arn = aws_lb_target_group.int-tg.arn
   target_id        = aws_instance.master-3.private_ip
-  // port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "int-s-tg-m-3" {
   target_group_arn = aws_lb_target_group.int-s-tg.arn
   target_id        = aws_instance.master-3.private_ip
-  // port             = 80
 }

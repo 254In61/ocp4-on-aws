@@ -86,12 +86,11 @@ terraform_dir: infra-build
 # If you change this, lots of things could go wrong ;) .. Don't say I didn't warn you!
 install_dir: "{{ lookup('ansible.builtin.env', 'HOME') }}" 
 
-# S3 bucket to store ignition files.
-s3_ignition_file_store: "{{ cluster_name }}-infra"
-bootstrap_ignition_location: "s3://{{ s3_ignition_file_store }}/bootstrap.ign"
 
-# master ignition file location
+s3_ignition_file_store: "{{ cluster_name }}-infra" # S3 bucket to store ignition files.
+bootstrap_ignition_location: "s3://{{ s3_ignition_file_store }}/bootstrap.ign"
 master_ignition_location: "https://api-int.{{ cluster_name }}.{{ base_domain }}:22623/config/master"
+worker_ignition_location: "https://api-int.{{ cluster_name }}.{{ base_domain }}:22623/config/worker"
 
 # Certificate authority
 certificate_authorities: data:text/plain;charset=utf-8;base64,ABC...xYz==
