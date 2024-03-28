@@ -29,7 +29,7 @@ resource "aws_instance" "master-0" {
 
   user_data = base64encode(
                 templatefile(
-                  "${path.module}/user_data.tpl", 
+                  "${path.module}/master-user-data.tpl", 
                   { SOURCE = "${var.master_ignition_location}",CA_BUNDLE = "${var.certificate_authorities}" }
                 )
               )
