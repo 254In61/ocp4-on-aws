@@ -19,9 +19,9 @@ master_ec2_instance_type    = "{{ master_ec2_instance_type }}"
 worker_ec2_instance_type    = "{{ worker_ec2_instance_type }}"
 ec2_key_pair                = "{{ ec2_key_pair }}"
 
-// Bootstrap Ignition file location
+// Ignition file location
 bootstrap_ignition_location = "{{ bootstrap_ignition_location }}"
-
+master_ignition_location    = "{{ master_ignition_location }}"
 
 
 // Cluster subnets per availability zone
@@ -30,27 +30,32 @@ bootstrap_ignition_location = "{{ bootstrap_ignition_location }}"
 a = { 
       priv_cidr         = "{{ za_private_subnet_cidr }}" , 
       pub_cidr          = "{{ za_public_subnet_cidr }}" , 
-      az_name           = "{{ az_a_name }}",
-      master_priv_ip    = "{{ za_master_priv_ip }}",
-      worker_priv_ip    = "{{ za_worker_priv_ip }}"
+      az_name           = "{{ az_a_name }}"
+
     }
 
 // az b
 b = { 
       priv_cidr         = "{{ zb_private_subnet_cidr }}" ,
       pub_cidr          = "{{ zb_public_subnet_cidr }}" , 
-      az_name           = "{{ az_b_name }}",
-      master_priv_ip    = "{{ zb_master_priv_ip }}",
-      worker_priv_ip    = "{{ zb_worker_priv_ip }}" 
+      az_name           = "{{ az_b_name }}"
     }
 
 // az c
 c = { 
       priv_cidr         = "{{ zc_private_subnet_cidr }}" , 
       pub_cidr          = "{{ zc_public_subnet_cidr }}" , 
-      az_name           = "{{ az_c_name }}",
-      master_priv_ip    = "{{ zc_master_priv_ip }}",
-      worker_priv_ip    = "{{ zc_worker_priv_ip }}"  
+      az_name           = "{{ az_c_name }}" 
     }
 
-bootstrap_priv_ip = "{{ bootstrap_priv_ip }}"
+// Ebs Volume
+
+ebs_block = {
+              "{{ device_name }}",
+              "{{ volume_size }}",
+              "{{ volume_type }}"
+            }
+
+// Certificate authority
+
+certificate_authorities = "{{ certificate_authorities }}"

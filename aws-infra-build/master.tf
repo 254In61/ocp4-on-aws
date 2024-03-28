@@ -16,8 +16,23 @@ resource "aws_instance" "master-0" {
   instance_type               = "${var.master_ec2_instance_type}"
   key_name                    = "${var.ec2_key_pair}"
   associate_public_ip_address = false
-  security_groups             = [aws_security_group.master-sg.id, aws_security_group.master-sg.id]
+  security_groups             = [aws_security_group.master-sg.id]
   subnet_id                   = aws_subnet.private-subnet-1.id
+
+  ebs_block_device {
+     device_name = "${{ var.ebs_block.device_name }}"
+     volume_size = "${{ var.ebs_block.volume_size }}"
+     volume_type = "${{ var.ebs_block.volume_type }}"
+     // encrypted                 = true
+     delete_on_termination = true
+  }
+
+  user_data = base64encode(
+                templatefile(
+                  "${path.module}/user_data.tpl", 
+                  { SOURCE = "${var.master_ignition_location}",CA_BUNDLE = "${var.certificate_authorities}" }
+                )
+              )
 
   user_data = base64encode(
                 templatefile(
@@ -34,20 +49,20 @@ resource "aws_instance" "master-0" {
 
 // Register machine as a Target to LB Target groups
 
-resource "aws_lb_target_group_attachment" "ext-tg-b" {
+resource "aws_lb_target_group_attachment" "ext-tg-m-0" {
   target_group_arn = aws_lb_target_group.ext-tg.arn
-  target_id        = aws_instance.bootstrap-machine.id
+  target_id        = aws_instance.master-0.id
   // port             = 80
 }
 
-resource "aws_lb_target_group_attachment" "int-tg-b" {
+resource "aws_lb_target_group_attachment" "int-tg-m-0" {
   target_group_arn = aws_lb_target_group.int-tg.arn
-  target_id        = aws_instance.bootstrap-machine.id
+  target_id        = aws_instance.master-0.id
   // port             = 80
 }
 
-resource "aws_lb_target_group_attachment" "int-s-tg-b" {
+resource "aws_lb_target_group_attachment" "int-s-tg-m-0" {
   target_group_arn = aws_lb_target_group.int-s-tg.arn
-  target_id        = aws_instance.bootstrap-machine.id
+  target_id        = aws_instance.master-0.id
   // port             = 80
 }

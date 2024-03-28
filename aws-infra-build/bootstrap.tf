@@ -19,7 +19,7 @@ resource "aws_instance" "bootstrap-machine" {
 
   user_data = base64encode(
                 templatefile(
-                  "${path.module}/user_data.tpl", 
+                  "${path.module}/bootstrap-user-data.tpl", 
                   { S3Loc = "${var.bootstrap_ignition_location}" } 
                 )
             )

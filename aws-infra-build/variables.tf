@@ -88,12 +88,30 @@ variable "bootstrap_priv_ip"{
 // Ignition files location
 
 variable "bootstrap_ignition_location"{
-   description = "URL for s3 stored ignition file"
+   description = "URL for s3 stored bootstrap ignition file"
    type        = string
 }
+
+variable "master_ignition_location"{
+   description = "URL for master ignition file"
+   type        = string
+}
+
 
 // Key pair 
 variable "ec2_key_pair"{
    description = " EC2 key pair"
+   type        = string
+}
+
+// Storage blocks
+variable "ebs_block"{
+   description = "Ebs block device details"
+   type        = map
+}
+
+// Certificate authorities
+variable "certificate_authorities"{
+   description = "Base64 encoded certificate authority string to use."
    type        = string
 }
