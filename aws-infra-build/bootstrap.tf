@@ -8,7 +8,7 @@ resource "aws_iam_instance_profile" "bootstrap-instance-profile" {
   }
 }
 
-resource "aws_instance" "bootstrap-machine" {
+resource "aws_instance" "bootstrap" {
   ami                         = "${var.aws_rhos_ami}"
   iam_instance_profile        = aws_iam_instance_profile.bootstrap-instance-profile.name
   instance_type               = "${var.bootstrap_ec2_instance_type}"
@@ -34,18 +34,18 @@ resource "aws_instance" "bootstrap-machine" {
 
 resource "aws_lb_target_group_attachment" "ext-tg-b" {
   target_group_arn = aws_lb_target_group.ext-tg.arn
-  target_id        = aws_instance.bootstrap-machine.id
+  target_id        = aws_instance.bootstrap.private_ip
   // port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "int-tg-b" {
   target_group_arn = aws_lb_target_group.int-tg.arn
-  target_id        = aws_instance.bootstrap-machine.id
+  target_id        = aws_instance.bootstrap.private_ip
   // port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "int-s-tg-b" {
   target_group_arn = aws_lb_target_group.int-s-tg.arn
-  target_id        = aws_instance.bootstrap-machine.id
+  target_id        = aws_instance.bootstrap.private_ip
   // port             = 80
 }

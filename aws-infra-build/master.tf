@@ -35,7 +35,7 @@ resource "aws_instance" "master-0" {
               )
 
   tags = {
-   "Name" = "${var.infra_name}-bootstrap"
+   "Name" = "${var.infra_name}-master-0"
    "kubernetes.io/cluster/${var.infra_name}" = "owned"
   }
 }
@@ -44,18 +44,18 @@ resource "aws_instance" "master-0" {
 
 resource "aws_lb_target_group_attachment" "ext-tg-m-0" {
   target_group_arn = aws_lb_target_group.ext-tg.arn
-  target_id        = aws_instance.master-0.id
+  target_id        = aws_instance.master-0.private_ip
   // port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "int-tg-m-0" {
   target_group_arn = aws_lb_target_group.int-tg.arn
-  target_id        = aws_instance.master-0.id
+  target_id        = aws_instance.master-0.private_ip
   // port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "int-s-tg-m-0" {
   target_group_arn = aws_lb_target_group.int-s-tg.arn
-  target_id        = aws_instance.master-0.id
+  target_id        = aws_instance.master-0.private_ip
   // port             = 80
 }

@@ -15,5 +15,4 @@ terraform_iac(){
 echo "" && echo "git pull for updates..."
 git pull
 terraform_vars
-source ~/env-vars
 terraform_iac
