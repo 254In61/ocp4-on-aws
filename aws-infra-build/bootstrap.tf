@@ -1,22 +1,3 @@
-// YES! This duplicated code will be fixed with Terragrunt!
-
-// 1. BOOTSTRAP INSTANCE
-
-/*
-resource "aws_network_interface" "bootstrap-ni" {
-  subnet_id                   = aws_subnet.public-subnet-1.id
-  // private_ips              = ["${var.bootstrap_priv_ip}"]
-  security_groups             = [aws_security_group.bootstrap-sg.id, aws_security_group.master-sg.id]
-  description                 = "Bootstrap network interface"
-  
-
-  tags = {
-   "Name" = "${var.infra_name}-bootstrap"
-   "kubernetes.io/cluster/${var.infra_name}" = "owned"
-  }
-}
-*/
-
 resource "aws_iam_instance_profile" "bootstrap-instance-profile" {
   name = "${var.infra_name}-bootstrap-instance-profile"
   role = aws_iam_role.BootstrapIamRole.name
@@ -35,13 +16,6 @@ resource "aws_instance" "bootstrap-machine" {
   associate_public_ip_address = true
   security_groups             = [aws_security_group.bootstrap-sg.id, aws_security_group.master-sg.id]
   subnet_id                   = aws_subnet.public-subnet-1.id
-  
-  /*
-  network_interface {
-    network_interface_id      = aws_network_interface.bootstrap-ni.id
-    device_index              = 0
-  }
-  */
 
   user_data = base64encode(
                 templatefile(
@@ -56,11 +30,22 @@ resource "aws_instance" "bootstrap-machine" {
   }
 }
 
-/*
-resource "aws_network_interface_attachment" "bootstrap-ni-attach" {
-  instance_id          = aws_instance.bootstrap-machine.id
-  network_interface_id = aws_network_interface.bootstrap-ni.id
-  device_index         = 0
-}
-*/
+// Register machine as a Target to LB Target groups
 
+resource "aws_lb_target_group_attachment" "ext-tg-b" {
+  target_group_arn = aws_lb_target_group.ext-tg.arn
+  target_id        = aws_instance.bootstrap-machine.id
+  // port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "int-tg-b" {
+  target_group_arn = aws_lb_target_group.int-tg.arn
+  target_id        = aws_instance.bootstrap-machine.id
+  // port             = 80
+}
+
+resource "aws_lb_target_group_attachment" "int-s-tg-b" {
+  target_group_arn = aws_lb_target_group.int-s-tg.arn
+  target_id        = aws_instance.bootstrap-machine.id
+  // port             = 80
+}
