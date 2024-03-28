@@ -20,9 +20,9 @@ resource "aws_instance" "master-0" {
   subnet_id                   = aws_subnet.private-subnet-1.id
 
   ebs_block_device {
-     device_name = "${{ var.ebs_block.device_name }}"
-     volume_size = "${{ var.ebs_block.volume_size }}"
-     volume_type = "${{ var.ebs_block.volume_type }}"
+     device_name = "${var.ebs_block.device_name}"
+     volume_size = "${var.ebs_block.volume_size}"
+     volume_type = "${var.ebs_block.volume_type}"
      // encrypted                 = true
      delete_on_termination = true
   }
@@ -33,13 +33,6 @@ resource "aws_instance" "master-0" {
                   { SOURCE = "${var.master_ignition_location}",CA_BUNDLE = "${var.certificate_authorities}" }
                 )
               )
-
-  user_data = base64encode(
-                templatefile(
-                  "${path.module}/user_data.tpl", 
-                  { S3Loc = "${var.bootstrap_ignition_location}" } 
-                )
-            )
 
   tags = {
    "Name" = "${var.infra_name}-bootstrap"
