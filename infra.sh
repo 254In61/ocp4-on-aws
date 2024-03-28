@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+
 terraform_vars(){
     # One day I will remove Ansible and put Bash or Python script
     echo "" && echo "==> Update terraform.tvars file using ansible"
@@ -14,4 +15,5 @@ terraform_iac(){
 echo "" && echo "git pull for updates..."
 git pull
 terraform_vars
+source ~/env-vars
 terraform_iac
