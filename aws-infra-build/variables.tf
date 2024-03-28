@@ -80,11 +80,6 @@ variable "aws_machine_arch"{
    type        = string
 }
 
-variable "bootstrap_priv_ip"{
-   description = "Private IP for bootstrap"
-   type        = string
-}
-
 // Ignition files location
 
 variable "bootstrap_ignition_location"{
